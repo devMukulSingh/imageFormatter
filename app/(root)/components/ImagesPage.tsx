@@ -41,6 +41,7 @@ const ImagesPage = ({
       >
         {base64Images.map((image, index) => (
           <figure
+            key={index}
             className="
               w-[16rem]
               print:w-[22rem]
