@@ -5,7 +5,9 @@ export default function Layout({children} : {children : ReactNode}){
     return(
         <>
             <Navbar/>
+            <div className="mt-20 print:mt-0">
             {children}
+            </div>
         </>
     )
 }
