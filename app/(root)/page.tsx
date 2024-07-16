@@ -7,9 +7,6 @@ export default function Home() {
       <main
         className="
         print:bg-white 
-        bg-gradient-to-r 
-        from-indigo-500 
-        via-purple-500 
         flex 
         items-center
         gap-10

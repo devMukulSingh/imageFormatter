@@ -11,9 +11,8 @@ import { getBase64Image } from "@/lib/hooks";
 import { base64Images } from "@/lib/types";
 import { PlusCircle, Printer, Trash, X } from "lucide-react";
 import Image from "next/image";
-import { ChangeEvent } from "react";
 import toast from "react-hot-toast";
-
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 type Props = {};
 
 const ImagesPage = ({}: Props) => {
@@ -56,6 +55,7 @@ const ImagesPage = ({}: Props) => {
       }
     };
   };
+  const handleOnDragEnd = () => {};
   return (
     <div className="flex relative flex-col bg-white gap-5 print:max-h-screen max-h-[calc(100vh-6.25rem)] print:overflow-visible overflow-y-auto">
       {base64Images.length > 0 && (
@@ -65,7 +65,7 @@ const ImagesPage = ({}: Props) => {
             variant={"destructive"}
             onClick={() => dispatch(removeAllImages())}
           >
-            <Trash size={20}/>
+            <Trash size={20} />
             Remove all
           </Button>
           <Button
@@ -77,16 +77,18 @@ const ImagesPage = ({}: Props) => {
             Print
           </Button>
 
-          <Button 
-            className="flex gap-1 items-center"
-          onClick={handleAddMore}>
-            <PlusCircle size={20}/>
+          <Button className="flex gap-1 items-center" onClick={handleAddMore}>
+            <PlusCircle size={20} />
             Add more
-            </Button>
+          </Button>
         </div>
       )}
-      <div
-        className="
+
+      <DragDropContext onDragEnd={handleOnDragEnd}>
+        <Droppable droppableId="gallery">
+          {(provided) => (
+            <div
+              className="
         mt-[3rem]
         grid
         grid-cols-2
@@ -98,14 +100,26 @@ const ImagesPage = ({}: Props) => {
         bg-white 
         print:m-0
         py-5
-        px-8
-        "
-      >
-        {base64Images.map((image, index) => (
-          <figure
-            draggable
-            key={index}
-            className="
+        px-8"
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+              {base64Images.map((image, index) => (
+                <Draggable
+                  key={image.id}
+                  draggableId={image.id.toString()}
+                  index={index}
+                >
+                  {(provided) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                    >
+                      <figure
+                        draggable
+                        key={index}
+                        className="
               w-[16rem]
               print:w-[22rem]
               print:h-[22rem]
@@ -116,35 +130,41 @@ const ImagesPage = ({}: Props) => {
               border
               print:border-none
             "
-          >
-            <Button
-              size={"icon"}
-              variant={"outline"}
-              className="self-center z-20 rounded-full size-6 mt-1 print:hidden"
-            >
-              <X
-                onClick={() => dispatch(removeImage(image.id))}
-                className=""
-                size={15}
-              />
-            </Button>
-            <Image
-              quality={7}
-              className="
+                      >
+                        <Button
+                          size={"icon"}
+                          variant={"outline"}
+                          className="self-center z-20 rounded-full size-6 mt-1 print:hidden"
+                        >
+                          <X
+                            onClick={() => dispatch(removeImage(image.id))}
+                            className=""
+                            size={15}
+                          />
+                        </Button>
+                        <Image
+                          quality={7}
+                          className="
               relative
               object-contain
               object-center
               "
-              fill
-              // width={180}
-              // height={180}
-              src={image.img}
-              key={index}
-              alt="image"
-            />
-          </figure>
-        ))}
-      </div>
+                          fill
+                          // width={180}
+                          // height={180}
+                          src={image.img}
+                          key={index}
+                          alt="image"
+                        />
+                      </figure>
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
     </div>
   );
 };
