@@ -19,6 +19,7 @@ import toast from "react-hot-toast";
 import { Download, Printer } from "lucide-react";
 import { setBase64Images } from "@/app/redux/slice";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
+import { base64Images } from "@/lib/types";
 
 const UploadComp = () => {
   const dispatch = useAppDispatch();
@@ -65,13 +66,17 @@ const UploadComp = () => {
   };
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     try {
-      let base64Images: string[] | null = [];
+      let base64Images: base64Images[] | null = [];
       const files = e?.target?.files;
       if (files) {
         setLoading(true);
         for (let i = 0; i < files?.length; i++) {
           const base64Image = await getBase64Image(files[i]);
-          base64Images.push(base64Image);
+          const imageId = Math.floor(Math.random() * 1000);
+          base64Images.push({
+            id:imageId,
+            img:base64Image
+          });
         }
         if (files?.length > 6) {
           toast.error("Maximum 6 photos allowed");
@@ -107,21 +112,21 @@ const UploadComp = () => {
                 indent: {},
                 children: [
                   new ImageRun({
-                    data: images[0],
+                    data: images[0].img,
                     transformation: {
                       height: 340,
                       width: 340,
                     },
                   }),
                   new ImageRun({
-                    data: images[1],
+                    data: images[1].img,
                     transformation: {
                       height: 340,
                       width: 340,
                     },
                   }),
                   new ImageRun({
-                    data: images[2],
+                    data: images[2].img,
                     transformation: {
                       height: 340,
                       width: 340,
@@ -130,21 +135,21 @@ const UploadComp = () => {
                   new ColumnBreak(),
                   ////////2nd COLUMN////////////////
                   new ImageRun({
-                    data: images[3],
+                    data: images[3].img,
                     transformation: {
                       height: 340,
                       width: 340,
                     },
                   }),
                   new ImageRun({
-                    data: images[4],
+                    data: images[4].img,
                     transformation: {
                       height: 340,
                       width: 340,
                     },
                   }),
                   new ImageRun({
-                    data: images[5],
+                    data: images[5].img,
                     transformation: {
                       height: 340,
                       width: 340,
