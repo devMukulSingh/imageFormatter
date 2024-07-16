@@ -1,10 +1,7 @@
-
 import ImagesPage from "./components/ImagesPage";
 import UploadComp from "./components/UploadComp";
 
 export default function Home() {
-
-
   return (
     <>
       <main
@@ -25,7 +22,6 @@ export default function Home() {
       >
         <UploadComp />
         <ImagesPage />
-
       </main>
     </>
   );

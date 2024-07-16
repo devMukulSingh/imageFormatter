@@ -1,35 +1,96 @@
-'use client'
-import { useAppDispatch, useAppSelector } from '@/app/redux/hook';
-import { removeImage } from '@/app/redux/slice';
-import { Button } from '@/components/ui/button';
-import { Printer, X } from 'lucide-react';
-import Image from 'next/image';
+"use client";
+import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
+import {
+  pushBase64Images,
+  removeAllImages,
+  removeImage,
+  setLoading,
+} from "@/app/redux/slice";
+import { Button } from "@/components/ui/button";
+import { getBase64Image } from "@/lib/hooks";
+import { base64Images } from "@/lib/types";
+import { PlusCircle, Printer, Trash, X } from "lucide-react";
+import Image from "next/image";
+import { ChangeEvent } from "react";
+import toast from "react-hot-toast";
 
-type Props = {
+type Props = {};
 
-}
-
-const ImagesPage = ({
-
-}:Props) => {
+const ImagesPage = ({}: Props) => {
   const dispatch = useAppDispatch();
-
-  const base64Images = useAppSelector( state => state.base64Images);
+  const { base64Images, loading } = useAppSelector((state) => state);
+  const handleAddMore = async () => {
+    const imageInput = document.createElement("input");
+    imageInput.type = "file";
+    imageInput.multiple = true;
+    imageInput.click();
+    imageInput.onchange = async (e: any) => {
+      const file = e?.target?.files;
+      console.log(file);
+      try {
+        let base64Images: base64Images[] | null = [];
+        const files = e?.target?.files;
+        if (files) {
+          dispatch(setLoading(true));
+          for (let i = 0; i < files?.length; i++) {
+            const base64Image = await getBase64Image(files[i]);
+            const imageId = Math.floor(Math.random() * 1000);
+            base64Images.push({
+              id: imageId,
+              img: base64Image,
+            });
+          }
+          // if (files?.length+base64Images.length > 6) {
+          //   toast.error("Maximum 6 photos allowed");
+          //   const first_6_images = base64Images.slice(0, 6-base64Images.length);
+          //   dispatch(pushBase64Images(first_6_images));
+          // } else {
+          // }
+          dispatch(pushBase64Images(base64Images));
+        }
+      } catch (e) {
+        toast.error("Something went wrong. Please try again");
+        console.log(`Error in handleChange`);
+      } finally {
+        dispatch(setLoading(false));
+      }
+    };
+  };
   return (
-    <div className="flex flex-col bg-white gap-5 print:max-h-screen max-h-[calc(100vh-6.25rem)] overflow-y-auto">
-      <Button
-        variant={"outline"}
-        className="print:hidden w-24 mx-auto self-center fixed top-22 z-30"
-        onClick={() => globalThis.print()}
-      >
-        <Printer size={18} className="mr-2" />
-        Print
-      </Button>
+    <div className="flex relative flex-col bg-white gap-5 print:max-h-screen max-h-[calc(100vh-6.25rem)] print:overflow-visible overflow-y-auto">
+      {base64Images.length > 0 && (
+        <div className="print:hidden fixed top-[90px] px-2 py-1 z-30 gap-5 h-[3rem] flex justify-center items-center w-[595px] bg-white ">
+          <Button
+            className="flex gap-1"
+            variant={"destructive"}
+            onClick={() => dispatch(removeAllImages())}
+          >
+            <Trash size={20}/>
+            Remove all
+          </Button>
+          <Button
+            variant={"outline"}
+            className="w-24 flex gap-1"
+            onClick={() => globalThis.print()}
+          >
+            <Printer size={20} />
+            Print
+          </Button>
+
+          <Button 
+            className="flex gap-1 items-center"
+          onClick={handleAddMore}>
+            <PlusCircle size={20}/>
+            Add more
+            </Button>
+        </div>
+      )}
       <div
         className="
+        mt-[3rem]
         grid
         grid-cols-2
-        gap-3
+        gap-4
         min-h-[843px] 
         w-[595px]
         print:h-screen 
@@ -42,6 +103,7 @@ const ImagesPage = ({
       >
         {base64Images.map((image, index) => (
           <figure
+            draggable
             key={index}
             className="
               w-[16rem]
@@ -58,7 +120,7 @@ const ImagesPage = ({
             <Button
               size={"icon"}
               variant={"outline"}
-              className="self-center z-30 rounded-full size-6 mt-1 print:hidden"
+              className="self-center z-20 rounded-full size-6 mt-1 print:hidden"
             >
               <X
                 onClick={() => dispatch(removeImage(image.id))}
@@ -85,6 +147,6 @@ const ImagesPage = ({
       </div>
     </div>
   );
-}
+};
 
-export default ImagesPage
+export default ImagesPage;

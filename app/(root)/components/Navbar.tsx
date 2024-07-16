@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 const Navbar = () => {
   return (
@@ -6,6 +6,6 @@ const Navbar = () => {
       <h1 className="font-medium  text-4xl">Image Formatter</h1>
     </div>
   );
-}
+};
 
-export default Navbar
+export default Navbar;

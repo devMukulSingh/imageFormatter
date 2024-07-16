@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import { Inter,Bona_Nova } from "next/font/google";
+import { Inter, Bona_Nova } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import Providers from "@/lib/Providers";
 
-
-const inter = Bona_Nova({ subsets: ["latin"], weight:'400' });
+const inter = Bona_Nova({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
   title: "Image formatter",
@@ -20,11 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Toaster/>
-        <Providers>
-        {children}
-        </Providers>
-        </body>
+        <Toaster />
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
