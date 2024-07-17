@@ -1,21 +1,21 @@
-'use client'
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+"use client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const Navlinks = () => {
-    const pathName = usePathname();  
-    const navLinks = [
-      {
-        title: "Collage",
-        link: "/",
-        isActive: pathName.endsWith("/"),
-      },
-      {
-        title: "Passport photo",
-        link: "/passport-photo",
-        isActive: pathName.endsWith("/passport-photo"),
-      },
-    ];
+  const pathName = usePathname();
+  const navLinks = [
+    {
+      title: "Collage",
+      link: "/",
+      isActive: pathName.endsWith("/"),
+    },
+    {
+      title: "Passport photo",
+      link: "/passport-photo",
+      isActive: pathName.endsWith("/passport-photo"),
+    },
+  ];
   return (
     <div className="flex gap-5">
       {navLinks.map((link, index) => (
@@ -29,6 +29,6 @@ const Navlinks = () => {
       ))}
     </div>
   );
-}
+};
 
-export default Navlinks
+export default Navlinks;
