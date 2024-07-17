@@ -163,6 +163,7 @@ const UploadComp = () => {
         className="
         print:hidden
         flex
+        items-center
         h-fit 
         flex-col 
         gap-10 

@@ -21,19 +21,20 @@ const ImagesPage = ({}: Props) => {
       <div
         className="
         mt-[3rem]
-        gap-1
+        gap-x-2
+        gap-y-2
         grid
-        grid-rows-6
+        auto-rows-min
         grid-cols-6
-        min-h-[1000px]
-        w-[45rem]
+        min-h-[1075px]
+        w-[50rem]
         print:h-screen 
         print:w-screen  
         bg-white 
         print:m-0
         py-5
         px-4
-        border
+        
         "
       >
         {images.map((image, index) => (
