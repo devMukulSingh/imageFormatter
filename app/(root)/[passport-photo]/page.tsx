@@ -1,6 +1,6 @@
-import React from 'react'
-import UploadComp from './components/UploadComp'
-import ImagesPage from './components/ImagesPage'
+import React from "react";
+import UploadComp from "./components/UploadComp";
+import ImagesPage from "./components/ImagesPage";
 
 const page = () => {
   return (
@@ -19,6 +19,6 @@ const page = () => {
       <ImagesPage />
     </div>
   );
-}
+};
 
-export default page
+export default page;

@@ -4,14 +4,14 @@ import React from "react";
 const Navbar = () => {
   const navLinks = [
     {
-      title:'Collage',
-      link:'/'
+      title: "Collage",
+      link: "/",
     },
     {
-      title:'Passport photo',
-      link:'/passport-photo'
+      title: "Passport photo",
+      link: "/passport-photo",
     },
-  ]
+  ];
   return (
     <div className="print:hidden z-40 fixed flex  items-center shadow-lg justify-between  top-0 w-screen bg-[#dff9fb] h-20 px-10">
       <div className="flex  items-center justify-between sm:w-1/2 w-full">

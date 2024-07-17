@@ -17,14 +17,20 @@ import {
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { Download, Printer } from "lucide-react";
-import { setBase64Images, setLoading, setPassportSizeBase64Image } from "@/app/redux/slice";
+import {
+  setBase64Images,
+  setLoading,
+  setPassportSizeBase64Image,
+} from "@/app/redux/slice";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
 import { base64Images } from "@/lib/types";
 import { getBase64Image } from "@/lib/hooks";
 
 const UploadComp = () => {
   const dispatch = useAppDispatch();
-  const { passportSizeBase64Images: images, loading } = useAppSelector((state) => state);
+  const { passportSizeBase64Images: images, loading } = useAppSelector(
+    (state) => state,
+  );
   const sectionProperties = {
     page: {
       margin: {
@@ -57,7 +63,7 @@ const UploadComp = () => {
       if (file) {
         let base64PassportSizeImages = [];
         const base64Image = await getBase64Image(file);
-        for(let i = 0; i < 6; i++){
+        for (let i = 0; i < 6; i++) {
           const imageId = Math.floor(Math.random() * 1000);
           base64PassportSizeImages.push({
             id: imageId,

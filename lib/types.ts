@@ -6,5 +6,5 @@ export interface base64Images {
 export interface IinitialState {
   base64Images: base64Images[];
   loading: boolean;
-  passportSizeBase64Images:base64Images[]
+  passportSizeBase64Images: base64Images[];
 }

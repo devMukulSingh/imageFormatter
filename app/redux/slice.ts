@@ -4,21 +4,21 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState: IinitialState = {
   base64Images: [],
   loading: false,
-  passportSizeBase64Images : [],
+  passportSizeBase64Images: [],
 };
 
 export const slice = createSlice({
   name: "rootSlice",
   initialState,
   reducers: {
-    removeAllPassportSizeImages : (state) => {
+    removeAllPassportSizeImages: (state) => {
       state.passportSizeBase64Images = [];
     },
-    setPassportSizeBase64Image : (state,action) => {
+    setPassportSizeBase64Image: (state, action) => {
       state.passportSizeBase64Images = action.payload;
     },
-    pushPassportSizeBase64Images : (state,action) => {
-      state.passportSizeBase64Images.push(...action.payload)
+    pushPassportSizeBase64Images: (state, action) => {
+      state.passportSizeBase64Images.push(...action.payload);
     },
     setBase64Images: (state, action) => {
       state.base64Images = action.payload;
@@ -38,12 +38,12 @@ export const slice = createSlice({
     removeAllImages: (state) => {
       state.base64Images = [];
     },
-    removePassportSizeImage : (state,action) => {
+    removePassportSizeImage: (state, action) => {
       const filteredArr = state.passportSizeBase64Images.filter(
         (img) => img.id !== action.payload,
       );
       state.passportSizeBase64Images = filteredArr;
-    }
+    },
   },
 });
 
@@ -58,5 +58,5 @@ export const {
   setPassportSizeBase64Image,
   removeAllImages,
   removeAllPassportSizeImages,
-  removePassportSizeImage
+  removePassportSizeImage,
 } = slice.actions;

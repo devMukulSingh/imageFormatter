@@ -92,9 +92,10 @@ const ImagesPage = ({}: Props) => {
         mt-[3rem]
         grid
         grid-cols-2
+        auto-rows-max
         gap-4
-        min-h-[843px] 
-        w-[595px]
+        min-h-[1075px] 
+        w-[50rem]
         print:h-screen 
         print:w-screen  
         bg-white 
@@ -120,10 +121,8 @@ const ImagesPage = ({}: Props) => {
                         draggable
                         key={index}
                         className="
-              w-[16rem]
-              print:w-[22rem]
-              print:h-[22rem]
-              h-[16rem]
+              w-[22rem]
+              h-[22rem]
               relative
               flex
               flex-col
