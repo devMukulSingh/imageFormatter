@@ -61,8 +61,8 @@ const UploadComp = () => {
     try {
       const file = e?.target?.files?.[0];
       if (file) {
-        if(file.type.slice(0,5)!=='image'){
-          toast.error('Only images allowed')
+        if (file.type.slice(0, 5) !== "image") {
+          toast.error("Only images allowed");
           return;
         }
         let base64PassportSizeImages = [];
@@ -184,7 +184,7 @@ const UploadComp = () => {
         </Label>
         <Input
           onChange={handleChange}
-          className="bg-slate-200 cursor-pointer  h-16 "
+          className="bg-slate-200 cursor-pointer  h-20 "
           type="file"
           multiple
           disabled={loading}

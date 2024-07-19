@@ -10,9 +10,7 @@ type Props = {};
 
 const PreviewAadhar = ({}: Props) => {
   const dispatch = useAppDispatch();
-  const { aadharPdfs, loading } = useAppSelector(
-    (state) => state,
-  );
+  const { aadharPdfs, loading } = useAppSelector((state) => state);
 
   return (
     <div className="flex relative flex-col bg-white gap-5 print:max-h-screen max-h-[calc(100vh-6.25rem)] print:overflow-visible overflow-y-auto">

@@ -1,6 +1,6 @@
-import React from 'react'
+import React from "react";
 import UploadAadhar from "./components/UploadAadhar";
-import PreviewAadhar from './components/PreviewAadhar';
+import PreviewAadhar from "./components/PreviewAadhar";
 
 const page = () => {
   return (
@@ -19,6 +19,6 @@ const page = () => {
       <PreviewAadhar />
     </div>
   );
-}
+};
 
-export default page
+export default page;

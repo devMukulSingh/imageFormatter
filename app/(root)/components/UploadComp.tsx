@@ -17,14 +17,22 @@ import {
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { Download, Printer } from "lucide-react";
-import { setBase64Images, setCollageFiles, setLoading } from "@/app/redux/slice";
+import {
+  setBase64Images,
+  setCollageFiles,
+  setLoading,
+} from "@/app/redux/slice";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
 import { base64Images } from "@/lib/types";
 import { getBase64Image } from "@/lib/hooks";
 
 const UploadComp = () => {
   const dispatch = useAppDispatch();
-  const { base64Images: images, loading,collageFiles } = useAppSelector((state) => state);
+  const {
+    base64Images: images,
+    loading,
+    collageFiles,
+  } = useAppSelector((state) => state);
   const sectionProperties = {
     page: {
       margin: {
@@ -59,8 +67,8 @@ const UploadComp = () => {
         // dispatch(setCollageFiles(e?.target?.files))
         dispatch(setLoading(true));
         for (let i = 0; i < files?.length; i++) {
-          if(files[i].type.slice(0,5)!=='image'){
-            toast.error('Only images allowed');
+          if (files[i].type.slice(0, 5) !== "image") {
+            toast.error("Only images allowed");
             break;
           }
           const base64Image = await getBase64Image(files[i]);
@@ -180,7 +188,7 @@ const UploadComp = () => {
         <Input
           // value={collageFiles}
           onChange={handleChange}
-          className="bg-slate-200 cursor-pointer h-16 "
+          className="bg-slate-200 cursor-pointer h-20 "
           type="file"
           multiple
           disabled={loading}

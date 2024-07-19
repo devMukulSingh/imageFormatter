@@ -30,9 +30,7 @@ import { degrees, PDFDocument, rgb, StandardFonts } from "pdf-lib";
 
 const UploadAadhar = () => {
   const dispatch = useAppDispatch();
-  const { aadharPdfs, loading } = useAppSelector(
-    (state) => state,
-  );
+  const { aadharPdfs, loading } = useAppSelector((state) => state);
   const sectionProperties = {
     page: {
       margin: {
@@ -66,36 +64,35 @@ const UploadAadhar = () => {
       console.log(file);
       if (file) {
         const base64Pdf = await getBase64Image(file);
-        const pdfDoc = await PDFDocument.load(base64Pdf,{
-          ignoreEncryption:true
+        const pdfDoc = await PDFDocument.load(base64Pdf, {
+          ignoreEncryption: true,
         });
         const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
         const pages = pdfDoc.getPages();
         const firstPage = pages[0];
         const { width, height } = firstPage.getSize();
-        firstPage.setHeight(300)
+        firstPage.setHeight(300);
         firstPage.setWidth(600);
-        const base64PdfEdited = await pdfDoc.saveAsBase64({dataUri:true});
+        const base64PdfEdited = await pdfDoc.saveAsBase64({ dataUri: true });
         console.log(base64PdfEdited);
-        
-              const id = Math.floor(Math.random() * 1000);
-              dispatch(
-                pushBase64Pdfs({
-                  id,
-                  file: base64PdfEdited,
-                })
-              );
-              
-              await pdfDoc.save();
+
+        const id = Math.floor(Math.random() * 1000);
+        dispatch(
+          pushBase64Pdfs({
+            id,
+            file: base64PdfEdited,
+          }),
+        );
+
+        await pdfDoc.save();
       }
     } catch (e) {
       toast.error("Something went wrong. Please try again");
-      console.log(`Error in handleChange`,e);
+      console.log(`Error in handleChange`, e);
     } finally {
       dispatch(setLoading(false));
     }
-  }
-
+  };
 
   // const handleDownload = () => {
   //   if (images.length > 0) {
