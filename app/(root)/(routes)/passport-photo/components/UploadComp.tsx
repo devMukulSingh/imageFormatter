@@ -61,6 +61,10 @@ const UploadComp = () => {
     try {
       const file = e?.target?.files?.[0];
       if (file) {
+        if(file.type.slice(0,5)!=='image'){
+          toast.error('Only images allowed')
+          return;
+        }
         let base64PassportSizeImages = [];
         const base64Image = await getBase64Image(file);
         for (let i = 0; i < 6; i++) {
@@ -164,7 +168,8 @@ const UploadComp = () => {
         print:hidden
         flex
         h-fit 
-        flex-col 
+        flex-col
+        items-center 
         gap-10 
         shadow-2xl 
         hover:scale-105
@@ -174,12 +179,12 @@ const UploadComp = () => {
         rounded-lg 
         bg-purple-400"
       >
-        <Label className="text-lg text-white" htmlFor="picture">
+        <Label className="text-lg text-white font-semibold" htmlFor="picture">
           Upload Images
         </Label>
         <Input
           onChange={handleChange}
-          className="bg-slate-200 cursor-pointer"
+          className="bg-slate-200 cursor-pointer  h-16 "
           type="file"
           multiple
           disabled={loading}

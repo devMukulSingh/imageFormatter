@@ -5,6 +5,9 @@ const initialState: IinitialState = {
   base64Images: [],
   loading: false,
   passportSizeBase64Images: [],
+  aadharPdfs : [],
+  collageFiles:"",
+  passportPhotoFiles:"",
 };
 
 export const slice = createSlice({
@@ -13,9 +16,22 @@ export const slice = createSlice({
   reducers: {
     removeAllPassportSizeImages: (state) => {
       state.passportSizeBase64Images = [];
+      state.passportPhotoFiles = "";
+    },
+    setCollageFiles : (state,action) => {
+      state.collageFiles = action.payload
+    },
+    setPassportPhotoFiles : (state,action) => {
+      state.passportPhotoFiles = action.payload
     },
     setPassportSizeBase64Image: (state, action) => {
       state.passportSizeBase64Images = action.payload;
+    },
+    pushBase64Pdfs : (state,action) => {
+      state.aadharPdfs.push(action.payload)
+    },
+    setBase64Pdf : (state,action) => {
+      state.aadharPdfs = action.payload;
     },
     pushPassportSizeBase64Images: (state, action) => {
       state.passportSizeBase64Images.push(...action.payload);
@@ -37,6 +53,7 @@ export const slice = createSlice({
     },
     removeAllImages: (state) => {
       state.base64Images = [];
+      state.collageFiles = "";
     },
     removePassportSizeImage: (state, action) => {
       const filteredArr = state.passportSizeBase64Images.filter(
@@ -44,6 +61,12 @@ export const slice = createSlice({
       );
       state.passportSizeBase64Images = filteredArr;
     },
+    removeAadharPdf : (state,action) => {
+      const filteredArr = state.aadharPdfs.filter(
+        (pdf) => pdf.id !== action.payload,
+      );
+      state.aadharPdfs = filteredArr;
+    }
   },
 });
 
@@ -59,4 +82,9 @@ export const {
   removeAllImages,
   removeAllPassportSizeImages,
   removePassportSizeImage,
+  setBase64Pdf,
+  removeAadharPdf,
+  pushBase64Pdfs,
+  setCollageFiles,
+  setPassportPhotoFiles
 } = slice.actions;

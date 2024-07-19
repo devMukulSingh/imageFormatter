@@ -17,14 +17,14 @@ import {
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { Download, Printer } from "lucide-react";
-import { setBase64Images, setLoading } from "@/app/redux/slice";
+import { setBase64Images, setCollageFiles, setLoading } from "@/app/redux/slice";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
 import { base64Images } from "@/lib/types";
 import { getBase64Image } from "@/lib/hooks";
 
 const UploadComp = () => {
   const dispatch = useAppDispatch();
-  const { base64Images: images, loading } = useAppSelector((state) => state);
+  const { base64Images: images, loading,collageFiles } = useAppSelector((state) => state);
   const sectionProperties = {
     page: {
       margin: {
@@ -56,8 +56,13 @@ const UploadComp = () => {
       let base64Images: base64Images[] | null = [];
       const files = e?.target?.files;
       if (files) {
+        // dispatch(setCollageFiles(e?.target?.files))
         dispatch(setLoading(true));
         for (let i = 0; i < files?.length; i++) {
+          if(files[i].type.slice(0,5)!=='image'){
+            toast.error('Only images allowed');
+            break;
+          }
           const base64Image = await getBase64Image(files[i]);
           const imageId = Math.floor(Math.random() * 1000);
           base64Images.push({
@@ -66,12 +71,6 @@ const UploadComp = () => {
           });
         }
         dispatch(setBase64Images(base64Images));
-        // if (files?.length > 6) {
-        //   toast.error("Maximum 6 photos allowed");
-        //   const first_6_images = base64Images.slice(0, 6);
-        //   dispatch(setBase64Images(first_6_images));
-        // } else {
-        // }
       }
     } catch (e) {
       toast.error("Something went wrong. Please try again");
@@ -179,8 +178,9 @@ const UploadComp = () => {
           Upload Images
         </Label>
         <Input
+          // value={collageFiles}
           onChange={handleChange}
-          className="bg-slate-200 cursor-pointer"
+          className="bg-slate-200 cursor-pointer h-16 "
           type="file"
           multiple
           disabled={loading}

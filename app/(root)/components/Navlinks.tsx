@@ -15,6 +15,11 @@ const Navlinks = () => {
       link: "/passport-photo",
       isActive: pathName.endsWith("/passport-photo"),
     },
+    // {
+    //   title: "Aadhar card",
+    //   link: "/aadhar-card",
+    //   isActive: pathName.endsWith("/aadhar-card"),
+    // },
   ];
   return (
     <div className="flex gap-5">

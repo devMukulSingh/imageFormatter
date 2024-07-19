@@ -57,7 +57,7 @@ export default function Buttons() {
         </Button>
         <Button
           variant={"outline"}
-          className="w-24 flex gap-1"
+          className="w-24 flex gap-1 text-black"
           onClick={() => globalThis.print()}
         >
           <Printer size={20} />

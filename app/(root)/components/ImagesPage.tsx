@@ -70,7 +70,7 @@ const ImagesPage = ({}: Props) => {
           </Button>
           <Button
             variant={"outline"}
-            className="w-24 flex gap-1"
+            className="w-24 flex gap-1 text-black"
             onClick={() => globalThis.print()}
           >
             <Printer size={20} />
@@ -133,7 +133,7 @@ const ImagesPage = ({}: Props) => {
                         <Button
                           size={"icon"}
                           variant={"outline"}
-                          className="self-center z-20 rounded-full size-6 mt-1 print:hidden"
+                          className="self-center text-black z-20 rounded-full size-6 mt-1 print:hidden"
                         >
                           <X
                             onClick={() => dispatch(removeImage(image.id))}
