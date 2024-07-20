@@ -19,6 +19,7 @@ import toast from "react-hot-toast";
 import { Download, Printer } from "lucide-react";
 import {
   setBase64Images,
+  setBase64Pan,
   setLoading,
   setPassportSizeBase64Image,
 } from "@/app/redux/slice";
@@ -26,10 +27,10 @@ import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
 import { base64Images } from "@/lib/types";
 import { getBase64Image } from "@/lib/hooks";
 
-const UploadComp = () => {
+const UploadPan = () => {
   const dispatch = useAppDispatch();
-  const { passportSizeBase64Images: images, loading } = useAppSelector(
-    (state) => state,
+  const { base64Pan, loading } = useAppSelector(
+    (state) => state
   );
   const sectionProperties = {
     page: {
@@ -65,16 +66,8 @@ const UploadComp = () => {
           toast.error("Only images allowed");
           return;
         }
-        let base64PassportSizeImages = [];
         const base64Image = await getBase64Image(file);
-        for (let i = 0; i < 6; i++) {
-          const imageId = Math.floor(Math.random() * 1000);
-          base64PassportSizeImages.push({
-            id: imageId,
-            img: base64Image,
-          });
-        }
-        dispatch(setPassportSizeBase64Image(base64PassportSizeImages));
+        dispatch(setBase64Pan(base64Image));
         dispatch(setLoading(true));
       }
     } catch (e) {
@@ -85,60 +78,60 @@ const UploadComp = () => {
     }
   };
 
-  const handleDownload = () => {
-    if (images.length > 0) {
-      dispatch(setLoading(true));
-      const doc = new Document({
-        styles: {},
-        sections: [
-          {
-            properties: sectionProperties,
-            children: [
-              new Paragraph({
-                spacing: {
-                  line: 300,
-                },
-                heading: "Heading1",
-                alignment: "center",
-                indent: {},
-                children: [
-                  new ImageRun({
-                    data: images[0]?.img,
-                    transformation: {
-                      height: 340,
-                      width: 340,
-                    },
-                  }),
-                  new ImageRun({
-                    data: images[1]?.img,
-                    transformation: {
-                      height: 340,
-                      width: 340,
-                    },
-                  }),
-                  new ImageRun({
-                    data: images[2]?.img,
-                    transformation: {
-                      height: 340,
-                      width: 340,
-                    },
-                  }),
-                  new ColumnBreak(),
-                ],
-              }),
-            ],
-          },
-        ],
-      });
+  // const handleDownload = () => {
+  //   if (base64Pan!=='') {
+  //     dispatch(setLoading(true));
+  //     const doc = new Document({
+  //       styles: {},
+  //       sections: [
+  //         {
+  //           properties: sectionProperties,
+  //           children: [
+  //             new Paragraph({
+  //               spacing: {
+  //                 line: 300,
+  //               },
+  //               heading: "Heading1",
+  //               alignment: "center",
+  //               indent: {},
+  //               children: [
+  //                 new ImageRun({
+  //                   data: images[0]?.img,
+  //                   transformation: {
+  //                     height: 340,
+  //                     width: 340,
+  //                   },
+  //                 }),
+  //                 new ImageRun({
+  //                   data: images[1]?.img,
+  //                   transformation: {
+  //                     height: 340,
+  //                     width: 340,
+  //                   },
+  //                 }),
+  //                 new ImageRun({
+  //                   data: images[2]?.img,
+  //                   transformation: {
+  //                     height: 340,
+  //                     width: 340,
+  //                   },
+  //                 }),
+  //                 new ColumnBreak(),
+  //               ],
+  //             }),
+  //           ],
+  //         },
+  //       ],
+  //     });
 
-      dispatch(setLoading(false));
-      Packer.toBlob(doc).then((blob) => {
-        saveAs(blob, "example.docx");
-      });
-    } else {
-      toast.error("Please upload images to format");
-    }
-  };
+  //     dispatch(setLoading(false));
+  //     Packer.toBlob(doc).then((blob) => {
+  //       saveAs(blob, "example.docx");
+  //     });
+  //   } else {
+  //     toast.error("Please upload images to format");
+  //   }
+  // };
   return (
     <>
       <div
@@ -158,24 +151,23 @@ const UploadComp = () => {
         bg-purple-400"
       >
         <Label className="text-lg text-white font-semibold" htmlFor="picture">
-          Upload Images
+          Upload Image
         </Label>
         <Input
           onChange={handleChange}
           className="bg-slate-200 cursor-pointer  h-20 "
           type="file"
-          multiple
           disabled={loading}
         />
         <div className="flex gap-5">
-          <Button disabled={loading} onClick={handleDownload}>
+          {/* <Button disabled={loading} onClick={handleDownload}>
             <Download size={20} className="mr-2" />
             Download DOCX
-          </Button>
+          </Button> */}
         </div>
       </div>
     </>
   );
 };
 
-export default UploadComp;
+export default UploadPan;

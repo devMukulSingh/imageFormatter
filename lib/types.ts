@@ -10,6 +10,7 @@ export interface IinitialState {
   aadharPdfs: IaadharPdfs[];
   collageFiles: any;
   passportPhotoFiles: any;
+  base64Pan:string,
 }
 
 export interface IaadharPdfs {

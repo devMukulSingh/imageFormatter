@@ -15,6 +15,11 @@ const Navlinks = () => {
       link: "/passport-photo",
       isActive: pathName.endsWith("/passport-photo"),
     },
+    {
+      title: "Pan card",
+      link: "/pan-card",
+      isActive: pathName.endsWith("/pan-card"),
+    },
     // {
     //   title: "Aadhar card",
     //   link: "/aadhar-card",

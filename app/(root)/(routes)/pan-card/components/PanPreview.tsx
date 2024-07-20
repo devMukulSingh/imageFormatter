@@ -1,6 +1,6 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
-import { removePassportSizeImage } from "@/app/redux/slice";
+import { removeBase64Pan, removePassportSizeImage } from "@/app/redux/slice";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import Image from "next/image";
@@ -10,44 +10,36 @@ type Props = {};
 
 const ImagesPage = ({}: Props) => {
   const dispatch = useAppDispatch();
-  const { passportSizeBase64Images: images, loading } = useAppSelector(
+  const {base64Pan, loading } = useAppSelector(
     (state) => state,
   );
 
   return (
     <div className="flex relative flex-col bg-white gap-5 print:max-h-screen max-h-[calc(100vh-6.25rem)] print:overflow-visible overflow-y-auto">
-      {images.length > 0 && <Buttons />}
+      {base64Pan !== "" && <Buttons />}
 
       <div
         className="
+        flex
+        justify-center
         mt-[3rem]
-        gap-x-[6px]
-        gap-y-2
-        grid
-        auto-rows-min
-        auto-cols-min
-        grid-cols-6
         min-h-[1122.5px]
         w-[793.7px]
         bg-white 
         print:m-0
-        py-5
+        py-10
         px-5
-        
         "
       >
-        {images.map((image, index) => (
+        {
+          base64Pan!=='' &&
           <figure
             draggable
-            key={index}
             className="
-              h-[155px]
-              w-[118px]
+              size-[22rem]
               relative
               flex
               flex-col
-              border-[1.5px]
-              border-black
             "
           >
             <Button
@@ -56,7 +48,7 @@ const ImagesPage = ({}: Props) => {
               className="self-center z-20 text-black rounded-full size-6 mt-1 print:hidden"
             >
               <X
-                onClick={() => dispatch(removePassportSizeImage(image.id))}
+                onClick={() => dispatch(removeBase64Pan(""))}
                 className=""
                 size={15}
               />
@@ -65,18 +57,15 @@ const ImagesPage = ({}: Props) => {
               quality={10}
               className="
               relative
+              object-contain
               object-top
-              object-cover
               "
               fill
-              // width={180}
-              // height={180}
-              src={image.img}
-              key={index}
+              src={base64Pan}
               alt="image"
             />
           </figure>
-        ))}
+        }
       </div>
     </div>
   );

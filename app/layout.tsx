@@ -3,6 +3,7 @@ import { Inter, Bona_Nova } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import Providers from "@/lib/Providers";
+import DragProvider from "@/lib/DragProvider";
 
 const inter = Bona_Nova({ subsets: ["latin"], weight: "400" });
 
@@ -20,7 +21,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Toaster />
-        <Providers>{children}</Providers>
+        <Providers>
+          {/* <DragProvider> */}
+          {children}
+          {/* </DragProvider> */}
+          </Providers>
       </body>
     </html>
   );
