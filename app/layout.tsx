@@ -25,7 +25,7 @@ export default function RootLayout({
           {/* <DragProvider> */}
           {children}
           {/* </DragProvider> */}
-          </Providers>
+        </Providers>
       </body>
     </html>
   );

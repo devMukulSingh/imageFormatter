@@ -8,7 +8,7 @@ const initialState: IinitialState = {
   aadharPdfs: [],
   collageFiles: "",
   passportPhotoFiles: "",
-  base64Pan:"",
+  base64Pan: "",
 };
 
 export const slice = createSlice({
@@ -68,13 +68,13 @@ export const slice = createSlice({
       );
       state.aadharPdfs = filteredArr;
     },
-    setBase64Pan : (state,action) => {
+    setBase64Pan: (state, action) => {
       state.base64Pan = action.payload;
     },
-    removeBase64Pan : (state,action) =>{
+    removeBase64Pan: (state, action) => {
       state.base64Pan = "";
-    }
-    // removeBase64Pan : (state,action) 
+    },
+    // removeBase64Pan : (state,action)
   },
 });
 
@@ -96,5 +96,5 @@ export const {
   setCollageFiles,
   setPassportPhotoFiles,
   setBase64Pan,
-  removeBase64Pan
+  removeBase64Pan,
 } = slice.actions;

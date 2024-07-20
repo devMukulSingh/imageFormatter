@@ -10,9 +10,7 @@ type Props = {};
 
 const ImagesPage = ({}: Props) => {
   const dispatch = useAppDispatch();
-  const {base64Pan, loading } = useAppSelector(
-    (state) => state,
-  );
+  const { base64Pan, loading } = useAppSelector((state) => state);
 
   return (
     <div className="flex relative flex-col bg-white gap-5 print:max-h-screen max-h-[calc(100vh-6.25rem)] print:overflow-visible overflow-y-auto">
@@ -31,8 +29,7 @@ const ImagesPage = ({}: Props) => {
         px-5
         "
       >
-        {
-          base64Pan!=='' &&
+        {base64Pan !== "" && (
           <figure
             draggable
             className="
@@ -65,7 +62,7 @@ const ImagesPage = ({}: Props) => {
               alt="image"
             />
           </figure>
-        }
+        )}
       </div>
     </div>
   );

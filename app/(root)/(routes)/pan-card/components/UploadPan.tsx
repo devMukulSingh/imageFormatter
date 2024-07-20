@@ -29,9 +29,7 @@ import { getBase64Image } from "@/lib/hooks";
 
 const UploadPan = () => {
   const dispatch = useAppDispatch();
-  const { base64Pan, loading } = useAppSelector(
-    (state) => state
-  );
+  const { base64Pan, loading } = useAppSelector((state) => state);
   const sectionProperties = {
     page: {
       margin: {

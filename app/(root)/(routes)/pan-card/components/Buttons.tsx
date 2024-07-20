@@ -47,14 +47,14 @@ export default function Buttons() {
   return (
     <>
       <div className="print:hidden fixed top-[90px] px-2 py-1 z-30 gap-5 h-[3rem] flex justify-center items-center w-[595px] bg-white ">
-        <Button
+        {/* <Button
           className="flex gap-1"
           variant={"destructive"}
           onClick={() => dispatch(removeAllPassportSizeImages())}
         >
           <Trash size={20} />
           Remove all
-        </Button>
+        </Button> */}
         <Button
           variant={"outline"}
           className="w-24 flex gap-1 text-black"
@@ -64,10 +64,10 @@ export default function Buttons() {
           Print
         </Button>
 
-        <Button className="flex gap-1 items-center" onClick={handleAddMore}>
+        {/* <Button className="flex gap-1 items-center" onClick={handleAddMore}>
           <PlusCircle size={20} />
           Add more
-        </Button>
+        </Button> */}
       </div>
     </>
   );
