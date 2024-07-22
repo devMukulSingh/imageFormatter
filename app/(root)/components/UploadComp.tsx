@@ -26,7 +26,6 @@ import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
 import { base64Images } from "@/lib/types";
 import { getBase64Image } from "@/lib/hooks";
 
-
 const UploadComp = () => {
   const dispatch = useAppDispatch();
   const {
@@ -193,7 +192,6 @@ const UploadComp = () => {
           disabled={loading}
         />
         <div className="flex gap-5">
-
           <Button disabled={loading} onClick={handleDownload}>
             <Download size={20} className="mr-2" />
             Download DOCX

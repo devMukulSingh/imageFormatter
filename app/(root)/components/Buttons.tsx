@@ -1,49 +1,53 @@
-import { useAppDispatch } from '@/app/redux/hook';
-import { pushBase64Images, removeAllImages, setLoading } from '@/app/redux/slice';
-import { Button } from '@/components/ui/button';
-import { getBase64Image } from '@/lib/hooks';
-import { base64Images } from '@/lib/types';
-import { PlusCircle, Printer, Trash } from 'lucide-react';
-import React from 'react'
-import toast from 'react-hot-toast';
+import { useAppDispatch } from "@/app/redux/hook";
+import {
+  pushBase64Images,
+  removeAllImages,
+  setLoading,
+} from "@/app/redux/slice";
+import { Button } from "@/components/ui/button";
+import { getBase64Image } from "@/lib/hooks";
+import { base64Images } from "@/lib/types";
+import { PlusCircle, Printer, Trash } from "lucide-react";
+import React from "react";
+import toast from "react-hot-toast";
 
 type Props = {
-  disabled:boolean
-}
+  disabled: boolean;
+};
 
-const Buttons = ({disabled}:Props) => {
-    const dispatch = useAppDispatch();
-      const handleAddMore = async () => {
-        const imageInput = document.createElement("input");
-        imageInput.type = "file";
-        imageInput.multiple = true;
-        imageInput.click();
-        imageInput.onchange = async (e: any) => {
-          const file = e?.target?.files;
-          console.log(file);
-          try {
-            let base64Images: base64Images[] | null = [];
-            const files = e?.target?.files;
-            if (files) {
-              dispatch(setLoading(true));
-              for (let i = 0; i < files?.length; i++) {
-                const base64Image = await getBase64Image(files[i]);
-                const imageId = Math.floor(Math.random() * 1000);
-                base64Images.push({
-                  id: imageId,
-                  img: base64Image,
-                });
-              }
-              dispatch(pushBase64Images(base64Images));
-            }
-          } catch (e) {
-            toast.error("Something went wrong. Please try again");
-            console.log(`Error in handleChange`);
-          } finally {
-            dispatch(setLoading(false));
+const Buttons = ({ disabled }: Props) => {
+  const dispatch = useAppDispatch();
+  const handleAddMore = async () => {
+    const imageInput = document.createElement("input");
+    imageInput.type = "file";
+    imageInput.multiple = true;
+    imageInput.click();
+    imageInput.onchange = async (e: any) => {
+      const file = e?.target?.files;
+      console.log(file);
+      try {
+        let base64Images: base64Images[] | null = [];
+        const files = e?.target?.files;
+        if (files) {
+          dispatch(setLoading(true));
+          for (let i = 0; i < files?.length; i++) {
+            const base64Image = await getBase64Image(files[i]);
+            const imageId = Math.floor(Math.random() * 1000);
+            base64Images.push({
+              id: imageId,
+              img: base64Image,
+            });
           }
-        };
-      };
+          dispatch(pushBase64Images(base64Images));
+        }
+      } catch (e) {
+        toast.error("Something went wrong. Please try again");
+        console.log(`Error in handleChange`);
+      } finally {
+        dispatch(setLoading(false));
+      }
+    };
+  };
   return (
     <div className="print:hidden fixed top-[90px] px-2 py-1 z-30 gap-5 h-[3rem] flex justify-center items-center w-[50rem] bg-neutral-200 ">
       <Button
@@ -75,6 +79,6 @@ const Buttons = ({disabled}:Props) => {
       </Button>
     </div>
   );
-}
+};
 
-export default Buttons
+export default Buttons;

@@ -35,7 +35,7 @@ const EditDialog = ({ openDialog, setOpenDialog, image }: Props) => {
       });
     setOpenDialog(false);
   };
-  function onImageLoad(e:any) {
+  function onImageLoad(e: any) {
     const { naturalWidth: width, naturalHeight: height } = e.currentTarget;
     const crop = centerCrop(
       makeAspectCrop(
@@ -45,10 +45,10 @@ const EditDialog = ({ openDialog, setOpenDialog, image }: Props) => {
         },
         5 / 3,
         width,
-        height
+        height,
       ),
       width,
-      height
+      height,
     );
 
     setCrop(crop);
@@ -56,10 +56,10 @@ const EditDialog = ({ openDialog, setOpenDialog, image }: Props) => {
   return (
     <Dialog open={openDialog} onOpenChange={setOpenDialog}>
       <DialogContent className="min-w-[90vw] h-[90vh] bg-neutral-200 gap-5 flex flex-col  items-center justify-center ">
-        <ReactCrop crop={crop} onChange={(c) => setCrop(c)}>
+        <ReactCrop minHeight={100} minWidth={200} crop={crop} onChange={(c) => setCrop(c)}>
           <figure className="">
             <img
-                onLoad={onImageLoad}
+              onLoad={onImageLoad}
               className="object-contain max-w-[60vw] max-h-[60vh]"
               ref={imgRef}
               src={image.img}

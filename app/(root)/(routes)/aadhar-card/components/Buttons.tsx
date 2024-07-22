@@ -50,8 +50,7 @@ export default function Buttons({ disabled }: Props) {
     <>
       <div className="print:hidden fixed top-[90px] px-2 py-1 z-30 gap-5 h-[3rem] flex justify-center items-center w-[595px] bg-white ">
         <Button
-          
-               disabled={disabled}
+          disabled={disabled}
           className="flex gap-1"
           variant={"destructive"}
           onClick={() => dispatch(removeAllPassportSizeImages())}
@@ -61,8 +60,7 @@ export default function Buttons({ disabled }: Props) {
         </Button>
         <Button
           variant={"outline"}
-          
-               disabled={disabled}
+          disabled={disabled}
           className="w-24 flex gap-1 text-black"
           onClick={() => globalThis.print()}
         >
@@ -70,9 +68,11 @@ export default function Buttons({ disabled }: Props) {
           Print
         </Button>
 
-        <Button 
-             disabled={disabled}
-        className="flex gap-1 items-center" onClick={handleAddMore}>
+        <Button
+          disabled={disabled}
+          className="flex gap-1 items-center"
+          onClick={handleAddMore}
+        >
           <PlusCircle size={20} />
           Add more
         </Button>

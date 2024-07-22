@@ -28,7 +28,7 @@ const ImagesPage = ({}: Props) => {
 
   return (
     <div className="flex relative flex-col bg-white gap-5 print:max-h-screen max-h-[calc(100vh-6.25rem)] print:overflow-visible overflow-y-auto">
-      <Buttons disabled={base64Images.length > 0 ? false:true} />
+      <Buttons disabled={base64Images.length > 0 ? false : true} />
 
       <div
         className="

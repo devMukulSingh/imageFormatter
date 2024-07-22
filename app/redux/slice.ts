@@ -74,15 +74,15 @@ export const slice = createSlice({
     removeBase64Pan: (state, action) => {
       state.base64Pan = "";
     },
-    setCroppedImg : (state,action) => {
-      const { img,id } = action.payload;
-      for(let i = 0; i < state.base64Images.length ; i++) {
-        if(state.base64Images[i].id===id){
-          state.base64Images[i].img=img;
+    setCroppedImg: (state, action) => {
+      const { img, id } = action.payload;
+      for (let i = 0; i < state.base64Images.length; i++) {
+        if (state.base64Images[i].id === id) {
+          state.base64Images[i].img = img;
           return;
         }
       }
-    }
+    },
   },
 });
 
@@ -105,5 +105,5 @@ export const {
   setPassportPhotoFiles,
   setBase64Pan,
   removeBase64Pan,
-  setCroppedImg
+  setCroppedImg,
 } = slice.actions;

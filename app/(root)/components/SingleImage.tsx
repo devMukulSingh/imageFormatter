@@ -42,13 +42,14 @@ const SingleImage = ({ image }: Props) => {
         >
           <X className="" size={15} />
         </Button>
-        <figure className="relative size-[22rem]">
+        <figure className="relative size-[22rem] ">
           <Image
             quality={6}
             onClick={() => setOpenDialog(true)}
             ref={imgRef}
-           fill
-            className="         
+            fill
+            className="  
+            cursor-pointer       
             object-contain
             object-center 
             "
