@@ -26,6 +26,7 @@ import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
 import { base64Images } from "@/lib/types";
 import { getBase64Image } from "@/lib/hooks";
 
+
 const UploadComp = () => {
   const dispatch = useAppDispatch();
   const {
@@ -64,7 +65,6 @@ const UploadComp = () => {
       let base64Images: base64Images[] | null = [];
       const files = e?.target?.files;
       if (files) {
-        // dispatch(setCollageFiles(e?.target?.files))
         dispatch(setLoading(true));
         for (let i = 0; i < files?.length; i++) {
           if (files[i].type.slice(0, 5) !== "image") {
@@ -186,7 +186,6 @@ const UploadComp = () => {
           Upload Images
         </Label>
         <Input
-          // value={collageFiles}
           onChange={handleChange}
           className="bg-slate-200 cursor-pointer h-20 "
           type="file"
@@ -194,10 +193,7 @@ const UploadComp = () => {
           disabled={loading}
         />
         <div className="flex gap-5">
-          {/* <Button disabled={loading} onClick={()  => globalThis.print()}>
-            <Download size={20} className="mr-2" />
-            Print
-          </Button> */}
+
           <Button disabled={loading} onClick={handleDownload}>
             <Download size={20} className="mr-2" />
             Download DOCX

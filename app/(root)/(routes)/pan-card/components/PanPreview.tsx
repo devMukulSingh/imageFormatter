@@ -14,7 +14,7 @@ const ImagesPage = ({}: Props) => {
 
   return (
     <div className="flex relative flex-col bg-white gap-5 print:max-h-screen max-h-[calc(100vh-6.25rem)] print:overflow-visible overflow-y-auto">
-      {base64Pan !== "" && <Buttons />}
+      <Buttons disabled={base64Pan.length > 0 ? false : true} />
 
       <div
         className="
@@ -37,18 +37,16 @@ const ImagesPage = ({}: Props) => {
               relative
               flex
               flex-col
+
             "
           >
             <Button
+              onClick={() => dispatch(removeBase64Pan(""))}
               size={"icon"}
               variant={"outline"}
               className="self-center z-20 text-black rounded-full size-6 mt-1 print:hidden"
             >
-              <X
-                onClick={() => dispatch(removeBase64Pan(""))}
-                className=""
-                size={15}
-              />
+              <X className="" size={15} />
             </Button>
             <Image
               quality={10}

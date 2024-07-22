@@ -16,7 +16,7 @@ const ImagesPage = ({}: Props) => {
 
   return (
     <div className="flex relative flex-col bg-white gap-5 print:max-h-screen max-h-[calc(100vh-6.25rem)] print:overflow-visible overflow-y-auto">
-      {images.length > 0 && <Buttons />}
+      <Buttons disabled={images.length > 0 ? false : true} />
 
       <div
         className="
@@ -51,15 +51,12 @@ const ImagesPage = ({}: Props) => {
             "
           >
             <Button
+              onClick={() => dispatch(removePassportSizeImage(image.id))}
               size={"icon"}
               variant={"outline"}
               className="self-center z-20 text-black rounded-full size-6 mt-1 print:hidden"
             >
-              <X
-                onClick={() => dispatch(removePassportSizeImage(image.id))}
-                className=""
-                size={15}
-              />
+              <X className="" size={15} />
             </Button>
             <Image
               quality={10}

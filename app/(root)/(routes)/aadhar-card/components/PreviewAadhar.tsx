@@ -14,7 +14,7 @@ const PreviewAadhar = ({}: Props) => {
 
   return (
     <div className="flex relative flex-col bg-white gap-5 print:max-h-screen max-h-[calc(100vh-6.25rem)] print:overflow-visible overflow-y-auto">
-      {aadharPdfs.length > 0 && <Buttons />}
+  <Buttons disabled={aadharPdfs.length < 0 }/>
 
       <div
         className="

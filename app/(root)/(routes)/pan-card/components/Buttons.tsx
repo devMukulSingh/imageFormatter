@@ -13,8 +13,11 @@ import { base64Images } from "@/lib/types";
 import { PlusCircle, Printer, Trash, X } from "lucide-react";
 import Image from "next/image";
 import toast from "react-hot-toast";
+type Props = {
+  disabled: boolean;
+};
 
-export default function Buttons() {
+export default function Buttons({ disabled }: Props) {
   const dispatch = useAppDispatch();
   const handleAddMore = async () => {
     const imageInput = document.createElement("input");
@@ -56,6 +59,7 @@ export default function Buttons() {
           Remove all
         </Button> */}
         <Button
+          disabled={disabled}
           variant={"outline"}
           className="w-24 flex gap-1 text-black"
           onClick={() => globalThis.print()}
