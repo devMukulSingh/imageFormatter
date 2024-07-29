@@ -11,6 +11,13 @@ export interface IinitialState {
   collageFiles: any;
   passportPhotoFiles: any;
   base64Pan: string;
+  filters:{
+    brightness:number,
+    contrast: number,
+    saturation: number,
+    rotation: number,
+
+  }
 }
 
 export interface IaadharPdfs {

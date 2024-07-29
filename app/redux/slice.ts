@@ -9,6 +9,12 @@ const initialState: IinitialState = {
   collageFiles: "",
   passportPhotoFiles: "",
   base64Pan: "",
+  filters : {
+    brightness : 1,
+    contrast: 100,
+    saturation: 100,
+    rotation:0
+  }
 };
 
 export const slice = createSlice({
@@ -83,6 +89,18 @@ export const slice = createSlice({
         }
       }
     },
+    setBrightness : (state,action) => {
+      state.filters.brightness = action.payload;
+    },
+    setContrast: (state, action) => {
+      state.filters.contrast = action.payload;
+    },
+    setSaturation: (state, action) => {
+      state.filters.saturation = action.payload;
+    },
+    setRotation: (state, action) => {
+      state.filters.rotation = action.payload;
+    }
   },
 });
 
@@ -106,4 +124,8 @@ export const {
   setBase64Pan,
   removeBase64Pan,
   setCroppedImg,
+  setBrightness,
+  setContrast,
+  setSaturation,
+  setRotation
 } = slice.actions;

@@ -1,9 +1,9 @@
-import { useAppDispatch } from "@/app/redux/hook";
+import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
 import { removeImage } from "@/app/redux/slice";
 import { Button } from "@/components/ui/button";
 import { base64Images } from "@/lib/types";
 import { X } from "lucide-react";
-import React, { useRef, useState } from "react";
+import React, { use, useRef, useState } from "react";
 import "react-image-crop/dist/ReactCrop.css";
 import EditDialog from "./EditDialog";
 import Image from "next/image";
@@ -13,18 +13,19 @@ type Props = {
 };
 
 const SingleImage = ({ image }: Props) => {
-  const imgRef = useRef<HTMLImageElement>(null);
+
   const dispatch = useAppDispatch();
   const [openDialog, setOpenDialog] = useState(false);
+  const { brightness,contrast,rotation,saturation } = useAppSelector( state => state.filters)
   return (
     <>
-      {
+      {openDialog && (
         <EditDialog
           image={image}
           openDialog={openDialog}
           setOpenDialog={setOpenDialog}
         />
-      }
+      )}
       <div
         className="         
                           justify-center
@@ -32,6 +33,7 @@ const SingleImage = ({ image }: Props) => {
                           flex-col
                           border
                           print:border-none
+                          relative
                               "
       >
         <Button
@@ -42,17 +44,26 @@ const SingleImage = ({ image }: Props) => {
         >
           <X className="" size={15} />
         </Button>
-        <figure className="relative size-[22rem] ">
-          <Image
-            quality={6}
+        <figure className="overflow-hidden relative size-[352px] ">
+          <img
+            // style={{
+            //   transform: `rotate(${rotation}deg)`,
+            //   filter: `
+            //     saturate(${saturation}%)
+            //     contrast(${contrast}%)
+            //     brightness(${brightness})
+            //     `,
+            // }}
+            // quality={6}
+            // fill
             onClick={() => setOpenDialog(true)}
-            ref={imgRef}
-            fill
-            className="  
+            className={`
+              w-full
+              h-full
             cursor-pointer       
             object-contain
             object-center 
-            "
+            `}
             src={image.img}
             alt="image"
           />
