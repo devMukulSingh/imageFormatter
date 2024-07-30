@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { Crop } from "react-image-crop";
 import { IinitialState } from "./types";
 import { setCroppedImg } from "@/app/redux/slice";
@@ -10,9 +10,9 @@ type Targs = {
   crop: Crop;
   setCrop: (crop: Crop) => void;
   imgId: number;
-  rotation: number,
+  rotation: number;
   dispatch: ThunkDispatch<IinitialState, undefined, UnknownAction> &
-  Dispatch<UnknownAction>;
+    Dispatch<UnknownAction>;
 };
 export const getBase64Image = async (image: Blob): Promise<any> => {
   return new Promise((resolve, reject) => {
@@ -29,7 +29,6 @@ export const getBase64Image = async (image: Blob): Promise<any> => {
   });
 };
 
-
 export const handleCrop = async ({
   image,
   crop,
@@ -37,17 +36,15 @@ export const handleCrop = async ({
   imgId,
   dispatch,
 }: Targs) => {
-
   if (image && crop.height !== 0) {
-
     // const { }
-    const canvas = document.createElement('canvas');
+    const canvas = document.createElement("canvas");
     const scaleX = image.naturalWidth / image.width;
     const scaleY = image.naturalHeight / image.height;
     canvas.width = crop.width;
-    canvas.height = crop.height
+    canvas.height = crop.height;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     const pixelRatio = window.devicePixelRatio;
 
     canvas.width = crop.width * pixelRatio;
@@ -58,7 +55,7 @@ export const handleCrop = async ({
 
       ctx.save();
       ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-      ctx.imageSmoothingQuality = 'high';
+      ctx.imageSmoothingQuality = "high";
       // ctx.rotate((90 * Math.PI) / 180)
       ctx.drawImage(
         image,
@@ -67,14 +64,13 @@ export const handleCrop = async ({
         crop.width * scaleX,
         crop.height * scaleY,
         0,
-       0,
+        0,
         crop.width,
-        crop.height
+        crop.height,
       );
       ctx.restore();
-    };
-    const croppedImgUrl = canvas.toDataURL('image/jpeg');
-
+    }
+    const croppedImgUrl = canvas.toDataURL("image/jpeg");
 
     dispatch(
       setCroppedImg({
@@ -91,22 +87,29 @@ export const handleCrop = async ({
     width: 0,
     height: 0,
   });
-}
+};
 
 type TsaveImageArgs = {
-  img: HTMLImageElement,
-  brightness: number,
-  contrast: number,
-  saturation: number,
-  rotation: number,
+  img: HTMLImageElement;
+  brightness: number;
+  contrast: number;
+  saturation: number;
+  rotation: number;
   dispatch: ThunkDispatch<IinitialState, undefined, UnknownAction> &
-  Dispatch<UnknownAction>;
-  imageId: number
-}
+    Dispatch<UnknownAction>;
+  imageId: number;
+};
 
-export const handleSaveImage = ({ img, brightness, contrast, saturation, rotation, dispatch, imageId }: TsaveImageArgs) => {
+export const handleSaveImage = ({
+  img,
+  brightness,
+  contrast,
+  saturation,
+  rotation,
+  dispatch,
+  imageId,
+}: TsaveImageArgs) => {
   if (img) {
-
     const { height, width } = getContainedSize(img);
 
     const scaleX = img.naturalWidth / width;
@@ -132,7 +135,7 @@ export const handleSaveImage = ({ img, brightness, contrast, saturation, rotatio
         0,
         0,
         width,
-        height
+        height,
       );
     }
     const fileredImage = canvas.toDataURL();
@@ -141,8 +144,7 @@ export const handleSaveImage = ({ img, brightness, contrast, saturation, rotatio
       setCroppedImg({
         id: imageId,
         img: fileredImage,
-      })
+      }),
     );
   }
-
 };

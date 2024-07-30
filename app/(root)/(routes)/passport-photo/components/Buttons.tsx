@@ -50,7 +50,7 @@ export default function Buttons({ disabled }: Props) {
   };
   return (
     <>
-      <div className="print:hidden fixed top-[90px] px-2 py-1 z-30 gap-5 h-[3rem] flex justify-center items-center w-[595px] bg-white ">
+      <div className="print:hidden bg-neutral-200 fixed top-[90px] px-2 py-1 z-40 gap-5 h-[3rem] flex justify-center items-center w-[50rem] ">
         <Button
           disabled={disabled}
           className="flex gap-1"

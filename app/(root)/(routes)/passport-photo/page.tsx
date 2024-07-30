@@ -1,6 +1,6 @@
 import React from "react";
 import UploadComp from "./components/UploadComp";
-import ImagesPage from "./components/ImagesPage";
+import PhotoPreview from "./components/PhotoPreview";
 
 const page = () => {
   return (
@@ -16,7 +16,7 @@ const page = () => {
         h-[calc(100vh-5rem)]"
     >
       <UploadComp />
-      <ImagesPage />
+      <PhotoPreview />
     </div>
   );
 };

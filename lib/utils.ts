@@ -14,4 +14,3 @@ export function getContainedSize(img: HTMLImageElement) {
   }
   return { width, height };
 }
-

@@ -17,11 +17,11 @@ const CropComp = ({ imgRef, image }: Props) => {
   //   (state) => state.filters
   // );
   const [crop, setCrop] = useState<Crop>({
-    height:80,
-    width:90,
-    unit:'%',
-    x:0,
-    y:0
+    height: 80,
+    width: 90,
+    unit: "%",
+    x: 0,
+    y: 0,
   });
   const dispatch = useAppDispatch();
   const handleClick = () => {
@@ -33,29 +33,28 @@ const CropComp = ({ imgRef, image }: Props) => {
       imgId: image.id,
       dispatch,
     });
-
   };
   // function onImageLoad(e: any) {
   //   const { naturalWidth: width, naturalHeight: height } = e.currentTarget;
-    // const crop = centerCrop(
-    //   makeAspectCrop(
-    //     {
-    //       unit: "%",
-    //       width: 90,
-    //     },
-    //     5 / 3,
-    //     width,
-    //     height
-    //   ),
-    //   width,
-    //   height
-    // );
+  // const crop = centerCrop(
+  //   makeAspectCrop(
+  //     {
+  //       unit: "%",
+  //       width: 90,
+  //     },
+  //     5 / 3,
+  //     width,
+  //     height
+  //   ),
+  //   width,
+  //   height
+  // );
 
   //   setCrop(crop);
   // }
   return (
     <div className="border-black border-2 h-[30rem] w-[30rem] relative flex flex-col items-center justify-center">
-      <ReactCrop className="" crop={crop} onChange={(c) => setCrop(c)} >
+      <ReactCrop className="" crop={crop} onChange={(c) => setCrop(c)}>
         <img
           style={
             {

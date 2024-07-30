@@ -13,10 +13,11 @@ type Props = {
 };
 
 const SingleImage = ({ image }: Props) => {
-
   const dispatch = useAppDispatch();
   const [openDialog, setOpenDialog] = useState(false);
-  const { brightness,contrast,rotation,saturation } = useAppSelector( state => state.filters)
+  const { brightness, contrast, rotation, saturation } = useAppSelector(
+    (state) => state.filters,
+  );
   return (
     <>
       {openDialog && (

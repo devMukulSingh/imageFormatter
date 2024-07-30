@@ -27,7 +27,6 @@ const EditDialog = ({ openDialog, setOpenDialog, image }: Props) => {
   const [rotation, setRotation] = useState(0);
   const [sharpness, setSharpness] = useState(0);
 
-
   const imgRef = useRef<HTMLImageElement>(null);
 
   const [currentComponent, setCurrentComponent] =
@@ -60,37 +59,36 @@ const EditDialog = ({ openDialog, setOpenDialog, image }: Props) => {
     }
   };
 
-
   const dispatch = useAppDispatch();
 
   const handleSaveImage = () => {
-  const canvas = document.createElement("canvas");
-  if (imgRef.current) {
-    const img = imgRef.current;
-    const { height, width } = getContainedSize(img);
-    canvas.width = img.width;
-    canvas.height = img.height;
+    const canvas = document.createElement("canvas");
+    if (imgRef.current) {
+      const img = imgRef.current;
+      const { height, width } = getContainedSize(img);
+      canvas.width = img.width;
+      canvas.height = img.height;
 
-    const ctx = canvas.getContext("2d");
+      const ctx = canvas.getContext("2d");
 
-    if (ctx) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.save();
-      ctx.translate(canvas.width / 2, canvas.height / 2);
-      ctx.rotate((rotation * Math.PI) / 180);
-      ctx.drawImage(img, -width / 2, -height / 2, width, height);
+      if (ctx) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.save();
+        ctx.translate(canvas.width / 2, canvas.height / 2);
+        ctx.rotate((rotation * Math.PI) / 180);
+        ctx.drawImage(img, -width / 2, -height / 2, width, height);
 
-      ctx.restore();
+        ctx.restore();
+      }
+      const fileredImage = canvas.toDataURL();
+
+      dispatch(
+        setCroppedImg({
+          id: image.id,
+          img: fileredImage,
+        }),
+      );
     }
-    const fileredImage = canvas.toDataURL();
-
-    dispatch(
-      setCroppedImg({
-        id: image.id,
-        img: fileredImage,
-      })
-    );
-  }
   };
   const handleCropWindow = () => {
     // handleSaveImage();
@@ -110,7 +108,7 @@ const EditDialog = ({ openDialog, setOpenDialog, image }: Props) => {
             Filters
           </Button>
         </div>
-          {renderComponent()}
+        {renderComponent()}
       </DialogContent>
     </Dialog>
   );

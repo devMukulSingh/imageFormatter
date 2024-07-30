@@ -71,7 +71,7 @@ const UploadComp = () => {
             break;
           }
           const base64Image = await getBase64Image(files[i]);
-          const imageId = Math.floor(Math.random() * 1000);
+          const imageId = Math.floor(Math.random() * 100000);
           base64Images.push({
             id: imageId,
             img: base64Image,

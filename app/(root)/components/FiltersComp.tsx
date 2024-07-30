@@ -43,7 +43,7 @@ const FiltersComp = ({
   // const { brightness, contrast, rotation, saturation } = useAppSelector(
   //   (state) => state.filters
   // );
-
+  
   const handleSaveImage = () => {
     if (imgRef.current) {
       const img = imgRef.current;
@@ -76,7 +76,7 @@ const FiltersComp = ({
         setCroppedImg({
           id: image.id,
           img: fileredImage,
-        })
+        }),
       );
     }
     setOpenDialog(false);
@@ -95,7 +95,7 @@ const FiltersComp = ({
       title: "brightness",
       defaultValue: 100,
       min: 50,
-      max:150,
+      max: 150,
       step: 1,
       state: brightness,
       setState: setBrightness,
@@ -144,15 +144,14 @@ const FiltersComp = ({
         setCroppedImg({
           id: image.id,
           img: fileredImage,
-        })
+        }),
       );
     }
   };
   const handleAutoEnhance = () => {
-    setBrightness(120)
-    setContrast(110)
-
-  }
+    setBrightness(110);
+    setContrast(115);
+  };
   return (
     <>
       <figure className="border-black border-2 h-[352px] w-[352px] relative overflow-hidden ">
