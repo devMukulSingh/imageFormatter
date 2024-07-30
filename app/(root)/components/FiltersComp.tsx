@@ -43,7 +43,7 @@ const FiltersComp = ({
   // const { brightness, contrast, rotation, saturation } = useAppSelector(
   //   (state) => state.filters
   // );
-  
+
   const handleSaveImage = () => {
     if (imgRef.current) {
       const img = imgRef.current;

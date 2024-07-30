@@ -5,21 +5,28 @@ import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import Image from "next/image";
 import Buttons from "./Buttons";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import EndOfPage from "@/components/EndOfPage";
 
 type Props = {};
 
 const PhotoPreview = ({}: Props) => {
-  const a4pageRef = useRef<HTMLDivElement>(null);
-
+  const [a4PageHeight, setA4PageHeight] = useState(0);
   const dispatch = useAppDispatch();
-  const { passportSizeBase64Images: images, loading } = useAppSelector(
+  const { passportSizeBase64Images: passportImages, loading } = useAppSelector(
     (state) => state
   );
+  const a4pageRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if(a4pageRef.current)
+    setA4PageHeight(a4pageRef.current?.scrollHeight)
 
+  }, [passportImages]);
+
+  
   return (
     <div className="flex relative flex-col bg-white gap-5 print:max-h-screen max-h-[calc(100vh-6.25rem)] print:overflow-visible overflow-y-auto">
-      <Buttons disabled={images.length > 0 ? false : true} />
+      <Buttons disabled={passportImages.length > 0 ? false : true} />
 
       <div
         ref={a4pageRef}
@@ -41,40 +48,29 @@ const PhotoPreview = ({}: Props) => {
         relative
         `}
       >
-
-        {images.map((image, index) => {
+        {passportImages.map((image, index) => {
           // h-[155px]
           // w-[118px]
-          
+
           if (
-            a4pageRef.current &&
-            a4pageRef.current?.scrollHeight > 1120 &&
-             (index % 42 === 0 && index !== 0)
+            (a4PageHeight > 1120) &&
+            (index % 42 === 0) &&
+            (index !== 0)
           ) {
             return (
               <>
-                <div className="flex  justify-center items-center col-span-6  z-20 print:hidden">
-                  <hr className=" w-1/2  border-2 x border-dashed border-black" />
-                  <h1 className="whitespace-nowrap bg-white text-black rounded-md py-1 px-2 font-semibold">
-                    End of page
-                  </h1>{" "}
-                  <hr className=" w-1/2 border-2  border-dashed border-black z-40" />
-                </div>
-                <hr className="w-full mb-1 border-2 col-span-full invisible" />
+                <EndOfPage/>
                 <figure
-                  draggable
                   key={index}
                   className={`
-              h-[151px]
-              w-[118px]
-
-              relative
-              flex
-              flex-col
-              border-[1.5px]
-              border-black
-              
-            `}
+                  h-[151px]
+                  w-[118px]
+                  relative
+                  flex
+                  flex-col
+                  border-[1.5px]
+                  border-black
+                  `}
                 >
                   <Button
                     onClick={() => dispatch(removePassportSizeImage(image.id))}
@@ -87,14 +83,11 @@ const PhotoPreview = ({}: Props) => {
                   <Image
                     quality={10}
                     className="
-              relative
-              object-top
-              object-cover
-
-              "
+                    relative
+                    object-top
+                    object-cover
+                    "
                     fill
-                    // width={180}
-                    // height={180}
                     src={image.img}
                     key={index}
                     alt="image"

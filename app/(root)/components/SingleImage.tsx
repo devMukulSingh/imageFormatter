@@ -16,7 +16,7 @@ const SingleImage = ({ image }: Props) => {
   const dispatch = useAppDispatch();
   const [openDialog, setOpenDialog] = useState(false);
   const { brightness, contrast, rotation, saturation } = useAppSelector(
-    (state) => state.filters,
+    (state) => state.filters
   );
   return (
     <>
@@ -29,13 +29,14 @@ const SingleImage = ({ image }: Props) => {
       )}
       <div
         className="         
-                          justify-center
-                          flex
-                          flex-col
+                        flex
+                        flex-col
+                        justify-center
                           border
                           print:border-none
                           relative
-                              "
+                          size-[352px] 
+       "
       >
         <Button
           onClick={() => dispatch(removeImage(image.id))}
@@ -45,18 +46,8 @@ const SingleImage = ({ image }: Props) => {
         >
           <X className="" size={15} />
         </Button>
-        <figure className="overflow-hidden relative size-[352px] ">
+        <figure className="overflow-hidden  ">
           <img
-            // style={{
-            //   transform: `rotate(${rotation}deg)`,
-            //   filter: `
-            //     saturate(${saturation}%)
-            //     contrast(${contrast}%)
-            //     brightness(${brightness})
-            //     `,
-            // }}
-            // quality={6}
-            // fill
             onClick={() => setOpenDialog(true)}
             className={`
               w-full

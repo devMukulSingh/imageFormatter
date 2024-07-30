@@ -29,7 +29,7 @@ import { getBase64Image } from "@/lib/hooks";
 const UploadComp = () => {
   const dispatch = useAppDispatch();
   const { passportSizeBase64Images: images, loading } = useAppSelector(
-    (state) => state,
+    (state) => state
   );
   const sectionProperties = {
     page: {
@@ -59,6 +59,7 @@ const UploadComp = () => {
 
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     try {
+      dispatch(setLoading(true));
       const file = e?.target?.files?.[0];
       if (file) {
         if (file.type.slice(0, 5) !== "image") {
@@ -66,16 +67,16 @@ const UploadComp = () => {
           return;
         }
         let base64PassportSizeImages = [];
-        const base64Image = await getBase64Image(file);
+        const imgUrl = URL.createObjectURL(file);
+        // const base64Image = await getBase64Image(file);
         for (let i = 0; i < 6; i++) {
           const imageId = Math.floor(Math.random() * 1000);
           base64PassportSizeImages.push({
             id: imageId,
-            img: base64Image,
+            img: imgUrl,
           });
         }
         dispatch(setPassportSizeBase64Image(base64PassportSizeImages));
-        dispatch(setLoading(true));
       }
     } catch (e) {
       toast.error("Something went wrong. Please try again");

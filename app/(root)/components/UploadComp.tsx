@@ -70,11 +70,14 @@ const UploadComp = () => {
             toast.error("Only images allowed");
             break;
           }
-          const base64Image = await getBase64Image(files[i]);
+          // const base64Image = await getBase64Image(files[i]);
+          const imgUrl = URL.createObjectURL(files[i]);
+          console.log(imgUrl);
+          
           const imageId = Math.floor(Math.random() * 100000);
           base64Images.push({
             id: imageId,
-            img: base64Image,
+            img: imgUrl,
           });
         }
         dispatch(setBase64Images(base64Images));
