@@ -29,7 +29,7 @@ import { getBase64Image } from "@/lib/hooks";
 const UploadComp = () => {
   const dispatch = useAppDispatch();
   const { passportSizeBase64Images: images, loading } = useAppSelector(
-    (state) => state
+    (state) => state,
   );
   const sectionProperties = {
     page: {

@@ -13,10 +13,12 @@ import EndOfPage from "@/components/EndOfPage";
 
 type Props = {};
 
-const ImagesPage = ({}: Props) => {
+const ImagesPreview = ({}: Props) => {
   const [a4PageHeight, setA4PageHeight] = useState(0);
   const a4pageRef = useRef<HTMLDivElement>(null);
-  const { base64Images:collageImages, loading } = useAppSelector((state) => state);
+  const { base64Images: collageImages, loading } = useAppSelector(
+    (state) => state,
+  );
   useEffect(() => {
     if (a4pageRef.current) setA4PageHeight(a4pageRef.current?.scrollHeight);
   }, [collageImages]);
@@ -56,7 +58,7 @@ const ImagesPage = ({}: Props) => {
   );
 };
 
-export default ImagesPage;
+export default ImagesPreview;
 // const handleOnDragEnd = (result: DropResult) => {
 //   const { source, destination } = result;
 //   if (!destination) return;

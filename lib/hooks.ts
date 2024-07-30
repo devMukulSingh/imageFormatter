@@ -9,10 +9,8 @@ type Targs = {
   image: HTMLImageElement | null;
   crop: Crop;
   setCrop: (crop: Crop) => void;
-  imgId: number;
   rotation: number;
-  dispatch: ThunkDispatch<IinitialState, undefined, UnknownAction> &
-    Dispatch<UnknownAction>;
+
 };
 export const getBase64Image = async (image: Blob): Promise<any> => {
   return new Promise((resolve, reject) => {
@@ -29,15 +27,13 @@ export const getBase64Image = async (image: Blob): Promise<any> => {
   });
 };
 
-export const handleCrop = async ({
+export const handleCrop =  ({
   image,
   crop,
   setCrop,
-  imgId,
-  dispatch,
+
 }: Targs) => {
   if (image && crop.height !== 0) {
-    // const { }
     const canvas = document.createElement("canvas");
     const scaleX = image.naturalWidth / image.width;
     const scaleY = image.naturalHeight / image.height;
@@ -70,23 +66,17 @@ export const handleCrop = async ({
       );
       ctx.restore();
     }
-    const croppedImgUrl = canvas.toDataURL("image/jpeg");
-
-    dispatch(
-      setCroppedImg({
-        id: imgId,
-        img: croppedImgUrl,
-      }),
-    );
+    const croppedImgUrl =  canvas.toDataURL("image/jpeg");
+    setCrop({
+      unit: "px",
+      x: 0,
+      y: 0,
+      width: 0,
+      height: 0,
+    });
+    return croppedImgUrl;
   }
 
-  setCrop({
-    unit: "px",
-    x: 0,
-    y: 0,
-    width: 0,
-    height: 0,
-  });
 };
 
 type TsaveImageArgs = {
@@ -95,9 +85,7 @@ type TsaveImageArgs = {
   contrast: number;
   saturation: number;
   rotation: number;
-  dispatch: ThunkDispatch<IinitialState, undefined, UnknownAction> &
-    Dispatch<UnknownAction>;
-  imageId: number;
+
 };
 
 export const handleSaveImage = ({
@@ -106,8 +94,7 @@ export const handleSaveImage = ({
   contrast,
   saturation,
   rotation,
-  dispatch,
-  imageId,
+
 }: TsaveImageArgs) => {
   if (img) {
     const { height, width } = getContainedSize(img);
@@ -140,11 +127,6 @@ export const handleSaveImage = ({
     }
     const fileredImage = canvas.toDataURL();
 
-    dispatch(
-      setCroppedImg({
-        id: imageId,
-        img: fileredImage,
-      }),
-    );
+    return fileredImage
   }
 };

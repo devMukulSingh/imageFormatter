@@ -14,16 +14,13 @@ const PhotoPreview = ({}: Props) => {
   const [a4PageHeight, setA4PageHeight] = useState(0);
   const dispatch = useAppDispatch();
   const { passportSizeBase64Images: passportImages, loading } = useAppSelector(
-    (state) => state
+    (state) => state,
   );
   const a4pageRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if(a4pageRef.current)
-    setA4PageHeight(a4pageRef.current?.scrollHeight)
-
+    if (a4pageRef.current) setA4PageHeight(a4pageRef.current?.scrollHeight);
   }, [passportImages]);
 
-  
   return (
     <div className="flex relative flex-col bg-white gap-5 print:max-h-screen max-h-[calc(100vh-6.25rem)] print:overflow-visible overflow-y-auto">
       <Buttons disabled={passportImages.length > 0 ? false : true} />
@@ -52,14 +49,10 @@ const PhotoPreview = ({}: Props) => {
           // h-[155px]
           // w-[118px]
 
-          if (
-            (a4PageHeight > 1120) &&
-            (index % 42 === 0) &&
-            (index !== 0)
-          ) {
+          if (a4PageHeight > 1120 && index % 42 === 0 && index !== 0) {
             return (
               <>
-                <EndOfPage/>
+                <EndOfPage />
                 <figure
                   key={index}
                   className={`

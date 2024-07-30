@@ -30,33 +30,9 @@ import { getBase64Image } from "@/lib/hooks";
 const UploadPan = () => {
   const dispatch = useAppDispatch();
   const { base64Pan, loading } = useAppSelector((state) => state);
-  const sectionProperties = {
-    page: {
-      margin: {
-        left: 400,
-        right: 400,
-        top: 500,
-        bottom: 500,
-      },
-    },
-    column: {
-      space: 10,
-      count: 2,
-      equalWidth: true,
-      children: [
-        new Column({
-          width: 720 * 10,
-          space: 10,
-        }),
-        new Column({
-          width: 720 * 10,
-          space: 10,
-        }),
-      ],
-    },
-  };
 
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    let panArray = []
     try {
       const file = e?.target?.files?.[0];
       if (file) {
@@ -64,8 +40,14 @@ const UploadPan = () => {
           toast.error("Only images allowed");
           return;
         }
-        const base64Image = await getBase64Image(file);
-        dispatch(setBase64Pan(base64Image));
+        // const base64Image = await getBase64Image(file);
+        const imgUrl = URL.createObjectURL(file);
+        const id = Math.floor(Math.random() * 1000);
+        panArray.push({
+          id,
+          img: imgUrl,
+        });
+        dispatch(setBase64Pan(panArray));
         dispatch(setLoading(true));
       }
     } catch (e) {
@@ -76,60 +58,6 @@ const UploadPan = () => {
     }
   };
 
-  // const handleDownload = () => {
-  //   if (base64Pan!=='') {
-  //     dispatch(setLoading(true));
-  //     const doc = new Document({
-  //       styles: {},
-  //       sections: [
-  //         {
-  //           properties: sectionProperties,
-  //           children: [
-  //             new Paragraph({
-  //               spacing: {
-  //                 line: 300,
-  //               },
-  //               heading: "Heading1",
-  //               alignment: "center",
-  //               indent: {},
-  //               children: [
-  //                 new ImageRun({
-  //                   data: images[0]?.img,
-  //                   transformation: {
-  //                     height: 340,
-  //                     width: 340,
-  //                   },
-  //                 }),
-  //                 new ImageRun({
-  //                   data: images[1]?.img,
-  //                   transformation: {
-  //                     height: 340,
-  //                     width: 340,
-  //                   },
-  //                 }),
-  //                 new ImageRun({
-  //                   data: images[2]?.img,
-  //                   transformation: {
-  //                     height: 340,
-  //                     width: 340,
-  //                   },
-  //                 }),
-  //                 new ColumnBreak(),
-  //               ],
-  //             }),
-  //           ],
-  //         },
-  //       ],
-  //     });
-
-  //     dispatch(setLoading(false));
-  //     Packer.toBlob(doc).then((blob) => {
-  //       saveAs(blob, "example.docx");
-  //     });
-  //   } else {
-  //     toast.error("Please upload images to format");
-  //   }
-  // };
   return (
     <>
       <div
@@ -169,3 +97,28 @@ const UploadPan = () => {
 };
 
 export default UploadPan;
+// const sectionProperties = {
+//   page: {
+//     margin: {
+//       left: 400,
+//       right: 400,
+//       top: 500,
+//       bottom: 500,
+//     },
+//   },
+//   column: {
+//     space: 10,
+//     count: 2,
+//     equalWidth: true,
+//     children: [
+//       new Column({
+//         width: 720 * 10,
+//         space: 10,
+//       }),
+//       new Column({
+//         width: 720 * 10,
+//         space: 10,
+//       }),
+//     ],
+//   },
+// };

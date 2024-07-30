@@ -8,7 +8,7 @@ const initialState: IinitialState = {
   aadharPdfs: [],
   collageFiles: "",
   passportPhotoFiles: "",
-  base64Pan: "",
+  base64Pan: [],
   filters: {
     brightness: 1,
     contrast: 100,
@@ -78,7 +78,7 @@ export const slice = createSlice({
       state.base64Pan = action.payload;
     },
     removeBase64Pan: (state, action) => {
-      state.base64Pan = "";
+      state.base64Pan = [];
     },
     setCroppedImg: (state, action) => {
       const { img, id } = action.payload;
@@ -101,6 +101,15 @@ export const slice = createSlice({
     setRotation: (state, action) => {
       state.filters.rotation = action.payload;
     },
+    setEditedPan : (state,action) => {
+      const { img, id } = action.payload;
+      for (let i = 0; i < state.base64Pan.length; i++) {
+        if (state.base64Pan[i].id === id) {
+          state.base64Pan[i].img = img;
+          return;
+        }
+      }
+    }
   },
 });
 
@@ -128,4 +137,5 @@ export const {
   setContrast,
   setSaturation,
   setRotation,
+  setEditedPan
 } = slice.actions;

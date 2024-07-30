@@ -1,11 +1,13 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
+import { setBase64Pan, setEditedPan } from "@/app/redux/slice";
 import { Button } from "@/components/ui/button";
 import { handleCrop } from "@/lib/hooks";
 import { base64Images } from "@/lib/types";
 import { CropIcon } from "lucide-react";
 import React, { RefObject, useState } from "react";
 import ReactCrop, { centerCrop, Crop, makeAspectCrop } from "react-image-crop";
+import "react-image-crop/dist/ReactCrop.css";
 
 type Props = {
   imgRef: RefObject<HTMLImageElement>;
@@ -16,6 +18,7 @@ const CropComp = ({ imgRef, image }: Props) => {
   // const { brightness, contrast, rotation, saturation } = useAppSelector(
   //   (state) => state.filters
   // );
+  const { base64Pan } = useAppSelector( state => state)
   const [crop, setCrop] = useState<Crop>({
     height: 80,
     width: 90,
@@ -25,14 +28,19 @@ const CropComp = ({ imgRef, image }: Props) => {
   });
   const dispatch = useAppDispatch();
   const handleClick = () => {
-    handleCrop({
+    const editedImage = handleCrop({
       image: imgRef.current,
       crop,
       setCrop,
       rotation: 0,
-      imgId: image.id,
-      dispatch,
     });
+
+    dispatch(
+      setEditedPan({
+        id: image.id,
+        img: editedImage,
+      })
+    );
   };
   // function onImageLoad(e: any) {
   //   const { naturalWidth: width, naturalHeight: height } = e.currentTarget;
@@ -56,19 +64,9 @@ const CropComp = ({ imgRef, image }: Props) => {
     <div className="border-black border-2 h-[30rem] w-[30rem] relative flex flex-col items-center justify-center">
       <ReactCrop className="" crop={crop} onChange={(c) => setCrop(c)}>
         <img
-          style={
-            {
-              // transform: `rotate(90deg)`,
-              // filter: `
-              //     saturate(${saturation}%)
-              //     contrast(${contrast}%)
-              //     brightness(${brightness})
-              //     `,
-            }
-          }
           className={`object-contain object-center w-full h-full !max-w-[30rem] !max-h-[30rem] `}
           ref={imgRef}
-          src={image.img}
+          src={base64Pan[0]?.img}
           alt="edit image"
         />
       </ReactCrop>
