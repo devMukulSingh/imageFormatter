@@ -2,7 +2,7 @@
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
 import { setCroppedImg } from "@/app/redux/slice";
 import { Button } from "@/components/ui/button";
-import { handleCrop } from "@/lib/hooks";
+import { cropImage } from "@/lib/hooks";
 import { base64Images } from "@/lib/types";
 import { CropIcon } from "lucide-react";
 import React, { RefObject, useState } from "react";
@@ -27,18 +27,17 @@ const CropComp = ({ imgRef, image }: Props) => {
   });
   const dispatch = useAppDispatch();
   const handleClick = () => {
-    const filteredImage = handleCrop({
+    const filteredImage = cropImage({
       image: imgRef.current,
       crop,
       setCrop,
       rotation: 0,
-      
     });
     dispatch(
       setCroppedImg({
         id: image.id,
         img: filteredImage,
-      })
+      }),
     );
   };
   // function onImageLoad(e: any) {
@@ -60,7 +59,7 @@ const CropComp = ({ imgRef, image }: Props) => {
   //   setCrop(crop);
   // }
   return (
-    <div className="border-black border-2 h-[30rem] w-[30rem] relative flex flex-col items-center justify-center">
+    <div className="border-black border-2 h-[35rem] w-[35rem] relative flex flex-col items-center justify-center">
       <ReactCrop className="" crop={crop} onChange={(c) => setCrop(c)}>
         <img
           style={
@@ -73,7 +72,7 @@ const CropComp = ({ imgRef, image }: Props) => {
               //     `,
             }
           }
-          className={`object-contain object-center w-full h-full !max-w-[30rem] !max-h-[30rem] `}
+          className={`object-contain object-center w-full h-full !max-w-[35rem] !max-h-[35rem] `}
           ref={imgRef}
           src={image.img}
           alt="edit image"

@@ -7,14 +7,13 @@ import React, { useState } from "react";
 import EditDialog from "./EditDialog";
 import { base64Images } from "@/lib/types";
 
-
 type Props = {
-    base64Pan : base64Images
-}
+  base64Pan: base64Images;
+};
 
 const SinglePan = ({ base64Pan }: Props) => {
   const dispatch = useAppDispatch();
-    const [openDialog, setOpenDialog] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
 
   return (
     <>
@@ -29,6 +28,7 @@ const SinglePan = ({ base64Pan }: Props) => {
         onClick={() => setOpenDialog(true)}
         draggable
         className="
+              cursor-pointer
               size-[22rem]
               relative
               flex
@@ -39,7 +39,7 @@ const SinglePan = ({ base64Pan }: Props) => {
           onClick={() => dispatch(removeBase64Pan(""))}
           size={"icon"}
           variant={"outline"}
-          className="self-center z-20 text-black rounded-full size-6 mt-1 print:hidden"
+          className="self-center z-20 text-black absolute rounded-full size-6 mt-1 print:hidden"
         >
           <X className="" size={15} />
         </Button>

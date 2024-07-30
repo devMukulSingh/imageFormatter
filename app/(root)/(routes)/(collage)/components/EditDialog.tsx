@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogFooter } from "@/components/ui/dialog";
 import { Slider } from "@/components/ui/slider";
-import { handleCrop } from "@/lib/hooks";
+import {  cropImage } from "@/lib/hooks";
 import { base64Images } from "@/lib/types";
 import { Check, CropIcon, FilterIcon, Save } from "lucide-react";
 import Image from "next/image";
@@ -59,37 +59,7 @@ const EditDialog = ({ openDialog, setOpenDialog, image }: Props) => {
     }
   };
 
-  const dispatch = useAppDispatch();
 
-  const handleSaveImage = () => {
-    const canvas = document.createElement("canvas");
-    if (imgRef.current) {
-      const img = imgRef.current;
-      const { height, width } = getContainedSize(img);
-      canvas.width = img.width;
-      canvas.height = img.height;
-
-      const ctx = canvas.getContext("2d");
-
-      if (ctx) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.save();
-        ctx.translate(canvas.width / 2, canvas.height / 2);
-        ctx.rotate((rotation * Math.PI) / 180);
-        ctx.drawImage(img, -width / 2, -height / 2, width, height);
-
-        ctx.restore();
-      }
-      const fileredImage = canvas.toDataURL();
-
-      dispatch(
-        setCroppedImg({
-          id: image.id,
-          img: fileredImage,
-        }),
-      );
-    }
-  };
   const handleCropWindow = () => {
     // handleSaveImage();
     setCurrentComponent("cropComp");

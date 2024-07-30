@@ -2,7 +2,7 @@
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
 import { setBase64Pan, setEditedPan } from "@/app/redux/slice";
 import { Button } from "@/components/ui/button";
-import { handleCrop } from "@/lib/hooks";
+import { cropImage } from "@/lib/hooks";
 import { base64Images } from "@/lib/types";
 import { CropIcon } from "lucide-react";
 import React, { RefObject, useState } from "react";
@@ -18,7 +18,7 @@ const CropComp = ({ imgRef, image }: Props) => {
   // const { brightness, contrast, rotation, saturation } = useAppSelector(
   //   (state) => state.filters
   // );
-  const { base64Pan } = useAppSelector( state => state)
+  const { base64Pan } = useAppSelector((state) => state);
   const [crop, setCrop] = useState<Crop>({
     height: 80,
     width: 90,
@@ -28,7 +28,7 @@ const CropComp = ({ imgRef, image }: Props) => {
   });
   const dispatch = useAppDispatch();
   const handleClick = () => {
-    const editedImage = handleCrop({
+    const editedImage = cropImage({
       image: imgRef.current,
       crop,
       setCrop,
@@ -39,7 +39,7 @@ const CropComp = ({ imgRef, image }: Props) => {
       setEditedPan({
         id: image.id,
         img: editedImage,
-      })
+      }),
     );
   };
   // function onImageLoad(e: any) {
@@ -61,10 +61,10 @@ const CropComp = ({ imgRef, image }: Props) => {
   //   setCrop(crop);
   // }
   return (
-    <div className="border-black border-2 h-[30rem] w-[30rem] relative flex flex-col items-center justify-center">
+    <div className="border-black border-2 h-[35rem] w-[35rem] relative flex flex-col items-center justify-center">
       <ReactCrop className="" crop={crop} onChange={(c) => setCrop(c)}>
         <img
-          className={`object-contain object-center w-full h-full !max-w-[30rem] !max-h-[30rem] `}
+          className={`object-contain object-center w-full h-full !max-w-[35rem] !max-h-[35rem] `}
           ref={imgRef}
           src={base64Pan[0]?.img}
           alt="edit image"

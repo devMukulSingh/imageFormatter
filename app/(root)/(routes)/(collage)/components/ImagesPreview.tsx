@@ -33,8 +33,8 @@ const ImagesPreview = ({}: Props) => {
                 grid
                 grid-cols-2
                 gap-4
-                min-h-[1120px]
-                w-[50rem]
+                min-h-[1122.5px]
+                w-[793.7px]
                 auto-rows-max
                 bg-white 
                 print:mt-0

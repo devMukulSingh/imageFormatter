@@ -20,8 +20,8 @@ const ImagesPage = ({}: Props) => {
         flex
         justify-center
         mt-[3rem]
-        min-h-[1120px]
-        w-[50rem]
+        min-h-[1122.5px]
+       w-[793.7px]
         bg-white 
         print:m-0
         py-10

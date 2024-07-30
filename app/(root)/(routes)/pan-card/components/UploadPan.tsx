@@ -32,7 +32,7 @@ const UploadPan = () => {
   const { base64Pan, loading } = useAppSelector((state) => state);
 
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    let panArray = []
+    let panArray = [];
     try {
       const file = e?.target?.files?.[0];
       if (file) {

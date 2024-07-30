@@ -3,9 +3,16 @@ import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
 import { setCroppedImg } from "@/app/redux/slice";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
+import { rotateBy90, saveImage } from "@/lib/hooks";
 import { base64Images } from "@/lib/types";
 import { getContainedSize } from "@/lib/utils";
-import { LucideRotateCcw, Rotate3D, RotateCcwSquare, Save } from "lucide-react";
+import {
+  LucideRotateCcw,
+  Rotate3D,
+  RotateCcwSquare,
+  Save,
+  WandSparkles,
+} from "lucide-react";
 import React, { RefObject, useState } from "react";
 
 type Props = {
@@ -40,45 +47,21 @@ const FiltersComp = ({
   setSharpness,
 }: Props) => {
   const dispatch = useAppDispatch();
-  // const { brightness, contrast, rotation, saturation } = useAppSelector(
-  //   (state) => state.filters
-  // );
 
   const handleSaveImage = () => {
-    if (imgRef.current) {
-      const img = imgRef.current;
-      const { height, width } = getContainedSize(img);
-
-      const scaleX = img.naturalWidth / width;
-      const scaleY = img.naturalHeight / height;
-
-      const canvas = document.createElement("canvas");
-
-      canvas.width = img.width;
-      canvas.height = img.height;
-
-      const ctx = canvas.getContext("2d");
-
-      if (ctx) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        ctx.save();
-        ctx.filter = `brightness(${brightness}%) contrast(${contrast}%) saturate(${saturation}%)`;
-        ctx.translate(canvas.width / 2, canvas.height / 2);
-        ctx.rotate((rotation * Math.PI) / 180);
-        ctx.drawImage(img, -width / 2, -height / 2, width, height);
-
-        ctx.restore();
-      }
-      const fileredImage = canvas.toDataURL();
-
-      dispatch(
-        setCroppedImg({
-          id: image.id,
-          img: fileredImage,
-        }),
-      );
-    }
+    const filteredImage = saveImage({
+      brightness,
+      contrast,
+      img: imgRef.current,
+      rotation,
+      saturation,
+    });
+    dispatch(
+      setCroppedImg({
+        id: image.id,
+        img: filteredImage,
+      })
+    );
     setOpenDialog(false);
   };
   const filters = [
@@ -120,33 +103,13 @@ const FiltersComp = ({
     },
   ];
   const handleRotate = () => {
-    const canvas = document.createElement("canvas");
-    if (imgRef.current) {
-      const img = imgRef.current;
-      const { height, width } = getContainedSize(img);
-      canvas.width = img.width;
-      canvas.height = img.height;
-
-      const ctx = canvas.getContext("2d");
-
-      if (ctx) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.save();
-        ctx.translate(canvas.width / 2, canvas.height / 2);
-        ctx.rotate((90 * Math.PI) / 180);
-        ctx.drawImage(img, -width / 2, -height / 2, width, height);
-
-        ctx.restore();
-      }
-      const fileredImage = canvas.toDataURL();
-
-      dispatch(
-        setCroppedImg({
-          id: image.id,
-          img: fileredImage,
-        }),
-      );
-    }
+    const filteredImage = rotateBy90(imgRef.current);
+    dispatch(
+      setCroppedImg({
+        id: image.id,
+        img: filteredImage,
+      })
+    );
   };
   const handleAutoEnhance = () => {
     setBrightness(110);
@@ -177,7 +140,14 @@ const FiltersComp = ({
               Rotate
               <LucideRotateCcw className="ml-2" size={20} />
             </Button>
-            <Button onClick={handleAutoEnhance}>Auto Enhance</Button>
+            <Button
+              className="font-semibold"
+              variant={"outline"}
+              onClick={handleAutoEnhance}
+            >
+              Auto enhance
+              <WandSparkles className="ml-2" size={20} />
+            </Button>
           </div>
           {filters.map((filter, index) => (
             <div className="space-y-2 w-full " key={index}>

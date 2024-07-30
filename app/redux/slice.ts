@@ -101,7 +101,7 @@ export const slice = createSlice({
     setRotation: (state, action) => {
       state.filters.rotation = action.payload;
     },
-    setEditedPan : (state,action) => {
+    setEditedPan: (state, action) => {
       const { img, id } = action.payload;
       for (let i = 0; i < state.base64Pan.length; i++) {
         if (state.base64Pan[i].id === id) {
@@ -109,7 +109,7 @@ export const slice = createSlice({
           return;
         }
       }
-    }
+    },
   },
 });
 
@@ -137,5 +137,5 @@ export const {
   setContrast,
   setSaturation,
   setRotation,
-  setEditedPan
+  setEditedPan,
 } = slice.actions;

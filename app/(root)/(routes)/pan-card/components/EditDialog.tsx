@@ -3,13 +3,13 @@ import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogFooter } from "@/components/ui/dialog";
 import { Slider } from "@/components/ui/slider";
-import { handleCrop } from "@/lib/hooks";
+import { cropImage } from "@/lib/hooks";
 import { base64Images } from "@/lib/types";
 import { Check, CropIcon, FilterIcon, Save } from "lucide-react";
 import Image from "next/image";
 import { ReactElement, useRef, useState } from "react";
 import ReactCrop, { centerCrop, Crop, makeAspectCrop } from "react-image-crop";
-import FiltersComp from "./FiltersComp"
+import FiltersComp from "./FiltersComp";
 import CropComp from "./CropComp";
 import { getContainedSize } from "@/lib/utils";
 import { setCroppedImg } from "@/app/redux/slice";
@@ -59,8 +59,6 @@ const EditDialog = ({ openDialog, setOpenDialog, image }: Props) => {
     }
   };
 
- 
-  
   const handleCropWindow = () => {
     // handleSaveImage();
     setCurrentComponent("cropComp");
@@ -69,13 +67,20 @@ const EditDialog = ({ openDialog, setOpenDialog, image }: Props) => {
   return (
     <Dialog open={openDialog} onOpenChange={setOpenDialog}>
       <DialogContent className="min-w-[90vw] h-[95vh] bg-neutral-200 gap-10 flex flex-col  items-center overflow-auto">
-        <div className="flex items-center gap-10">
-          <Button onClick={handleCropWindow}>
-            <CropIcon />
+        <div className="flex items-center gap-10 w-full justify-center">
+          <Button
+            variant={`${currentComponent === "cropComp" ? "outline" : "default"}`}
+            onClick={handleCropWindow}
+          >
+            <CropIcon className="mr-2" />
             Crop
           </Button>
-          <Button onClick={() => setCurrentComponent("filtersComp")}>
-            <FilterIcon />
+          <Button
+            type="button"
+            variant={`${currentComponent === "filtersComp" ? "outline" : "default"}`}
+            onClick={() => setCurrentComponent("filtersComp")}
+          >
+            <FilterIcon className="mr-2" />
             Filters
           </Button>
         </div>
@@ -87,31 +92,31 @@ const EditDialog = ({ openDialog, setOpenDialog, image }: Props) => {
 
 export default EditDialog;
 // const handleSaveImage = () => {
-  //   const canvas = document.createElement("canvas");
-  //   if (imgRef.current) {
-  //     const img = imgRef.current;
-  //     const { height, width } = getContainedSize(img);
-  //     canvas.width = img.width;
-  //     canvas.height = img.height;
+//   const canvas = document.createElement("canvas");
+//   if (imgRef.current) {
+//     const img = imgRef.current;
+//     const { height, width } = getContainedSize(img);
+//     canvas.width = img.width;
+//     canvas.height = img.height;
 
-  //     const ctx = canvas.getContext("2d");
+//     const ctx = canvas.getContext("2d");
 
-  //     if (ctx) {
-  //       ctx.clearRect(0, 0, canvas.width, canvas.height);
-  //       ctx.save();
-  //       ctx.translate(canvas.width / 2, canvas.height / 2);
-  //       ctx.rotate((rotation * Math.PI) / 180);
-  //       ctx.drawImage(img, -width / 2, -height / 2, width, height);
+//     if (ctx) {
+//       ctx.clearRect(0, 0, canvas.width, canvas.height);
+//       ctx.save();
+//       ctx.translate(canvas.width / 2, canvas.height / 2);
+//       ctx.rotate((rotation * Math.PI) / 180);
+//       ctx.drawImage(img, -width / 2, -height / 2, width, height);
 
-  //       ctx.restore();
-  //     }
-  //     const fileredImage = canvas.toDataURL();
+//       ctx.restore();
+//     }
+//     const fileredImage = canvas.toDataURL();
 
-  //     dispatch(
-  //       setCroppedImg({
-  //         id: image.id,
-  //         img: fileredImage,
-  //       }),
-  //     );
-  //   }
-  // };
+//     dispatch(
+//       setCroppedImg({
+//         id: image.id,
+//         img: fileredImage,
+//       }),
+//     );
+//   }
+// };

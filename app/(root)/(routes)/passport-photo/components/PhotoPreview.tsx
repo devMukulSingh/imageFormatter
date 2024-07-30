@@ -24,11 +24,9 @@ const PhotoPreview = ({}: Props) => {
   return (
     <div className="flex relative flex-col bg-white gap-5 print:max-h-screen max-h-[calc(100vh-6.25rem)] print:overflow-visible overflow-y-auto">
       <Buttons disabled={passportImages.length > 0 ? false : true} />
-
       <div
         ref={a4pageRef}
         className={`
-        print:h-screen
         mt-[3rem]
         gap-x-[6px]
         gap-y-2
@@ -36,8 +34,8 @@ const PhotoPreview = ({}: Props) => {
         auto-rows-min
         grid-cols-6
         auto-cols-min
-        min-h-[1120px]
-        w-[50rem]
+        min-h-[1122.5px]
+        w-[793.7px]
         bg-white 
         print:mt-0
         px-6
@@ -57,7 +55,7 @@ const PhotoPreview = ({}: Props) => {
                   key={index}
                   className={`
                   h-[151px]
-                  w-[118px]
+                  w-[117px]
                   relative
                   flex
                   flex-col

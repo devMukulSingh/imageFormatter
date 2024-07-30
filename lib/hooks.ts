@@ -5,12 +5,19 @@ import { setCroppedImg } from "@/app/redux/slice";
 import { Dispatch, ThunkDispatch, UnknownAction } from "@reduxjs/toolkit";
 import { getContainedSize } from "./utils";
 
+type TsaveImageArgs = {
+  img: HTMLImageElement | null
+  brightness: number,
+  contrast: number,
+  saturation: number,
+  rotation: number
+}
+
 type Targs = {
   image: HTMLImageElement | null;
   crop: Crop;
   setCrop: (crop: Crop) => void;
   rotation: number;
-
 };
 export const getBase64Image = async (image: Blob): Promise<any> => {
   return new Promise((resolve, reject) => {
@@ -27,12 +34,7 @@ export const getBase64Image = async (image: Blob): Promise<any> => {
   });
 };
 
-export const handleCrop =  ({
-  image,
-  crop,
-  setCrop,
-
-}: Targs) => {
+export const cropImage = ({ image, crop, setCrop }: Targs) => {
   if (image && crop.height !== 0) {
     const canvas = document.createElement("canvas");
     const scaleX = image.naturalWidth / image.width;
@@ -66,7 +68,7 @@ export const handleCrop =  ({
       );
       ctx.restore();
     }
-    const croppedImgUrl =  canvas.toDataURL("image/jpeg");
+    const croppedImgUrl = canvas.toDataURL("image/jpeg");
     setCrop({
       unit: "px",
       x: 0,
@@ -76,17 +78,69 @@ export const handleCrop =  ({
     });
     return croppedImgUrl;
   }
-
 };
 
-type TsaveImageArgs = {
-  img: HTMLImageElement;
-  brightness: number;
-  contrast: number;
-  saturation: number;
-  rotation: number;
 
+export const rotateBy90 = (img: HTMLImageElement | null) => {
+  const canvas = document.createElement("canvas");
+  if (img) {
+    const { height, width } = getContainedSize(img);
+    canvas.width = img.width;
+    canvas.height = img.height;
+
+    const ctx = canvas.getContext("2d");
+
+    if (ctx) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.save();
+      ctx.translate(canvas.width / 2, canvas.height / 2);
+      ctx.rotate((90 * Math.PI) / 180);
+      ctx.drawImage(img, -width / 2, -height / 2, width, height);
+
+      ctx.restore();
+    }
+    const rotatedImage = canvas.toDataURL();
+    return rotatedImage;
+  }
 };
+
+export const saveImage = ({ img, brightness, contrast, saturation, rotation }: TsaveImageArgs) => {
+  if (img) {
+    const { height, width } = getContainedSize(img);
+
+    const canvas = document.createElement("canvas");
+
+    canvas.width = img.width;
+    canvas.height = img.height;
+
+    const ctx = canvas.getContext("2d");
+
+    if (ctx) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      ctx.save();
+      ctx.filter = `brightness(${brightness}%) contrast(${contrast}%) saturate(${saturation}%)`;
+      ctx.translate(canvas.width / 2, canvas.height / 2);
+      ctx.rotate((rotation * Math.PI) / 180);
+      ctx.drawImage(img, -width / 2, -height / 2, width, height);
+
+      ctx.restore();
+    }
+    const filteredImage = canvas.toDataURL();
+    return filteredImage
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
 
 export const handleSaveImage = ({
   img,
@@ -94,7 +148,6 @@ export const handleSaveImage = ({
   contrast,
   saturation,
   rotation,
-
 }: TsaveImageArgs) => {
   if (img) {
     const { height, width } = getContainedSize(img);
@@ -127,6 +180,6 @@ export const handleSaveImage = ({
     }
     const fileredImage = canvas.toDataURL();
 
-    return fileredImage
+    return fileredImage;
   }
 };
