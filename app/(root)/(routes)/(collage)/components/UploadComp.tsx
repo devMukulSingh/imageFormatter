@@ -31,7 +31,7 @@ type Props = {
   // fileRef: RefObject<HTMLInputElement>;
 };
 
-const UploadComp = ({  }: Props) => {
+const UploadComp = ({}: Props) => {
   const collageInputRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
   const {
@@ -172,24 +172,26 @@ const UploadComp = ({  }: Props) => {
       toast.error("Please upload images to format");
     }
   };
-  useEffect( () => {
+  useEffect(() => {
     dispatch(setCollageInputRef(collageInputRef.current));
-  },[])
+  }, []);
   return (
-    <>
+
       <div
         className="
         print:hidden
         flex
         items-center
         h-fit 
+        w-[18rem]
         flex-col 
-        gap-10 
+        gap-8
         shadow-2xl 
         hover:scale-105
         transition 
         border 
-        p-10 
+        px-8 
+        py-10
         rounded-lg 
         bg-purple-400"
       >
@@ -199,7 +201,7 @@ const UploadComp = ({  }: Props) => {
         <Input
           ref={collageInputRef}
           onChange={handleChange}
-          className="bg-slate-200 cursor-pointer h-20 "
+          className="bg-slate-200 cursor-pointer h-28 "
           type="file"
           multiple
           disabled={loading}
@@ -211,7 +213,7 @@ const UploadComp = ({  }: Props) => {
           </Button>
         </div>
       </div>
-    </>
+
   );
 };
 

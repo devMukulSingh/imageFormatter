@@ -5,15 +5,21 @@ import PhotoPreview from "./components/PhotoPreview";
 const page = () => {
   return (
     <div
-      className="print:bg-white 
-        flex 
+      className="
+        print:bg-white 
+        lg:flex-row
+        flex
+        flex-col 
+        gap-5
+        lg:gap-8
         items-center
-        gap-10
         justify-center
         py-5
         print:h-screen
         print:p-0
-        h-[calc(100vh-5rem)]"
+        lg:h-[calc(100vh-5rem)]
+        min-h-[calc(100vh-5rem)]
+        "
     >
       <UploadComp />
       <PhotoPreview />

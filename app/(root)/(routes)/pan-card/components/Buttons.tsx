@@ -49,7 +49,7 @@ export default function Buttons({ disabled }: Props) {
   };
   return (
     <>
-      <div className="print:hidden fixed top-[90px] px-2 py-1 z-30 gap-5 h-[3rem] flex justify-center items-center w-[50rem] bg-neutral-200 ">
+      <div className="print:hidden lg:fixed top-[90px] px-2 py-1 z-30 gap-5 h-[3rem] flex justify-center items-center w-[793.7px] bg-neutral-200 ">
         {/* <Button
           className="flex gap-1"
           variant={"destructive"}

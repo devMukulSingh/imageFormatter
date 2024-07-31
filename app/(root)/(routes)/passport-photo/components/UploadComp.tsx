@@ -142,11 +142,11 @@ const UploadComp = () => {
       toast.error("Please upload images to format");
     }
   };
-  
-  useEffect( () => {
-    dispatch(setPassportInputRef(passportInputRef.current))
-  },[])
-  
+
+  useEffect(() => {
+    dispatch(setPassportInputRef(passportInputRef.current));
+  }, []);
+
   return (
     <>
       <div
@@ -156,12 +156,14 @@ const UploadComp = () => {
         h-fit 
         flex-col
         items-center 
-        gap-10 
+        gap-8
         shadow-2xl 
+        w-[18rem]
+        px-8 
+        py-10
         hover:scale-105
         transition 
         border 
-        p-10 
         rounded-lg 
         bg-purple-400"
       >
@@ -171,7 +173,7 @@ const UploadComp = () => {
         <Input
           ref={passportInputRef}
           onChange={handleChange}
-          className="bg-slate-200 cursor-pointer  h-20 "
+          className="bg-slate-200 cursor-pointer  h-28 "
           type="file"
           multiple
           disabled={loading}

@@ -16,7 +16,7 @@ const SingleImage = ({ image }: Props) => {
   const dispatch = useAppDispatch();
   const [openDialog, setOpenDialog] = useState(false);
   const { brightness, contrast, rotation, saturation } = useAppSelector(
-    (state) => state.filters
+    (state) => state.filters,
   );
   const { collageInputRef } = useAppSelector((state) => state);
   return (

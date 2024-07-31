@@ -31,7 +31,7 @@ import { getBase64Image } from "@/lib/hooks";
 const UploadPan = () => {
   const dispatch = useAppDispatch();
   const { base64Pan, loading } = useAppSelector((state) => state);
-  const panInputRef = useRef <HTMLInputElement | null>(null);
+  const panInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     let panArray = [];
@@ -59,9 +59,9 @@ const UploadPan = () => {
       dispatch(setLoading(false));
     }
   };
-  useEffect( () => {
+  useEffect(() => {
     dispatch(setPanInputRef(panInputRef.current));
-  },[])
+  }, []);
   return (
     <>
       <div

@@ -6,9 +6,9 @@ export interface base64Images {
 }
 
 export interface IinitialState {
-  collageInputRef: HTMLInputElement | null
-  passportInputRef:HTMLInputElement | null
-  panInputRef:HTMLInputElement | null
+  collageInputRef: HTMLInputElement | null;
+  passportInputRef: HTMLInputElement | null;
+  panInputRef: HTMLInputElement | null;
   base64Images: base64Images[];
   loading: boolean;
   passportSizeBase64Images: base64Images[];

@@ -25,13 +25,13 @@ export const slice = createSlice({
   initialState,
   reducers: {
     setCollageInputRef: (state, action) => {
-      state.collageInputRef = action.payload
+      state.collageInputRef = action.payload;
     },
     setPassportInputRef: (state, action) => {
-      state.passportInputRef = action.payload
+      state.passportInputRef = action.payload;
     },
     setPanInputRef: (state, action) => {
-      state.panInputRef = action.payload
+      state.panInputRef = action.payload;
     },
     removeAllPassportSizeImages: (state) => {
       state.passportSizeBase64Images = [];
