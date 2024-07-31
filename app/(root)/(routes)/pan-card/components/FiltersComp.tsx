@@ -13,7 +13,7 @@ import {
   Save,
   WandSparkles,
 } from "lucide-react";
-import React, { RefObject, useState } from "react";
+import React, { RefObject, useEffect, useState } from "react";
 
 type Props = {
   setOpenDialog: (openDialog: boolean) => void;
@@ -60,7 +60,7 @@ const FiltersComp = ({
       setEditedPan({
         id: image.id,
         img: filteredImage,
-      })
+      }),
     );
     setOpenDialog(false);
   };
@@ -108,7 +108,7 @@ const FiltersComp = ({
       setEditedPan({
         id: image.id,
         img: rotatedImage,
-      })
+      }),
     );
   };
   const handleAutoEnhance = () => {

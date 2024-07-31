@@ -1,4 +1,4 @@
-import { useAppDispatch } from "@/app/redux/hook";
+import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
 import {
   pushBase64Images,
   removeAllImages,
@@ -13,10 +13,12 @@ import toast from "react-hot-toast";
 
 type Props = {
   disabled: boolean;
+
 };
 
 const Buttons = ({ disabled }: Props) => {
   const dispatch = useAppDispatch();
+  const { collageInputRef } = useAppSelector((state) => state);
   const handleAddMore = async () => {
     const imageInput = document.createElement("input");
     imageInput.type = "file";
@@ -24,7 +26,6 @@ const Buttons = ({ disabled }: Props) => {
     imageInput.click();
     imageInput.onchange = async (e: any) => {
       const file = e?.target?.files;
-      console.log(file);
       try {
         let base64Images: base64Images[] | null = [];
         const files = e?.target?.files;
@@ -54,7 +55,10 @@ const Buttons = ({ disabled }: Props) => {
         disabled={disabled}
         className="flex gap-1"
         variant={"destructive"}
-        onClick={() => dispatch(removeAllImages())}
+        onClick={() => {
+          dispatch(removeAllImages());
+          if (collageInputRef) collageInputRef.value = "";
+        }}
       >
         <Trash size={20} />
         Remove all

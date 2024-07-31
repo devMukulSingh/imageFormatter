@@ -2,6 +2,9 @@ import { IinitialState } from "@/lib/types";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: IinitialState = {
+  collageInputRef: null,
+  passportInputRef: null,
+  panInputRef: null,
   base64Images: [],
   loading: false,
   passportSizeBase64Images: [],
@@ -21,6 +24,15 @@ export const slice = createSlice({
   name: "rootSlice",
   initialState,
   reducers: {
+    setCollageInputRef: (state, action) => {
+      state.collageInputRef = action.payload
+    },
+    setPassportInputRef: (state, action) => {
+      state.passportInputRef = action.payload
+    },
+    setPanInputRef: (state, action) => {
+      state.panInputRef = action.payload
+    },
     removeAllPassportSizeImages: (state) => {
       state.passportSizeBase64Images = [];
       state.passportPhotoFiles = "";
@@ -78,7 +90,10 @@ export const slice = createSlice({
       state.base64Pan = action.payload;
     },
     removeBase64Pan: (state, action) => {
-      state.base64Pan = [];
+      const filteredArr = state.base64Pan.filter(
+        (img) => img.id !== action.payload,
+      );
+      state.base64Pan = filteredArr;
     },
     setCroppedImg: (state, action) => {
       const { img, id } = action.payload;
@@ -89,18 +104,7 @@ export const slice = createSlice({
         }
       }
     },
-    setBrightness: (state, action) => {
-      state.filters.brightness = action.payload;
-    },
-    setContrast: (state, action) => {
-      state.filters.contrast = action.payload;
-    },
-    setSaturation: (state, action) => {
-      state.filters.saturation = action.payload;
-    },
-    setRotation: (state, action) => {
-      state.filters.rotation = action.payload;
-    },
+
     setEditedPan: (state, action) => {
       const { img, id } = action.payload;
       for (let i = 0; i < state.base64Pan.length; i++) {
@@ -116,6 +120,9 @@ export const slice = createSlice({
 export default slice.reducer;
 
 export const {
+  setCollageInputRef,
+  setPanInputRef,
+  setPassportInputRef,
   setBase64Images,
   removeImage,
   pushBase64Images,
@@ -133,9 +140,6 @@ export const {
   setBase64Pan,
   removeBase64Pan,
   setCroppedImg,
-  setBrightness,
-  setContrast,
-  setSaturation,
-  setRotation,
+
   setEditedPan,
 } = slice.actions;

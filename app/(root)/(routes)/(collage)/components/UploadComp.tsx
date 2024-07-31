@@ -1,7 +1,7 @@
 "use client";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, RefObject, useEffect, useRef, useState } from "react";
 import { saveAs } from "file-saver";
 import {
   Column,
@@ -20,13 +20,19 @@ import { Download, Printer } from "lucide-react";
 import {
   setBase64Images,
   setCollageFiles,
+  setCollageInputRef,
   setLoading,
 } from "@/app/redux/slice";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
 import { base64Images } from "@/lib/types";
 import { getBase64Image } from "@/lib/hooks";
 
-const UploadComp = () => {
+type Props = {
+  // fileRef: RefObject<HTMLInputElement>;
+};
+
+const UploadComp = ({  }: Props) => {
+  const collageInputRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
   const {
     base64Images: images,
@@ -166,6 +172,9 @@ const UploadComp = () => {
       toast.error("Please upload images to format");
     }
   };
+  useEffect( () => {
+    dispatch(setCollageInputRef(collageInputRef.current));
+  },[])
   return (
     <>
       <div
@@ -188,6 +197,7 @@ const UploadComp = () => {
           Upload Images
         </Label>
         <Input
+          ref={collageInputRef}
           onChange={handleChange}
           className="bg-slate-200 cursor-pointer h-20 "
           type="file"

@@ -1,7 +1,7 @@
 "use client";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useReducer, useRef, useState } from "react";
 import { saveAs } from "file-saver";
 import {
   Column,
@@ -20,6 +20,7 @@ import { Download, Printer } from "lucide-react";
 import {
   setBase64Images,
   setLoading,
+  setPassportInputRef,
   setPassportSizeBase64Image,
 } from "@/app/redux/slice";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
@@ -27,6 +28,7 @@ import { base64Images } from "@/lib/types";
 import { getBase64Image } from "@/lib/hooks";
 
 const UploadComp = () => {
+  const passportInputRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
   const { passportSizeBase64Images: images, loading } = useAppSelector(
     (state) => state,
@@ -140,6 +142,11 @@ const UploadComp = () => {
       toast.error("Please upload images to format");
     }
   };
+  
+  useEffect( () => {
+    dispatch(setPassportInputRef(passportInputRef.current))
+  },[])
+  
   return (
     <>
       <div
@@ -162,6 +169,7 @@ const UploadComp = () => {
           Upload Images
         </Label>
         <Input
+          ref={passportInputRef}
           onChange={handleChange}
           className="bg-slate-200 cursor-pointer  h-20 "
           type="file"

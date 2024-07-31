@@ -13,10 +13,10 @@ type Props = {};
 const PhotoPreview = ({}: Props) => {
   const [a4PageHeight, setA4PageHeight] = useState(0);
   const dispatch = useAppDispatch();
-  const { passportSizeBase64Images: passportImages, loading } = useAppSelector(
+  const { passportSizeBase64Images: passportImages, loading,passportInputRef } = useAppSelector(
     (state) => state,
   );
-  const a4pageRef = useRef<HTMLDivElement>(null);
+  const a4pageRef = useRef<HTMLDivElement|null>(null);
   useEffect(() => {
     if (a4pageRef.current) setA4PageHeight(a4pageRef.current?.scrollHeight);
   }, [passportImages]);
@@ -64,7 +64,10 @@ const PhotoPreview = ({}: Props) => {
                   `}
                 >
                   <Button
-                    onClick={() => dispatch(removePassportSizeImage(image.id))}
+                    onClick={() => {
+                      dispatch(removePassportSizeImage(image.id))
+                      if(passportInputRef) passportInputRef.value = ""
+                    } }
                     size={"icon"}
                     variant={"outline"}
                     className="self-center z-20 text-black rounded-full size-6 mt-1 print:hidden"

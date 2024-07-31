@@ -60,7 +60,7 @@ const FiltersComp = ({
       setCroppedImg({
         id: image.id,
         img: filteredImage,
-      })
+      }),
     );
     setOpenDialog(false);
   };
@@ -108,7 +108,7 @@ const FiltersComp = ({
       setCroppedImg({
         id: image.id,
         img: filteredImage,
-      })
+      }),
     );
   };
   const handleAutoEnhance = () => {

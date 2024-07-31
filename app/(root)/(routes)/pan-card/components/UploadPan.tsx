@@ -1,7 +1,7 @@
 "use client";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { saveAs } from "file-saver";
 import {
   Column,
@@ -21,6 +21,7 @@ import {
   setBase64Images,
   setBase64Pan,
   setLoading,
+  setPanInputRef,
   setPassportSizeBase64Image,
 } from "@/app/redux/slice";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
@@ -30,6 +31,7 @@ import { getBase64Image } from "@/lib/hooks";
 const UploadPan = () => {
   const dispatch = useAppDispatch();
   const { base64Pan, loading } = useAppSelector((state) => state);
+  const panInputRef = useRef <HTMLInputElement | null>(null);
 
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     let panArray = [];
@@ -57,7 +59,9 @@ const UploadPan = () => {
       dispatch(setLoading(false));
     }
   };
-
+  useEffect( () => {
+    dispatch(setPanInputRef(panInputRef.current));
+  },[])
   return (
     <>
       <div
@@ -80,6 +84,8 @@ const UploadPan = () => {
           Upload Image
         </Label>
         <Input
+          ref={panInputRef}
+          multiple
           onChange={handleChange}
           className="bg-slate-200 cursor-pointer  h-20 "
           type="file"

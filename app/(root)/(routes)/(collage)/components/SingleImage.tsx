@@ -16,8 +16,9 @@ const SingleImage = ({ image }: Props) => {
   const dispatch = useAppDispatch();
   const [openDialog, setOpenDialog] = useState(false);
   const { brightness, contrast, rotation, saturation } = useAppSelector(
-    (state) => state.filters,
+    (state) => state.filters
   );
+  const { collageInputRef } = useAppSelector((state) => state);
   return (
     <>
       {openDialog && (
@@ -39,7 +40,10 @@ const SingleImage = ({ image }: Props) => {
        "
       >
         <Button
-          onClick={() => dispatch(removeImage(image.id))}
+          onClick={() => {
+            dispatch(removeImage(image.id));
+            if (collageInputRef) collageInputRef.value = "";
+          }}
           size={"icon"}
           variant={"outline"}
           className="self-center text-black z-20 rounded-full size-6  absolute top-1 print:hidden"

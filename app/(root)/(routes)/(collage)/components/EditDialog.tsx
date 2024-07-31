@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogFooter } from "@/components/ui/dialog";
 import { Slider } from "@/components/ui/slider";
-import {  cropImage } from "@/lib/hooks";
+import { cropImage } from "@/lib/hooks";
 import { base64Images } from "@/lib/types";
 import { Check, CropIcon, FilterIcon, Save } from "lucide-react";
 import Image from "next/image";
@@ -27,7 +27,7 @@ const EditDialog = ({ openDialog, setOpenDialog, image }: Props) => {
   const [rotation, setRotation] = useState(0);
   const [sharpness, setSharpness] = useState(0);
 
-  const imgRef = useRef<HTMLImageElement>(null);
+  const imgRef = useRef<HTMLImageElement | null>(null);
 
   const [currentComponent, setCurrentComponent] =
     useState<ComponentType>("cropComp");
@@ -58,7 +58,6 @@ const EditDialog = ({ openDialog, setOpenDialog, image }: Props) => {
         return null;
     }
   };
-
 
   const handleCropWindow = () => {
     // handleSaveImage();

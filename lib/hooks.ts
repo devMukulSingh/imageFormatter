@@ -6,12 +6,12 @@ import { Dispatch, ThunkDispatch, UnknownAction } from "@reduxjs/toolkit";
 import { getContainedSize } from "./utils";
 
 type TsaveImageArgs = {
-  img: HTMLImageElement | null
-  brightness: number,
-  contrast: number,
-  saturation: number,
-  rotation: number
-}
+  img: HTMLImageElement | null;
+  brightness: number;
+  contrast: number;
+  saturation: number;
+  rotation: number;
+};
 
 type Targs = {
   image: HTMLImageElement | null;
@@ -80,7 +80,6 @@ export const cropImage = ({ image, crop, setCrop }: Targs) => {
   }
 };
 
-
 export const rotateBy90 = (img: HTMLImageElement | null) => {
   const canvas = document.createElement("canvas");
   if (img) {
@@ -104,7 +103,13 @@ export const rotateBy90 = (img: HTMLImageElement | null) => {
   }
 };
 
-export const saveImage = ({ img, brightness, contrast, saturation, rotation }: TsaveImageArgs) => {
+export const saveImage = ({
+  img,
+  brightness,
+  contrast,
+  saturation,
+  rotation,
+}: TsaveImageArgs) => {
   if (img) {
     const { height, width } = getContainedSize(img);
 
@@ -127,20 +132,9 @@ export const saveImage = ({ img, brightness, contrast, saturation, rotation }: T
       ctx.restore();
     }
     const filteredImage = canvas.toDataURL();
-    return filteredImage
+    return filteredImage;
   }
-}
-
-
-
-
-
-
-
-
-
-
-
+};
 
 export const handleSaveImage = ({
   img,

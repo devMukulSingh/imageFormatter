@@ -1,4 +1,4 @@
-import { useAppDispatch } from "@/app/redux/hook";
+import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
 import {
   pushBase64Images,
   pushPassportSizeBase64Images,
@@ -48,6 +48,11 @@ export default function Buttons({ disabled }: Props) {
       }
     };
   };
+  const { passportInputRef } = useAppSelector((state) => state);
+  const handleRemoveAll = () => {
+    dispatch(removeAllPassportSizeImages());
+    if (passportInputRef) passportInputRef.value = "";
+  };
   return (
     <>
       <div className="print:hidden bg-neutral-200 fixed top-[90px] px-2 py-1 z-40 gap-5 h-[3rem] flex justify-center items-center w-[50rem] ">
@@ -55,7 +60,7 @@ export default function Buttons({ disabled }: Props) {
           disabled={disabled}
           className="flex gap-1"
           variant={"destructive"}
-          onClick={() => dispatch(removeAllPassportSizeImages())}
+          onClick={handleRemoveAll}
         >
           <Trash size={20} />
           Remove all
