@@ -16,9 +16,10 @@ type Props = {};
 const ImagesPreview = ({}: Props) => {
   const [a4PageHeight, setA4PageHeight] = useState(0);
   const a4pageRef = useRef<HTMLDivElement | null>(null);
-  const { base64Images: collageImages, loading } = useAppSelector(
-    (state) => state,
-  );
+  const {
+    persistedReducer: { base64Images: collageImages },
+    nonPersistedReducer: { loading },
+  } = useAppSelector((state) => state);
   useEffect(() => {
     if (a4pageRef?.current) setA4PageHeight(a4pageRef.current?.scrollHeight);
   }, [collageImages]);

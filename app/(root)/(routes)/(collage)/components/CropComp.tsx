@@ -1,6 +1,6 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
-import { setCroppedImg } from "@/app/redux/slice";
+import { setCroppedImg } from "@/app/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
 import { cropImage } from "@/lib/hooks";
 import { base64Images } from "@/lib/types";
@@ -37,7 +37,7 @@ const CropComp = ({ imgRef, image }: Props) => {
       setCroppedImg({
         id: image.id,
         img: filteredImage,
-      }),
+      })
     );
   };
   // function onImageLoad(e: any) {

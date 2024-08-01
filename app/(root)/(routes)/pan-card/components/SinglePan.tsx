@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
-import { removeBase64Pan } from "@/app/redux/slice";
+import { removeBase64Pan } from "@/app/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import Image from "next/image";
@@ -14,7 +14,7 @@ type Props = {
 const SinglePan = ({ base64Pan }: Props) => {
   const dispatch = useAppDispatch();
   const [openDialog, setOpenDialog] = useState(false);
-  const { panInputRef } = useAppSelector((state) => state);
+  const { nonPersistedReducer:{ panInputRef} } = useAppSelector((state) => state);
   const handleRemove = () => {
     dispatch(removeBase64Pan(base64Pan.id));
     if (panInputRef) {

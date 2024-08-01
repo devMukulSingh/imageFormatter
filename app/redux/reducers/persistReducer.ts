@@ -1,38 +1,19 @@
-import { IinitialState } from "@/lib/types";
+import {  IPersistInitialState } from "@/lib/types";
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState: IinitialState = {
-  collageInputRef: null,
-  passportInputRef: null,
-  panInputRef: null,
+const initialState: IPersistInitialState = {
   base64Images: [],
-  loading: false,
   passportSizeBase64Images: [],
   aadharPdfs: [],
   collageFiles: "",
   passportPhotoFiles: "",
   base64Pan: [],
-  filters: {
-    brightness: 1,
-    contrast: 100,
-    saturation: 100,
-    rotation: 0,
-  },
 };
 
-export const slice = createSlice({
-  name: "rootSlice",
+export const persistedSlice = createSlice({
+  name: "persistedSlice",
   initialState,
   reducers: {
-    setCollageInputRef: (state, action) => {
-      state.collageInputRef = action.payload;
-    },
-    setPassportInputRef: (state, action) => {
-      state.passportInputRef = action.payload;
-    },
-    setPanInputRef: (state, action) => {
-      state.panInputRef = action.payload;
-    },
     removeAllPassportSizeImages: (state) => {
       state.passportSizeBase64Images = [];
       state.passportPhotoFiles = "";
@@ -66,9 +47,6 @@ export const slice = createSlice({
     },
     pushBase64Images: (state, action) => {
       state.base64Images.push(...action.payload);
-    },
-    setLoading: (state, action) => {
-      state.loading = action.payload;
     },
     removeAllImages: (state) => {
       state.base64Images = [];
@@ -117,16 +95,13 @@ export const slice = createSlice({
   },
 });
 
-export default slice.reducer;
+export default persistedSlice.reducer;
 
 export const {
-  setCollageInputRef,
-  setPanInputRef,
-  setPassportInputRef,
+
   setBase64Images,
   removeImage,
   pushBase64Images,
-  setLoading,
   pushPassportSizeBase64Images,
   setPassportSizeBase64Image,
   removeAllImages,
@@ -140,6 +115,5 @@ export const {
   setBase64Pan,
   removeBase64Pan,
   setCroppedImg,
-
   setEditedPan,
-} = slice.actions;
+} = persistedSlice.actions;

@@ -18,14 +18,15 @@ import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { Download, Printer } from "lucide-react";
 import {
+  pushBase64Images,
   setBase64Images,
   setCollageFiles,
-  setCollageInputRef,
-  setLoading,
-} from "@/app/redux/slice";
+
+} from "@/app/redux/reducers/persistReducer";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
 import { base64Images } from "@/lib/types";
 import { getBase64Image } from "@/lib/hooks";
+import { setCollageInputRef, setLoading } from "@/app/redux/reducers/nonPersistReducer";
 
 type Props = {
   // fileRef: RefObject<HTMLInputElement>;
@@ -34,10 +35,10 @@ type Props = {
 const UploadComp = ({}: Props) => {
   const collageInputRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
+
   const {
-    base64Images: images,
-    loading,
-    collageFiles,
+    nonPersistedReducer: { loading },
+    persistedReducer: { base64Images: images },
   } = useAppSelector((state) => state);
   const sectionProperties = {
     page: {
@@ -86,7 +87,7 @@ const UploadComp = ({}: Props) => {
             img: imgUrl,
           });
         }
-        dispatch(setBase64Images(base64Images));
+        dispatch(pushBase64Images(base64Images));
       }
     } catch (e) {
       toast.error("Something went wrong. Please try again");
@@ -176,9 +177,8 @@ const UploadComp = ({}: Props) => {
     dispatch(setCollageInputRef(collageInputRef.current));
   }, []);
   return (
-
-      <div
-        className="
+    <div
+      className="
         print:hidden
         flex
         items-center
@@ -194,26 +194,25 @@ const UploadComp = ({}: Props) => {
         py-10
         rounded-lg 
         bg-purple-400"
-      >
-        <Label className="text-lg text-white" htmlFor="picture">
-          Upload Images
-        </Label>
-        <Input
-          ref={collageInputRef}
-          onChange={handleChange}
-          className="bg-slate-200 cursor-pointer h-28 "
-          type="file"
-          multiple
-          disabled={loading}
-        />
-        <div className="flex gap-5">
-          <Button disabled={loading} onClick={handleDownload}>
-            <Download size={20} className="mr-2" />
-            Download DOCX
-          </Button>
-        </div>
+    >
+      <Label className="text-lg text-white" htmlFor="picture">
+        Upload Images
+      </Label>
+      <Input
+        ref={collageInputRef}
+        onChange={handleChange}
+        className="bg-slate-200 cursor-pointer h-28 "
+        type="file"
+        multiple
+        disabled={loading}
+      />
+      <div className="flex gap-5">
+        <Button disabled={loading} onClick={handleDownload}>
+          <Download size={20} className="mr-2" />
+          Download DOCX
+        </Button>
       </div>
-
+    </div>
   );
 };
 

@@ -1,6 +1,6 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
-import { removePassportSizeImage } from "@/app/redux/slice";
+import { removePassportSizeImage } from "@/app/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import Image from "next/image";
@@ -14,9 +14,8 @@ const PhotoPreview = ({}: Props) => {
   const [a4PageHeight, setA4PageHeight] = useState(0);
   const dispatch = useAppDispatch();
   const {
-    passportSizeBase64Images: passportImages,
-    loading,
-    passportInputRef,
+    persistedReducer: { passportSizeBase64Images: passportImages },
+    nonPersistedReducer: { loading, passportInputRef },
   } = useAppSelector((state) => state);
   const a4pageRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {

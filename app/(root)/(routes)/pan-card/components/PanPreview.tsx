@@ -1,6 +1,9 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
-import { removeBase64Pan, removePassportSizeImage } from "@/app/redux/slice";
+import {
+  removeBase64Pan,
+  removePassportSizeImage,
+} from "@/app/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import Image from "next/image";
@@ -10,7 +13,7 @@ import SinglePan from "./SinglePan";
 type Props = {};
 
 const ImagesPage = ({}: Props) => {
-  const { base64Pan, loading } = useAppSelector((state) => state);
+  const { persistedReducer :{ base64Pan }, nonPersistedReducer :{ loading} } = useAppSelector((state) => state);
 
   return (
     <div className="flex relative flex-col bg-white gap-5 print:max-h-screen max-h-[calc(100vh-6.25rem)] print:overflow-visible overflow-y-auto">

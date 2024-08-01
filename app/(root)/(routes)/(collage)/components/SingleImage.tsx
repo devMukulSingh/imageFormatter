@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
-import { removeImage } from "@/app/redux/slice";
+import { removeImage } from "@/app/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
 import { base64Images } from "@/lib/types";
 import { X } from "lucide-react";
@@ -15,10 +15,8 @@ type Props = {
 const SingleImage = ({ image }: Props) => {
   const dispatch = useAppDispatch();
   const [openDialog, setOpenDialog] = useState(false);
-  const { brightness, contrast, rotation, saturation } = useAppSelector(
-    (state) => state.filters,
-  );
-  const { collageInputRef } = useAppSelector((state) => state);
+
+  const { nonPersistedReducer:{ collageInputRef }} = useAppSelector((state) => state);
   return (
     <>
       {openDialog && (

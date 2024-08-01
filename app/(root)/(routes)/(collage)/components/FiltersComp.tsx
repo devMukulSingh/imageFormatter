@@ -1,6 +1,6 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
-import { setCroppedImg } from "@/app/redux/slice";
+import { setCroppedImg } from "@/app/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { rotateBy90, saveImage } from "@/lib/hooks";
@@ -60,7 +60,7 @@ const FiltersComp = ({
       setCroppedImg({
         id: image.id,
         img: filteredImage,
-      }),
+      })
     );
     setOpenDialog(false);
   };
@@ -108,7 +108,7 @@ const FiltersComp = ({
       setCroppedImg({
         id: image.id,
         img: filteredImage,
-      }),
+      })
     );
   };
   const handleAutoEnhance = () => {

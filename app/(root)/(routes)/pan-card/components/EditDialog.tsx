@@ -12,7 +12,7 @@ import ReactCrop, { centerCrop, Crop, makeAspectCrop } from "react-image-crop";
 import FiltersComp from "./FiltersComp";
 import CropComp from "./CropComp";
 import { getContainedSize } from "@/lib/utils";
-import { setCroppedImg } from "@/app/redux/slice";
+import { setCroppedImg } from "@/app/redux/reducers/persistReducer";
 
 type Props = {
   openDialog: boolean;

@@ -20,17 +20,18 @@ import { Download, Printer } from "lucide-react";
 import {
   pushBase64Pdfs,
   setBase64Images,
-  setLoading,
+
   setPassportSizeBase64Image,
-} from "@/app/redux/slice";
+} from "@/app/redux/reducers/persistReducer";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
 import { base64Images } from "@/lib/types";
 import { getBase64Image } from "@/lib/hooks";
 import { degrees, PDFDocument, rgb, StandardFonts } from "pdf-lib";
+import { setLoading } from "@/app/redux/reducers/nonPersistReducer";
 
 const UploadAadhar = () => {
   const dispatch = useAppDispatch();
-  const { aadharPdfs, loading } = useAppSelector((state) => state);
+  // const {loading } = useAppSelector((state) => state);
   const sectionProperties = {
     page: {
       margin: {
@@ -81,7 +82,7 @@ const UploadAadhar = () => {
           pushBase64Pdfs({
             id,
             file: base64PdfEdited,
-          }),
+          })
         );
 
         await pdfDoc.save();
@@ -94,82 +95,7 @@ const UploadAadhar = () => {
     }
   };
 
-  // const handleDownload = () => {
-  //   if (images.length > 0) {
-  //     dispatch(setLoading(true));
-  //     const doc = new Document({
-  //       styles: {},
-  //       sections: [
-  //         {
-  //           properties: sectionProperties,
-  //           children: [
-  //             new Paragraph({
-  //               spacing: {
-  //                 line: 300,
-  //               },
-  //               heading: "Heading1",
-  //               alignment: "center",
-  //               indent: {},
-  //               children: [
-  //                 new ImageRun({
-  //                   data: images[0]?.img,
-  //                   transformation: {
-  //                     height: 340,
-  //                     width: 340,
-  //                   },
-  //                 }),
-  //                 new ImageRun({
-  //                   data: images[1]?.img,
-  //                   transformation: {
-  //                     height: 340,
-  //                     width: 340,
-  //                   },
-  //                 }),
-  //                 new ImageRun({
-  //                   data: images[2]?.img,
-  //                   transformation: {
-  //                     height: 340,
-  //                     width: 340,
-  //                   },
-  //                 }),
-  //                 new ColumnBreak(),
-  //                 ////////2nd COLUMN////////////////
-  //                 new ImageRun({
-  //                   data: images[3]?.img,
-  //                   transformation: {
-  //                     height: 340,
-  //                     width: 340,
-  //                   },
-  //                 }),
-  //                 new ImageRun({
-  //                   data: images[4]?.img,
-  //                   transformation: {
-  //                     height: 340,
-  //                     width: 340,
-  //                   },
-  //                 }),
-  //                 new ImageRun({
-  //                   data: images[5]?.img,
-  //                   transformation: {
-  //                     height: 340,
-  //                     width: 340,
-  //                   },
-  //                 }),
-  //               ],
-  //             }),
-  //           ],
-  //         },
-  //       ],
-  //     });
-
-  //     dispatch(setLoading(false));
-  //     Packer.toBlob(doc).then((blob) => {
-  //       saveAs(blob, "example.docx");
-  //     });
-  //   } else {
-  //     toast.error("Please upload images to format");
-  //   }
-  // };
+  
   return (
     <>
       <div
@@ -196,7 +122,7 @@ const UploadAadhar = () => {
           className="bg-slate-200 cursor-pointer"
           type="file"
           multiple
-          disabled={loading}
+          // disabled={loading}
         />
         <div className="flex gap-5">
           {/* <Button disabled={loading} onClick={handleDownload}>

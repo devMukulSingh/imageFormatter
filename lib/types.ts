@@ -5,23 +5,19 @@ export interface base64Images {
   img: string;
 }
 
-export interface IinitialState {
-  collageInputRef: HTMLInputElement | null;
-  passportInputRef: HTMLInputElement | null;
-  panInputRef: HTMLInputElement | null;
+export interface IPersistInitialState {
   base64Images: base64Images[];
-  loading: boolean;
   passportSizeBase64Images: base64Images[];
   aadharPdfs: IaadharPdfs[];
   collageFiles: any;
   passportPhotoFiles: any;
   base64Pan: base64Images[];
-  filters: {
-    brightness: number;
-    contrast: number;
-    saturation: number;
-    rotation: number;
-  };
+}
+export interface InonPersistInitialState {
+  loading: boolean;
+  collageInputRef: HTMLInputElement | null;
+  passportInputRef: HTMLInputElement | null;
+  panInputRef: HTMLInputElement | null;
 }
 
 export interface IaadharPdfs {

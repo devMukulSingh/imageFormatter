@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Inter, Bona_Nova } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
-import Providers from "@/lib/Providers";
 import DragProvider from "@/lib/DragProvider";
+import PersistProvider from "@/lib/PersistProvider";
 
 const inter = Bona_Nova({ subsets: ["latin"], weight: "400" });
 
@@ -21,11 +21,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Toaster />
-        <Providers>
+        <PersistProvider>
           {/* <DragProvider> */}
           {children}
           {/* </DragProvider> */}
-        </Providers>
+        </PersistProvider>
       </body>
     </html>
   );

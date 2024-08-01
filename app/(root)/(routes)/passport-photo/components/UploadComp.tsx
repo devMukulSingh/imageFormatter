@@ -18,20 +18,21 @@ import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { Download, Printer } from "lucide-react";
 import {
+  pushPassportSizeBase64Images,
   setBase64Images,
-  setLoading,
-  setPassportInputRef,
+
   setPassportSizeBase64Image,
-} from "@/app/redux/slice";
+} from "@/app/redux/reducers/persistReducer";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
 import { base64Images } from "@/lib/types";
 import { getBase64Image } from "@/lib/hooks";
+import { setLoading, setPassportInputRef } from "@/app/redux/reducers/nonPersistReducer";
 
 const UploadComp = () => {
   const passportInputRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
-  const { passportSizeBase64Images: images, loading } = useAppSelector(
-    (state) => state,
+  const { persistedReducer:{ passportSizeBase64Images: images}, nonPersistedReducer:{ loading }} = useAppSelector(
+    (state) => state
   );
   const sectionProperties = {
     page: {
@@ -78,7 +79,7 @@ const UploadComp = () => {
             img: imgUrl,
           });
         }
-        dispatch(setPassportSizeBase64Image(base64PassportSizeImages));
+        dispatch(pushPassportSizeBase64Images(base64PassportSizeImages));
       }
     } catch (e) {
       toast.error("Something went wrong. Please try again");

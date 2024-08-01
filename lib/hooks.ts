@@ -1,7 +1,7 @@
 "use client";
 import { Crop } from "react-image-crop";
-import { IinitialState } from "./types";
-import { setCroppedImg } from "@/app/redux/slice";
+
+import { setCroppedImg } from "@/app/redux/reducers/persistReducer";
 import { Dispatch, ThunkDispatch, UnknownAction } from "@reduxjs/toolkit";
 import { getContainedSize } from "./utils";
 

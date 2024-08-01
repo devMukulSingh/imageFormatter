@@ -1,6 +1,9 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
-import { setBase64Pan, setEditedPan } from "@/app/redux/slice";
+import {
+  setBase64Pan,
+  setEditedPan,
+} from "@/app/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
 import { cropImage } from "@/lib/hooks";
 import { base64Images } from "@/lib/types";
@@ -18,7 +21,7 @@ const CropComp = ({ imgRef, image }: Props) => {
   // const { brightness, contrast, rotation, saturation } = useAppSelector(
   //   (state) => state.filters
   // );
-  const { base64Pan } = useAppSelector((state) => state);
+  const { persistedReducer:{ base64Pan} } = useAppSelector((state) => state);
   const [crop, setCrop] = useState<Crop>({
     height: 80,
     width: 90,
@@ -39,7 +42,7 @@ const CropComp = ({ imgRef, image }: Props) => {
       setEditedPan({
         id: image.id,
         img: editedImage,
-      }),
+      })
     );
   };
   // function onImageLoad(e: any) {

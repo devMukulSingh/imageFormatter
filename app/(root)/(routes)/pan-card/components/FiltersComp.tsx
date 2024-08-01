@@ -1,6 +1,10 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
-import { setBase64Pan, setCroppedImg, setEditedPan } from "@/app/redux/slice";
+import {
+  setBase64Pan,
+  setCroppedImg,
+  setEditedPan,
+} from "@/app/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { rotateBy90, saveImage } from "@/lib/hooks";
@@ -60,7 +64,7 @@ const FiltersComp = ({
       setEditedPan({
         id: image.id,
         img: filteredImage,
-      }),
+      })
     );
     setOpenDialog(false);
   };
@@ -108,7 +112,7 @@ const FiltersComp = ({
       setEditedPan({
         id: image.id,
         img: rotatedImage,
-      }),
+      })
     );
   };
   const handleAutoEnhance = () => {

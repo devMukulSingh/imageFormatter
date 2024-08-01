@@ -1,6 +1,6 @@
 import React from "react";
 import UploadAadhar from "./components/UploadAadhar";
-import PreviewAadhar from "./components/PreviewAadhar";
+// import PreviewAadhar from "./components/PreviewAadhar";
 
 const page = () => {
   return (
@@ -16,7 +16,7 @@ const page = () => {
         h-[calc(100vh-5rem)]"
     >
       <UploadAadhar />
-      <PreviewAadhar />
+      {/* <PreviewAadhar /> */}
     </div>
   );
 };

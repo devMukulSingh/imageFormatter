@@ -1,12 +1,13 @@
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
+import { setLoading } from "@/app/redux/reducers/nonPersistReducer";
 import {
   pushBase64Images,
   pushPassportSizeBase64Images,
   removeAllImages,
   removeAllPassportSizeImages,
   removeImage,
-  setLoading,
-} from "@/app/redux/slice";
+
+} from "@/app/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
 import { getBase64Image } from "@/lib/hooks";
 import { base64Images } from "@/lib/types";
@@ -48,7 +49,7 @@ export default function Buttons({ disabled }: Props) {
       }
     };
   };
-  const { passportInputRef } = useAppSelector((state) => state);
+  const { nonPersistedReducer:{ passportInputRef} } = useAppSelector((state) => state);
   const handleRemoveAll = () => {
     dispatch(removeAllPassportSizeImages());
     if (passportInputRef) passportInputRef.value = "";

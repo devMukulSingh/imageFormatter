@@ -20,17 +20,16 @@ import { Download, Printer } from "lucide-react";
 import {
   setBase64Images,
   setBase64Pan,
-  setLoading,
-  setPanInputRef,
   setPassportSizeBase64Image,
-} from "@/app/redux/slice";
+} from "@/app/redux/reducers/persistReducer";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
 import { base64Images } from "@/lib/types";
 import { getBase64Image } from "@/lib/hooks";
+import { setLoading, setPanInputRef } from "@/app/redux/reducers/nonPersistReducer";
 
 const UploadPan = () => {
   const dispatch = useAppDispatch();
-  const { base64Pan, loading } = useAppSelector((state) => state);
+  const { persistedReducer:{ base64Pan},nonPersistedReducer:{ loading} } = useAppSelector((state) => state);
   const panInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -71,12 +70,14 @@ const UploadPan = () => {
         h-fit 
         flex-col
         items-center 
+        w-[18rem]
         gap-10 
         shadow-2xl 
         hover:scale-105
         transition 
         border 
-        p-10 
+        px-8
+        py-10
         rounded-lg 
         bg-purple-400"
       >
@@ -87,7 +88,7 @@ const UploadPan = () => {
           ref={panInputRef}
           multiple
           onChange={handleChange}
-          className="bg-slate-200 cursor-pointer  h-20 "
+          className="bg-slate-200 cursor-pointer  h-28 "
           type="file"
           disabled={loading}
         />
