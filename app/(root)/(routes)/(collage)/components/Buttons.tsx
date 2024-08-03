@@ -82,7 +82,6 @@ const Buttons = ({ disabled }: Props) => {
         <PlusCircle size={20} />
         Add more
       </Button>
-      
     </div>
   );
 };

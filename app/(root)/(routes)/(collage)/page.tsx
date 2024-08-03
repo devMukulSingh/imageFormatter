@@ -4,9 +4,7 @@ import ImagesPreview from "./components/ImagesPreview";
 import UploadComp from "./components/UploadComp";
 
 export default function Home() {
-  useEffect( () => {
-
-  },[])
+  useEffect(() => {}, []);
   return (
     <>
       <main

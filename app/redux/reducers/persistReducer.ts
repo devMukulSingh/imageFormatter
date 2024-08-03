@@ -52,7 +52,7 @@ import { createSlice } from "@reduxjs/toolkit";
 // }
 
 const initialState: IPersistInitialState = {
-  base64Images:  [] ,
+  base64Images: [],
   passportSizeBase64Images: [],
   aadharPdfs: [],
   collageFiles: "",

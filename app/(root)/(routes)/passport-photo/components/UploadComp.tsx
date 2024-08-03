@@ -37,51 +37,29 @@ const UploadComp = () => {
     persistedReducer: { passportSizeBase64Images: images },
     nonPersistedReducer: { loading },
   } = useAppSelector((state) => state);
-  const sectionProperties = {
-    page: {
-      margin: {
-        left: 400,
-        right: 400,
-        top: 500,
-        bottom: 500,
-      },
-    },
-    column: {
-      space: 10,
-      count: 2,
-      equalWidth: true,
-      children: [
-        new Column({
-          width: 720 * 10,
-          space: 10,
-        }),
-        new Column({
-          width: 720 * 10,
-          space: 10,
-        }),
-      ],
-    },
-  };
+
 
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     try {
       dispatch(setLoading(true));
-      const file = e?.target?.files?.[0];
-      if (file) {
-        if (file.type.slice(0, 5) !== "image") {
-          toast.error("Only images allowed");
-          return;
+      const files = e?.target?.files;
+      let base64PassportSizeImages = [];
+      if (files) {
+        for (let j = 0; j < files.length; j++) {
+          if (files[j].type.slice(0, 5) !== "image") {
+            toast.error("Only images allowed");
+            return;
+          }
+          const imgUrl = URL.createObjectURL(files[j]);
+          for (let i = 0; i < 6; i++) {
+            const imageId = Math.floor(Math.random() * 1000);
+            base64PassportSizeImages.push({
+              id: imageId,
+              img: imgUrl,
+            });
+          }
         }
-        let base64PassportSizeImages = [];
-        const imgUrl = URL.createObjectURL(file);
         // const base64Image = await getBase64Image(file);
-        for (let i = 0; i < 6; i++) {
-          const imageId = Math.floor(Math.random() * 1000);
-          base64PassportSizeImages.push({
-            id: imageId,
-            img: imgUrl,
-          });
-        }
         dispatch(pushPassportSizeBase64Images(base64PassportSizeImages));
       }
     } catch (e) {
@@ -89,61 +67,6 @@ const UploadComp = () => {
       console.log(`Error in handleChange`);
     } finally {
       dispatch(setLoading(false));
-    }
-  };
-
-  const handleDownload = () => {
-    if (images.length > 0) {
-      dispatch(setLoading(true));
-      const doc = new Document({
-        styles: {},
-        sections: [
-          {
-            properties: sectionProperties,
-            children: [
-              new Paragraph({
-                spacing: {
-                  line: 300,
-                },
-                heading: "Heading1",
-                alignment: "center",
-                indent: {},
-                children: [
-                  new ImageRun({
-                    data: images[0]?.img,
-                    transformation: {
-                      height: 340,
-                      width: 340,
-                    },
-                  }),
-                  new ImageRun({
-                    data: images[1]?.img,
-                    transformation: {
-                      height: 340,
-                      width: 340,
-                    },
-                  }),
-                  new ImageRun({
-                    data: images[2]?.img,
-                    transformation: {
-                      height: 340,
-                      width: 340,
-                    },
-                  }),
-                  new ColumnBreak(),
-                ],
-              }),
-            ],
-          },
-        ],
-      });
-
-      dispatch(setLoading(false));
-      Packer.toBlob(doc).then((blob) => {
-        saveAs(blob, "example.docx");
-      });
-    } else {
-      toast.error("Please upload images to format");
     }
   };
 
