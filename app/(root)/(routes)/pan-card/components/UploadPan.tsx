@@ -25,11 +25,17 @@ import {
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
 import { base64Images } from "@/lib/types";
 import { getBase64Image } from "@/lib/hooks";
-import { setLoading, setPanInputRef } from "@/app/redux/reducers/nonPersistReducer";
+import {
+  setLoading,
+  setPanInputRef,
+} from "@/app/redux/reducers/nonPersistReducer";
 
 const UploadPan = () => {
   const dispatch = useAppDispatch();
-  const { persistedReducer:{ base64Pan},nonPersistedReducer:{ loading} } = useAppSelector((state) => state);
+  const {
+    persistedReducer: { base64Pan },
+    nonPersistedReducer: { loading },
+  } = useAppSelector((state) => state);
   const panInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {

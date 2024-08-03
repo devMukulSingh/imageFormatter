@@ -20,7 +20,6 @@ import { Download, Printer } from "lucide-react";
 import {
   pushBase64Pdfs,
   setBase64Images,
-
   setPassportSizeBase64Image,
 } from "@/app/redux/reducers/persistReducer";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
@@ -82,7 +81,7 @@ const UploadAadhar = () => {
           pushBase64Pdfs({
             id,
             file: base64PdfEdited,
-          })
+          }),
         );
 
         await pdfDoc.save();
@@ -95,7 +94,6 @@ const UploadAadhar = () => {
     }
   };
 
-  
   return (
     <>
       <div

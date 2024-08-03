@@ -20,20 +20,23 @@ import { Download, Printer } from "lucide-react";
 import {
   pushPassportSizeBase64Images,
   setBase64Images,
-
   setPassportSizeBase64Image,
 } from "@/app/redux/reducers/persistReducer";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
 import { base64Images } from "@/lib/types";
 import { getBase64Image } from "@/lib/hooks";
-import { setLoading, setPassportInputRef } from "@/app/redux/reducers/nonPersistReducer";
+import {
+  setLoading,
+  setPassportInputRef,
+} from "@/app/redux/reducers/nonPersistReducer";
 
 const UploadComp = () => {
   const passportInputRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
-  const { persistedReducer:{ passportSizeBase64Images: images}, nonPersistedReducer:{ loading }} = useAppSelector(
-    (state) => state
-  );
+  const {
+    persistedReducer: { passportSizeBase64Images: images },
+    nonPersistedReducer: { loading },
+  } = useAppSelector((state) => state);
   const sectionProperties = {
     page: {
       margin: {
@@ -179,12 +182,12 @@ const UploadComp = () => {
           multiple
           disabled={loading}
         />
-        <div className="flex gap-5">
+        {/* <div className="flex gap-5">
           <Button disabled={loading} onClick={handleDownload}>
             <Download size={20} className="mr-2" />
             Download DOCX
           </Button>
-        </div>
+        </div> */}
       </div>
     </>
   );

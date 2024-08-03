@@ -1,8 +1,58 @@
-import {  IPersistInitialState } from "@/lib/types";
+import { IPersistInitialState } from "@/lib/types";
 import { createSlice } from "@reduxjs/toolkit";
 
+// let db;
+
+// let request = indexedDB.open("myDatabase", 1);
+
+// request.onerror = function (event) {
+//   console.log("Error opening IndexedDB:", event);
+// };
+
+// request.onsuccess = function (event) {
+//   db = event.target.result;
+//   console.log("Database opened successfully");
+// };
+// request.onupgradeneeded = function (event) {
+//   db = event.target.result;
+//   let objectStore = db.createObjectStore("myStore", { keyPath: "id", autoIncrement: true });
+//   objectStore.createIndex("base64Images", [], { unique: false });
+//   objectStore.createIndex("passportSizeBase64Images", [], { unique: true });
+//   objectStore.createIndex("base64Pan", [], { unique: true });
+// };
+// function getData(key:string) {
+//   let transaction = db?.transaction(["myStore"], "readonly");
+//   let objectStore = transaction.objectStore("myStore");
+//   let request = objectStore.get(key);
+
+//   request.onsuccess = function (event) {
+//     if (request.result) {
+//       console.log("Data retrieved:", request.result);
+//     } else {
+//       console.log("Data not found");
+//     }
+//   };
+
+//   request.onerror = function (event) {
+//     console.log("Unable to retrieve data:", event);
+//   };
+// }
+// function addData(data:any) {
+//   let transaction = db?.transaction(["myStore"], "readwrite");
+//   let objectStore = transaction.objectStore("myStore");
+//   let request = objectStore.add(data);
+
+//   request.onsuccess = function (event) {
+//     console.log("Data has been added to your database.");
+//   };
+
+//   request.onerror = function (event) {
+//     console.log("Unable to add data:", event);
+//   };
+// }
+
 const initialState: IPersistInitialState = {
-  base64Images: [],
+  base64Images:  [] ,
   passportSizeBase64Images: [],
   aadharPdfs: [],
   collageFiles: "",
@@ -47,6 +97,7 @@ export const persistedSlice = createSlice({
     },
     pushBase64Images: (state, action) => {
       state.base64Images.push(...action.payload);
+      // addData(action.payload)
     },
     removeAllImages: (state) => {
       state.base64Images = [];
@@ -98,7 +149,6 @@ export const persistedSlice = createSlice({
 export default persistedSlice.reducer;
 
 export const {
-
   setBase64Images,
   removeImage,
   pushBase64Images,

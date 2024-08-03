@@ -21,7 +21,9 @@ const CropComp = ({ imgRef, image }: Props) => {
   // const { brightness, contrast, rotation, saturation } = useAppSelector(
   //   (state) => state.filters
   // );
-  const { persistedReducer:{ base64Pan} } = useAppSelector((state) => state);
+  const {
+    persistedReducer: { base64Pan },
+  } = useAppSelector((state) => state);
   const [crop, setCrop] = useState<Crop>({
     height: 80,
     width: 90,
@@ -42,7 +44,7 @@ const CropComp = ({ imgRef, image }: Props) => {
       setEditedPan({
         id: image.id,
         img: editedImage,
-      })
+      }),
     );
   };
   // function onImageLoad(e: any) {

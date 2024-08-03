@@ -37,7 +37,7 @@ const CropComp = ({ imgRef, image }: Props) => {
       setCroppedImg({
         id: image.id,
         img: filteredImage,
-      })
+      }),
     );
   };
   // function onImageLoad(e: any) {

@@ -14,7 +14,9 @@ type Props = {
 const SinglePan = ({ base64Pan }: Props) => {
   const dispatch = useAppDispatch();
   const [openDialog, setOpenDialog] = useState(false);
-  const { nonPersistedReducer:{ panInputRef} } = useAppSelector((state) => state);
+  const {
+    nonPersistedReducer: { panInputRef },
+  } = useAppSelector((state) => state);
   const handleRemove = () => {
     dispatch(removeBase64Pan(base64Pan.id));
     if (panInputRef) {

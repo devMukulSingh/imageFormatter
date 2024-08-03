@@ -26,11 +26,11 @@
 //         gap-y-2
 //         min-h-[1122.5px]
 //         w-[793.7px]
-//         bg-white 
+//         bg-white
 //         print:m-0
 //         py-5
 //         px-5
-        
+
 //         "
 //       >
 //         {aadharPdfs.map((pdf, index) => (

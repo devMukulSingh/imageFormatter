@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import persistedReducer from "./reducers/persistReducer";
-import storage from 'redux-persist/lib/storage/createWebStorage'
-import nonPersistedReducer from "@/app/redux/reducers/nonPersistReducer"
+import storage from "redux-persist/lib/storage/createWebStorage";
+import nonPersistedReducer from "@/app/redux/reducers/nonPersistReducer";
 
 import {
   persistStore,
@@ -11,7 +11,7 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
-} from 'redux-persist'
+} from "redux-persist";
 
 // const persistConfig = {
 //   key: 'root',
@@ -22,8 +22,8 @@ import {
 
 const combinedReducers = combineReducers({
   persistedReducer,
-  nonPersistedReducer
-})
+  nonPersistedReducer,
+});
 
 export const store = configureStore({
   reducer: combinedReducers,
@@ -31,11 +31,11 @@ export const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: {
         // Ignore these action types
-        ignoredActions: ['nonPersistSlice/setCollageInputRef'],
+        ignoredActions: ["nonPersistSlice/setCollageInputRef"],
         // Ignore these field paths in all actions
-        ignoredActionPaths: ['setCollageInputRef', 'payload.timestamp'],
+        ignoredActionPaths: ["setCollageInputRef", "payload.timestamp"],
         // Ignore these paths in the state
-        ignoredPaths: ['items.dates'],
+        ignoredPaths: ["items.dates"],
       },
     }),
   // middleware: (getDefaultMiddleware) =>

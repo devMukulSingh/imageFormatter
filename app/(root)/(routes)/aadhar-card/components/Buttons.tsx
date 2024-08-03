@@ -6,7 +6,6 @@ import {
   removeAllImages,
   removeAllPassportSizeImages,
   removeImage,
-
 } from "@/app/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
 import { getBase64Image } from "@/lib/hooks";

@@ -13,7 +13,10 @@ import SinglePan from "./SinglePan";
 type Props = {};
 
 const ImagesPage = ({}: Props) => {
-  const { persistedReducer :{ base64Pan }, nonPersistedReducer :{ loading} } = useAppSelector((state) => state);
+  const {
+    persistedReducer: { base64Pan },
+    nonPersistedReducer: { loading },
+  } = useAppSelector((state) => state);
 
   return (
     <div className="flex relative flex-col bg-white gap-5 print:max-h-screen max-h-[calc(100vh-6.25rem)] print:overflow-visible overflow-y-auto">

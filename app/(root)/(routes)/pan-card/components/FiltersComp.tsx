@@ -64,7 +64,7 @@ const FiltersComp = ({
       setEditedPan({
         id: image.id,
         img: filteredImage,
-      })
+      }),
     );
     setOpenDialog(false);
   };
@@ -112,7 +112,7 @@ const FiltersComp = ({
       setEditedPan({
         id: image.id,
         img: rotatedImage,
-      })
+      }),
     );
   };
   const handleAutoEnhance = () => {

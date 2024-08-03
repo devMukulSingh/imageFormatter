@@ -6,7 +6,6 @@ import {
   removeAllImages,
   removeAllPassportSizeImages,
   removeImage,
-
 } from "@/app/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
 import { getBase64Image } from "@/lib/hooks";
@@ -49,7 +48,9 @@ export default function Buttons({ disabled }: Props) {
       }
     };
   };
-  const { nonPersistedReducer:{ passportInputRef} } = useAppSelector((state) => state);
+  const {
+    nonPersistedReducer: { passportInputRef },
+  } = useAppSelector((state) => state);
   const handleRemoveAll = () => {
     dispatch(removeAllPassportSizeImages());
     if (passportInputRef) passportInputRef.value = "";

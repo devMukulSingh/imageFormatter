@@ -21,12 +21,14 @@ import {
   pushBase64Images,
   setBase64Images,
   setCollageFiles,
-
 } from "@/app/redux/reducers/persistReducer";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
 import { base64Images } from "@/lib/types";
 import { getBase64Image } from "@/lib/hooks";
-import { setCollageInputRef, setLoading } from "@/app/redux/reducers/nonPersistReducer";
+import {
+  setCollageInputRef,
+  setLoading,
+} from "@/app/redux/reducers/nonPersistReducer";
 
 type Props = {
   // fileRef: RefObject<HTMLInputElement>;
@@ -206,12 +208,12 @@ const UploadComp = ({}: Props) => {
         multiple
         disabled={loading}
       />
-      <div className="flex gap-5">
+      {/* <div className="flex gap-5">
         <Button disabled={loading} onClick={handleDownload}>
           <Download size={20} className="mr-2" />
           Download DOCX
         </Button>
-      </div>
+      </div> */}
     </div>
   );
 };

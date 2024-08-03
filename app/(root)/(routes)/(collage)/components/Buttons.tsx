@@ -17,7 +17,9 @@ type Props = {
 
 const Buttons = ({ disabled }: Props) => {
   const dispatch = useAppDispatch();
-  const { nonPersistedReducer: {collageInputRef} } = useAppSelector((state) => state);
+  const {
+    nonPersistedReducer: { collageInputRef },
+  } = useAppSelector((state) => state);
   const handleAddMore = async () => {
     const imageInput = document.createElement("input");
     imageInput.type = "file";
@@ -80,6 +82,7 @@ const Buttons = ({ disabled }: Props) => {
         <PlusCircle size={20} />
         Add more
       </Button>
+      
     </div>
   );
 };
