@@ -1,6 +1,6 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
-import { setCroppedImg } from "@/app/redux/reducers/persistReducer";
+import { setBrightness, setContrast, setCroppedImg,  setRotation, setSaturation } from "@/app/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { rotateBy90, saveImage } from "@/lib/hooks";
@@ -13,67 +13,46 @@ import {
   Save,
   WandSparkles,
 } from "lucide-react";
-import React, { RefObject, useState } from "react";
+import React, { MutableRefObject, RefObject, useState } from "react";
+import { ReactCropperElement } from "react-cropper";
 
 type Props = {
   setOpenDialog: (openDialog: boolean) => void;
   imgRef: RefObject<HTMLImageElement>;
   image: base64Images;
-  brightness: number;
-  setBrightness: (b: number) => void;
-  contrast: number;
-  setContrast: (c: number) => void;
-  saturation: number;
-  setSaturation: (s: number) => void;
-  rotation: number;
-  setRotation: (r: number) => void;
-  sharpness: number;
-  setSharpness: (s: number) => void;
+  cropperRef:RefObject<ReactCropperElement>
 };
 
-const FiltersComp = ({
-  setOpenDialog,
-  imgRef,
-  image,
-  brightness,
-  contrast,
-  rotation,
-  saturation,
-  setBrightness,
-  setContrast,
-  setRotation,
-  setSaturation,
-  sharpness,
-  setSharpness,
-}: Props) => {
+const FiltersComp = ({ setOpenDialog, imgRef, image, cropperRef }: Props) => {
   const dispatch = useAppDispatch();
+  const { brightness, contrast, rotation, saturation } = image.filters;
 
   const handleSaveImage = () => {
-    const filteredImage = saveImage({
-      brightness,
-      contrast,
-      img: imgRef.current,
-      rotation,
-      saturation,
-    });
-    dispatch(
-      setCroppedImg({
-        id: image.id,
-        img: filteredImage,
-      }),
-    );
+    // const filteredImage = saveImage({
+    //   brightness,
+    //   contrast,
+    //   img: imgRef.current,
+    //   rotation,
+    //   saturation,
+    // });
+    // dispatch(
+    //   setCroppedImg({
+    //     id: image.id,
+    //     img: filteredImage,
+    //   }),
+    // );
     setOpenDialog(false);
   };
   const filters = [
-    {
-      title: "rotation",
-      defaultValue: 0,
-      min: -15,
-      max: 15,
-      step: 1,
-      state: rotation,
-      setState: setRotation,
-    },
+    // {
+    //   title: "rotation",
+    //   defaultValue: 0,
+    //   min: -15,
+    //   max: 15,
+    //   step: 1,
+    //   state: rotation,
+    //   setState: setRotation,
+    // },
     {
       title: "brightness",
       defaultValue: 100,
@@ -103,17 +82,33 @@ const FiltersComp = ({
     },
   ];
   const handleRotate = () => {
-    const filteredImage = rotateBy90(imgRef.current);
+    // const filteredImage = rotateBy90(imgRef.current);
+    // dispatch(
+    //   setCroppedImg({
+    //     id: image.id,
+    //     img: filteredImage,
+    //   }),
+    // );
     dispatch(
-      setCroppedImg({
+      setRotation({
+        value: rotation + 90,
         id: image.id,
-        img: filteredImage,
-      }),
+      })
     );
   };
   const handleAutoEnhance = () => {
-    setBrightness(110);
-    setContrast(115);
+    dispatch(
+      setBrightness({
+        value: 105,
+        id: image.id,
+      })
+    );
+    dispatch(
+      setContrast({
+        value: 115,
+        id: image.id,
+      })
+    );
   };
   return (
     <>
@@ -132,14 +127,14 @@ const FiltersComp = ({
       <div className="w-full mt-auto relative  flex flex-col gap-5 items-center justify-center">
         <div className="grid grid-cols-2 gap-y-2 gap-x-5 w-full sm:w-3/4  ">
           <div className="flex col-span-2 mx-auto gap-10">
-            <Button
+            {/* <Button
               variant={"outline"}
               className=" w-fit mx-auto font-semibold"
               onClick={handleRotate}
             >
               Rotate
               <LucideRotateCcw className="ml-2" size={20} />
-            </Button>
+            </Button> */}
             <Button
               className="font-semibold"
               variant={"outline"}
@@ -154,7 +149,14 @@ const FiltersComp = ({
               <h1>{filter.title}</h1>
               <Slider
                 value={[filter.state]}
-                onValueChange={(val) => filter.setState(val[0])}
+                onValueChange={(val) =>
+                  dispatch(
+                    filter.setState({
+                      value: val[0],
+                      id: image.id,
+                    })
+                  )
+                }
                 className=""
                 defaultValue={[filter.defaultValue]}
                 max={filter.max}

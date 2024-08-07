@@ -38,7 +38,6 @@ const UploadComp = () => {
     nonPersistedReducer: { loading },
   } = useAppSelector((state) => state);
 
-
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     try {
       dispatch(setLoading(true));

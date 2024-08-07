@@ -2,95 +2,160 @@
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
 import { setCroppedImg } from "@/app/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
-import { cropImage } from "@/lib/hooks";
 import { base64Images } from "@/lib/types";
-import { CropIcon } from "lucide-react";
-import React, { RefObject, useState } from "react";
+import { CropIcon, RotateCw, Save } from "lucide-react";
+import React, {
+  MutableRefObject,
+  // MouseEvent,
+  // MouseEventHandler,
+  RefObject,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import ReactCrop, { centerCrop, Crop, makeAspectCrop } from "react-image-crop";
-import "react-image-crop/dist/ReactCrop.css";
+import "../../../../../node_modules/cropperjs/dist/cropper.min.css";
+import "cropperjs/dist/cropper.css";
+import Cropper, { ReactCropperElement } from "react-cropper";
 
 type Props = {
   imgRef: RefObject<HTMLImageElement>;
   image: base64Images;
+  setOpenDialog: (openDialog: boolean) => void;
+  cropperRef: RefObject<ReactCropperElement>;
 };
 
-const CropComp = ({ imgRef, image }: Props) => {
-  // const { brightness, contrast, rotation, saturation } = useAppSelector(
-  //   (state) => state.filters
-  // );
-  const [crop, setCrop] = useState<Crop>({
-    height: 80,
-    width: 90,
-    unit: "%",
-    x: 0,
-    y: 0,
-  });
+const CropComp = ({ imgRef, image, setOpenDialog, cropperRef }: Props) => {
+  useEffect(() => {
+    const clearCropper = (e: MouseEvent) => {
+      const id = (e?.target as HTMLElement).id;
+      if (id === "radix-:r0:") {
+        cropperRef.current?.cropper.clear();
+      }
+    };
+    document.addEventListener("click", (e) => clearCropper(e));
+    () => {
+      document.removeEventListener("click", (e) => clearCropper(e));
+    };
+  }, []);
+
+
+  const { rotation } = image.filters;
   const dispatch = useAppDispatch();
   const handleClick = () => {
-    const filteredImage = cropImage({
-      image: imgRef.current,
-      crop,
-      setCrop,
-      rotation: 0,
-    });
+    const canvas = cropperRef.current?.cropper.getCroppedCanvas();
+    const croppedImage = canvas?.toDataURL();
     dispatch(
       setCroppedImg({
         id: image.id,
-        img: filteredImage,
-      }),
+        img: croppedImage,
+      })
     );
+    setOpenDialog(false);
   };
-  // function onImageLoad(e: any) {
-  //   const { naturalWidth: width, naturalHeight: height } = e.currentTarget;
-  // const crop = centerCrop(
-  //   makeAspectCrop(
-  //     {
-  //       unit: "%",
-  //       width: 90,
-  //     },
-  //     5 / 3,
-  //     width,
-  //     height
-  //   ),
-  //   width,
-  //   height
-  // );
 
-  //   setCrop(crop);
-  // }
+  const handleRotate = () => {
+    cropperRef.current?.cropper.rotate(90);
+
+  };
+
   return (
-    <div className="border-black border-2 h-[35rem] w-[35rem] relative flex flex-col items-center justify-center">
-      <ReactCrop className="" crop={crop} onChange={(c) => setCrop(c)}>
-        <img
-          style={
-            {
-              // transform: `rotate(90deg)`,
-              // filter: `
-              //     saturate(${saturation}%)
-              //     contrast(${contrast}%)
-              //     brightness(${brightness})
-              //     `,
-            }
-          }
-          className={`object-contain object-center w-full h-full !max-w-[35rem] !max-h-[35rem] `}
-          ref={imgRef}
+    // <div className="border-black border-2 h-[35rem] w-[35rem] relative flex flex-col items-center justify-center">
+    <>
+      <div
+        id="cropper"
+        className="flex flex-col size-[35rem] border-2 border-black items-center justify-center"
+      >
+        <Cropper
+          // autoCropArea={1}
+          autoCrop={false}
+          center={false}
+          allowFullScreen
+          className="w-full h-full "
           src={image.img}
-          alt="edit image"
+          style={{}}
+          // Cropper.js options
+          guides={false}
+          ref={cropperRef}
         />
-      </ReactCrop>
-      {crop.height !== 0 && (
+      </div>
+      <div className="flex gap-10">
+        <Button
+          onClick={handleRotate}
+          type="button"
+          variant={"outline"}
+          className="text-black z-20 print:hidden "
+        >
+          Rotate
+          <RotateCw className="ml-2" size={20} />
+        </Button>
         <Button
           onClick={handleClick}
           type="button"
           variant={"outline"}
-          className="text-black z-20 print:hidden absolute bottom-1 "
+          className="text-black z-20 print:hidden "
         >
-          Crop
-          <CropIcon className="" size={25} />
+          Save
+          <Save className="ml-2" size={20} />
         </Button>
-      )}
-    </div>
+      </div>
+    </>
   );
 };
 
 export default CropComp;
+// const [crop, setCrop] = useState<Crop>({
+//   height: 80,
+//   width: 90,
+//   unit: "%",
+//   x: 0,
+//   y: 0,
+// });
+{
+  /* <ReactCrop
+        className={ `border `}
+        crop={crop}
+        onChange={(c) => setCrop(c)}
+      > */
+}
+{
+  /* <div className="flex">
+        <img
+          // style={{
+          //   transform: `rotate(${rotation}deg)`,
+          //   // filter: `
+          //   //     saturate(${saturation}%)
+          //   //     contrast(${contrast}%)
+          //   //     brightness(${brightness})
+          //   //     `,
+          // }}
+          // height={560}
+          // width={560}
+          className={`block  max-w-full  `}
+          ref={imgRef}
+          src={image.img}
+          alt="edit image"
+        />
+      </div> */
+}
+{
+  /* </ReactCrop> */
+}
+// function onImageLoad(e: any) {
+//   const { naturalWidth: width, naturalHeight: height } = e.currentTarget;
+// const crop = centerCrop(
+//   makeAspectCrop(
+//     {
+//       unit: "%",
+//       width: 90,
+//     },
+//     5 / 3,
+//     width,
+//     height
+//   ),
+//   width,
+//   height
+// );
+
+//   setCrop(crop);
+// }

@@ -58,12 +58,79 @@ const initialState: IPersistInitialState = {
   collageFiles: "",
   passportPhotoFiles: "",
   base64Pan: [],
+
 };
 
 export const persistedSlice = createSlice({
   name: "persistedSlice",
   initialState,
   reducers: {
+    setBrightness : (state,action) => {
+      const { id,value } = action.payload
+      for(let i = 0; i < state.base64Images.length ; i++){
+        if(state.base64Images[i].id === id){
+          state.base64Images[i].filters.brightness = value
+        }
+      }
+    },
+    setContrast: (state, action) => {
+      const { id, value } = action.payload
+
+      for (let i = 0; i < state.base64Images.length; i++) {
+        if (state.base64Images[i].id === id) {
+          state.base64Images[i].filters.contrast = value
+        }
+      }
+    },
+    setRotation: (state, action) => {
+      const { id, value } = action.payload
+      for (let i = 0; i < state.base64Images.length; i++) {
+        if (state.base64Images[i].id === id) {
+          state.base64Images[i].filters.rotation = value
+        }
+      }
+    },
+    setSaturation : (state,action) => {
+      const { id, value } = action.payload
+      for (let i = 0; i < state.base64Images.length; i++) {
+        if (state.base64Images[i].id === id) {
+          state.base64Images[i].filters.saturation = value
+        }
+      }
+    },
+    setPanContrast: (state, action) => {
+      const { id, value } = action.payload
+
+      for (let i = 0; i < state.base64Pan.length; i++) {
+        if (state.base64Pan[i].id === id) {
+          state.base64Pan[i].filters.contrast = value
+        }
+      }
+    },
+    setPanRotation: (state, action) => {
+      const { id, value } = action.payload
+      for (let i = 0; i < state.base64Pan.length; i++) {
+        if (state.base64Pan[i].id === id) {
+          state.base64Pan[i].filters.rotation = value
+        }
+      }
+    },
+    setPanSaturation: (state, action) => {
+      const { id, value } = action.payload
+      for (let i = 0; i < state.base64Pan.length; i++) {
+        if (state.base64Pan[i].id === id) {
+          state.base64Pan[i].filters.saturation = value
+        }
+      }
+    },
+    setPanBrightness: (state, action) => {
+      const { id, value } = action.payload
+      for (let i = 0; i < state.base64Pan.length; i++) {
+        if (state.base64Pan[i].id === id) {
+          state.base64Pan[i].filters.brightness = value
+        }
+      }
+    },
     removeAllPassportSizeImages: (state) => {
       state.passportSizeBase64Images = [];
       state.passportPhotoFiles = "";
@@ -149,6 +216,14 @@ export const persistedSlice = createSlice({
 export default persistedSlice.reducer;
 
 export const {
+  setPanBrightness,
+  setPanContrast,
+  setPanRotation,
+  setPanSaturation,
+  setBrightness,
+  setContrast,
+  setRotation,
+  setSaturation,
   setBase64Images,
   removeImage,
   pushBase64Images,

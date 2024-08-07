@@ -1,5 +1,5 @@
 "use client";
-import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
+import { useAppDispatch } from "@/app/redux/hook";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogFooter } from "@/components/ui/dialog";
 import { Slider } from "@/components/ui/slider";
@@ -12,7 +12,8 @@ import ReactCrop, { centerCrop, Crop, makeAspectCrop } from "react-image-crop";
 import FiltersComp from "./FiltersComp";
 import CropComp from "./CropComp";
 import { getContainedSize } from "@/lib/utils";
-import { setCroppedImg } from "@/app/redux/reducers/persistReducer";
+import { setCroppedImg, setEditedPan } from "@/app/redux/reducers/persistReducer";
+import { ReactCropperElement } from "react-cropper";
 
 type Props = {
   openDialog: boolean;
@@ -21,12 +22,9 @@ type Props = {
 };
 type ComponentType = "cropComp" | "filtersComp";
 const EditDialog = ({ openDialog, setOpenDialog, image }: Props) => {
-  const [brightness, setBrightness] = useState(100);
-  const [contrast, setContrast] = useState(100);
-  const [saturation, setSaturation] = useState(100);
-  const [rotation, setRotation] = useState(0);
-  const [sharpness, setSharpness] = useState(0);
 
+  const cropperRef = useRef<ReactCropperElement>(null);
+  const dispatch = useAppDispatch();
   const imgRef = useRef<HTMLImageElement>(null);
 
   const [currentComponent, setCurrentComponent] =
@@ -35,23 +33,21 @@ const EditDialog = ({ openDialog, setOpenDialog, image }: Props) => {
   const renderComponent = () => {
     switch (currentComponent) {
       case "cropComp":
-        return <CropComp image={image} imgRef={imgRef} />;
+        return (
+          <CropComp
+            image={image}
+            imgRef={imgRef}
+            cropperRef={cropperRef}
+            setOpenDialog={setOpenDialog}
+          />
+        );
       case "filtersComp":
         return (
           <FiltersComp
-            setSharpness={setSharpness}
-            sharpness={sharpness}
+            cropperRef={cropperRef}
             setOpenDialog={setOpenDialog}
             image={image}
             imgRef={imgRef}
-            brightness={brightness}
-            setBrightness={setBrightness}
-            contrast={contrast}
-            rotation={rotation}
-            saturation={saturation}
-            setContrast={setContrast}
-            setRotation={setRotation}
-            setSaturation={setSaturation}
           />
         );
       default:
@@ -63,7 +59,17 @@ const EditDialog = ({ openDialog, setOpenDialog, image }: Props) => {
     // handleSaveImage();
     setCurrentComponent("cropComp");
   };
-
+  const handleFilterWindow = () => {
+    const canvas = cropperRef.current?.cropper.getCroppedCanvas();
+    const croppedImage = canvas?.toDataURL();
+    dispatch(
+      setEditedPan({
+        id: image.id,
+        img: croppedImage,
+      })
+    );
+    setCurrentComponent("filtersComp");
+  }
   return (
     <Dialog open={openDialog} onOpenChange={setOpenDialog}>
       <DialogContent className="min-w-[90vw] h-[95vh] bg-neutral-200 gap-10 flex flex-col  items-center overflow-auto">
@@ -78,7 +84,7 @@ const EditDialog = ({ openDialog, setOpenDialog, image }: Props) => {
           <Button
             type="button"
             variant={`${currentComponent === "filtersComp" ? "outline" : "default"}`}
-            onClick={() => setCurrentComponent("filtersComp")}
+            onClick={handleFilterWindow}
           >
             <FilterIcon className="mr-2" />
             Filters

@@ -4,6 +4,10 @@ import {
   setBase64Pan,
   setCroppedImg,
   setEditedPan,
+  setPanBrightness,
+  setPanContrast,
+  setPanRotation,
+  setPanSaturation,
 } from "@/app/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
@@ -18,66 +22,38 @@ import {
   WandSparkles,
 } from "lucide-react";
 import React, { RefObject, useEffect, useState } from "react";
+import { ReactCropperElement } from "react-cropper";
 
 type Props = {
   setOpenDialog: (openDialog: boolean) => void;
   imgRef: RefObject<HTMLImageElement>;
   image: base64Images;
-  brightness: number;
-  setBrightness: (b: number) => void;
-  contrast: number;
-  setContrast: (c: number) => void;
-  saturation: number;
-  setSaturation: (s: number) => void;
-  rotation: number;
-  setRotation: (r: number) => void;
-  sharpness: number;
-  setSharpness: (s: number) => void;
+  cropperRef:RefObject<ReactCropperElement>
 };
 
 const FiltersComp = ({
   setOpenDialog,
   imgRef,
   image,
-  brightness,
-  contrast,
-  rotation,
-  saturation,
-  setBrightness,
-  setContrast,
-  setRotation,
-  setSaturation,
-  sharpness,
-  setSharpness,
+  cropperRef
+
 }: Props) => {
   const dispatch = useAppDispatch();
-
+  const { brightness,contrast,rotation,saturation} = image.filters
   const handleSaveImage = () => {
-    const filteredImage = saveImage({
-      brightness,
-      contrast,
-      img: imgRef.current,
-      rotation,
-      saturation,
-    });
-    dispatch(
-      setEditedPan({
-        id: image.id,
-        img: filteredImage,
-      }),
-    );
+
     setOpenDialog(false);
   };
   const filters = [
-    {
-      title: "rotation",
-      defaultValue: 0,
-      min: -15,
-      max: 15,
-      step: 1,
-      state: rotation,
-      setState: setRotation,
-    },
+    // {
+    //   title: "rotation",
+    //   defaultValue: 0,
+    //   min: -15,
+    //   max: 15,
+    //   step: 1,
+    //   state: rotation,
+    //   setState: setPanRotation,
+    // },
     {
       title: "brightness",
       defaultValue: 100,
@@ -85,7 +61,7 @@ const FiltersComp = ({
       max: 150,
       step: 1,
       state: brightness,
-      setState: setBrightness,
+      setState: setPanBrightness,
     },
     {
       title: "contrast",
@@ -94,7 +70,7 @@ const FiltersComp = ({
       max: 300,
       step: 1,
       state: contrast,
-      setState: setContrast,
+      setState: setPanContrast,
     },
     {
       title: "saturate",
@@ -103,21 +79,19 @@ const FiltersComp = ({
       max: 1000,
       step: 10,
       state: saturation,
-      setState: setSaturation,
+      setState: setPanSaturation,
     },
   ];
-  const handleRotate = () => {
-    const rotatedImage = rotateBy90(imgRef.current);
-    dispatch(
-      setEditedPan({
-        id: image.id,
-        img: rotatedImage,
-      }),
-    );
-  };
+
   const handleAutoEnhance = () => {
-    setBrightness(110);
-    setContrast(115);
+    dispatch(setPanBrightness({
+      value:105,
+      id:image.id
+    }))
+    dispatch(setPanContrast({
+      value:115,
+      id:image.id
+    }));
   };
 
   return (
@@ -137,14 +111,17 @@ const FiltersComp = ({
       <div className="w-full mt-auto relative  flex flex-col gap-5 items-center justify-center">
         <div className="grid grid-cols-2 gap-y-2 gap-x-5 w-full sm:w-3/4  ">
           <div className="flex col-span-2 mx-auto gap-10">
-            <Button
+            {/* <Button
               variant={"outline"}
               className=" w-fit mx-auto font-semibold"
-              onClick={handleRotate}
+              onClick={() => dispatch(setPanRotation({
+                value:rotation+90,
+                id:image.id
+              }))}
             >
               Rotate
               <LucideRotateCcw className="ml-2" size={20} />
-            </Button>
+            </Button> */}
             <Button
               className="font-semibold"
               variant={"outline"}
@@ -159,7 +136,14 @@ const FiltersComp = ({
               <h1>{filter.title}</h1>
               <Slider
                 value={[filter.state]}
-                onValueChange={(val) => filter.setState(val[0])}
+                onValueChange={(val) =>
+                  dispatch(
+                    filter.setState({
+                      value: val[0],
+                      id:image.id
+                    })
+                  )
+                }
                 className=""
                 defaultValue={[filter.defaultValue]}
                 max={filter.max}

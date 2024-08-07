@@ -14,6 +14,8 @@ type Props = {
 const SinglePan = ({ base64Pan }: Props) => {
   const dispatch = useAppDispatch();
   const [openDialog, setOpenDialog] = useState(false);
+  const {brightness,contrast,rotation,saturation } = base64Pan.filters;
+  
   const {
     nonPersistedReducer: { panInputRef },
   } = useAppSelector((state) => state);
@@ -53,10 +55,14 @@ const SinglePan = ({ base64Pan }: Props) => {
         </Button>
 
         <img
+          style={{
+            transform: `rotate(${rotation}deg)`,
+            filter: `brightness(${brightness}%) contrast(${contrast}%) saturate(${saturation}%)`,
+          }}
           className="
           relative
           object-contain
-          object-top
+          object-center
           !max-w-[22rem]
           !max-h-[22rem]
           "

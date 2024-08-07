@@ -84,17 +84,20 @@ export const rotateBy90 = (img: HTMLImageElement | null) => {
   const canvas = document.createElement("canvas");
   if (img) {
     const { height, width } = getContainedSize(img);
+    console.log(img.width,img.height);
+    console.log(width, height);
+
     canvas.width = img.width;
     canvas.height = img.height;
 
     const ctx = canvas.getContext("2d");
 
     if (ctx) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.save();
       ctx.translate(canvas.width / 2, canvas.height / 2);
       ctx.rotate((90 * Math.PI) / 180);
-      ctx.drawImage(img, -width / 2, -height / 2, width, height);
+      ctx.drawImage(img, -width / 2, -height / 2 , width,height);
 
       ctx.restore();
     }
@@ -115,65 +118,27 @@ export const saveImage = ({
 
     const canvas = document.createElement("canvas");
 
-    canvas.width = img.width;
+    canvas.width = img.height;
     canvas.height = img.height;
 
     const ctx = canvas.getContext("2d");
 
     if (ctx) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       ctx.save();
-      ctx.filter = `brightness(${brightness}%) contrast(${contrast}%) saturate(${saturation}%)`;
+      // ctx.filter = `brightness(${brightness}%) contrast(${contrast}%) saturate(${saturation}%)`;
       ctx.translate(canvas.width / 2, canvas.height / 2);
-      ctx.rotate((rotation * Math.PI) / 180);
-      ctx.drawImage(img, -width / 2, -height / 2, width, height);
+      // ctx.rotate((rotation * Math.PI) / 180);
+      ctx.drawImage(img, -img.width / 2, -img.height / 2, img.width, img.height);
 
       ctx.restore();
     }
     const filteredImage = canvas.toDataURL();
+    console.log(filteredImage);
+    
     return filteredImage;
   }
 };
 
-export const handleSaveImage = ({
-  img,
-  brightness,
-  contrast,
-  saturation,
-  rotation,
-}: TsaveImageArgs) => {
-  if (img) {
-    const { height, width } = getContainedSize(img);
 
-    const scaleX = img.naturalWidth / width;
-    const scaleY = img.naturalHeight / height;
-
-    const canvas = document.createElement("canvas");
-
-    canvas.width = width;
-    canvas.height = height;
-
-    const ctx = canvas.getContext("2d");
-
-    if (ctx) {
-      ctx.filter = `brightness(${brightness}) contrast(${contrast}%) saturate(${saturation}%)`;
-      ctx.rotate((rotation * Math.PI) / 180);
-
-      ctx?.drawImage(
-        img,
-        0,
-        0,
-        width * scaleX,
-        height * scaleY,
-        0,
-        0,
-        width,
-        height,
-      );
-    }
-    const fileredImage = canvas.toDataURL();
-
-    return fileredImage;
-  }
-};

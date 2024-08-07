@@ -16,6 +16,7 @@ const SingleImage = ({ image }: Props) => {
   const dispatch = useAppDispatch();
   const [openDialog, setOpenDialog] = useState(false);
 
+
   const {
     nonPersistedReducer: { collageInputRef },
   } = useAppSelector((state) => state);
@@ -50,8 +51,12 @@ const SingleImage = ({ image }: Props) => {
         >
           <X className="" size={15} />
         </Button>
-        <figure className="overflow-hidden  ">
+        <figure className="size-[352px]  ">
           <img
+            style={{
+              transform: `rotate(${image.filters.rotation}deg)`,
+              filter: `brightness(${image.filters.brightness}%) contrast(${image.filters.contrast}%) saturate(${image.filters.saturation}%)`,
+            }}
             onClick={() => setOpenDialog(true)}
             className={`
               w-full
