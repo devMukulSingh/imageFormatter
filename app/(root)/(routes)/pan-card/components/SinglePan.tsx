@@ -14,8 +14,8 @@ type Props = {
 const SinglePan = ({ base64Pan }: Props) => {
   const dispatch = useAppDispatch();
   const [openDialog, setOpenDialog] = useState(false);
-  const {brightness,contrast,rotation,saturation } = base64Pan.filters;
-  
+  const { brightness, contrast, rotation, saturation } = base64Pan.filters;
+
   const {
     nonPersistedReducer: { panInputRef },
   } = useAppSelector((state) => state);

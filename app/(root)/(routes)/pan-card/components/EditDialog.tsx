@@ -12,7 +12,10 @@ import ReactCrop, { centerCrop, Crop, makeAspectCrop } from "react-image-crop";
 import FiltersComp from "./FiltersComp";
 import CropComp from "./CropComp";
 import { getContainedSize } from "@/lib/utils";
-import { setCroppedImg, setEditedPan } from "@/app/redux/reducers/persistReducer";
+import {
+  setCroppedImg,
+  setEditedPan,
+} from "@/app/redux/reducers/persistReducer";
 import { ReactCropperElement } from "react-cropper";
 
 type Props = {
@@ -22,7 +25,6 @@ type Props = {
 };
 type ComponentType = "cropComp" | "filtersComp";
 const EditDialog = ({ openDialog, setOpenDialog, image }: Props) => {
-
   const cropperRef = useRef<ReactCropperElement>(null);
   const dispatch = useAppDispatch();
   const imgRef = useRef<HTMLImageElement>(null);
@@ -66,17 +68,18 @@ const EditDialog = ({ openDialog, setOpenDialog, image }: Props) => {
       setEditedPan({
         id: image.id,
         img: croppedImage,
-      })
+      }),
     );
     setCurrentComponent("filtersComp");
-  }
+  };
   return (
     <Dialog open={openDialog} onOpenChange={setOpenDialog}>
       <DialogContent className="min-w-[90vw] h-[95vh] bg-neutral-200 gap-10 flex flex-col  items-center overflow-auto">
-        <div className="flex items-center gap-10 w-full justify-center">
+        <div className="flex items-center gap-5 w-[30rem] ">
           <Button
             variant={`${currentComponent === "cropComp" ? "outline" : "default"}`}
             onClick={handleCropWindow}
+            className="w-1/2"
           >
             <CropIcon className="mr-2" />
             Crop
@@ -85,6 +88,7 @@ const EditDialog = ({ openDialog, setOpenDialog, image }: Props) => {
             type="button"
             variant={`${currentComponent === "filtersComp" ? "outline" : "default"}`}
             onClick={handleFilterWindow}
+            className="w-1/2"
           >
             <FilterIcon className="mr-2" />
             Filters

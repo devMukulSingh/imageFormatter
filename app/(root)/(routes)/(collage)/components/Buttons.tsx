@@ -38,12 +38,12 @@ const Buttons = ({ disabled }: Props) => {
             base64Images.push({
               id: imageId,
               img: base64Image,
-              filters:{
-                brightness:100,
-                contrast:100,
-                rotation:0,
-                saturation:100
-              }
+              filters: {
+                brightness: 100,
+                contrast: 100,
+                rotation: 0,
+                saturation: 100,
+              },
             });
           }
           dispatch(pushBase64Images(base64Images));

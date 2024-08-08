@@ -81,17 +81,17 @@ const UploadComp = ({}: Props) => {
           }
           // const base64Image = await getBase64Image(files[i]);
           const imgUrl = URL.createObjectURL(files[i]);
- 
+
           const imageId = Math.floor(Math.random() * 100000);
           base64Images.push({
             id: imageId,
             img: imgUrl,
-            filters:{
-              brightness:100,
-              contrast:100,
-              rotation:0,
-              saturation:100
-            }
+            filters: {
+              brightness: 100,
+              contrast: 100,
+              rotation: 0,
+              saturation: 100,
+            },
           });
         }
         dispatch(pushBase64Images(base64Images));

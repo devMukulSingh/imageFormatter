@@ -17,6 +17,7 @@ import ReactCrop, { centerCrop, Crop, makeAspectCrop } from "react-image-crop";
 import "../../../../../node_modules/cropperjs/dist/cropper.min.css";
 import "cropperjs/dist/cropper.css";
 import Cropper, { ReactCropperElement } from "react-cropper";
+import { setLoading } from "@/app/redux/reducers/nonPersistReducer";
 
 type Props = {
   imgRef: RefObject<HTMLImageElement>;
@@ -27,6 +28,10 @@ type Props = {
 
 const CropComp = ({ imgRef, image, setOpenDialog, cropperRef }: Props) => {
   useEffect(() => {
+    cropperRef.current?.cropper.setCropBoxData({
+      height: 380,
+      width: 380,
+    });
     const clearCropper = (e: MouseEvent) => {
       const id = (e?.target as HTMLElement).id;
       if (id === "radix-:r0:") {
@@ -39,24 +44,25 @@ const CropComp = ({ imgRef, image, setOpenDialog, cropperRef }: Props) => {
     };
   }, []);
 
-
   const { rotation } = image.filters;
   const dispatch = useAppDispatch();
+  const {loading } = useAppSelector( state => state.nonPersistedReducer)
   const handleClick = () => {
+    dispatch(setLoading(true));
     const canvas = cropperRef.current?.cropper.getCroppedCanvas();
     const croppedImage = canvas?.toDataURL();
     dispatch(
       setCroppedImg({
         id: image.id,
         img: croppedImage,
-      })
+      }),
     );
+    dispatch(setLoading(false));
     setOpenDialog(false);
   };
 
   const handleRotate = () => {
     cropperRef.current?.cropper.rotate(90);
-
   };
 
   return (
@@ -64,7 +70,7 @@ const CropComp = ({ imgRef, image, setOpenDialog, cropperRef }: Props) => {
     <>
       <div
         id="cropper"
-        className="flex flex-col size-[35rem] border-2 border-black items-center justify-center"
+        className="flex flex-col size-[30rem] border-2 border-black items-center justify-center"
       >
         <Cropper
           // autoCropArea={1}
@@ -81,19 +87,20 @@ const CropComp = ({ imgRef, image, setOpenDialog, cropperRef }: Props) => {
       </div>
       <div className="flex gap-10">
         <Button
+          disabled={loading}
           onClick={handleRotate}
           type="button"
-          variant={"outline"}
-          className="text-black z-20 print:hidden "
+          variant={"primary"}
         >
           Rotate
           <RotateCw className="ml-2" size={20} />
         </Button>
         <Button
+          disabled={loading}
           onClick={handleClick}
           type="button"
           variant={"outline"}
-          className="text-black z-20 print:hidden "
+          className=" "
         >
           Save
           <Save className="ml-2" size={20} />

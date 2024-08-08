@@ -1,6 +1,12 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
-import { setBrightness, setContrast, setCroppedImg,  setRotation, setSaturation } from "@/app/redux/reducers/persistReducer";
+import {
+  setBrightness,
+  setContrast,
+  setCroppedImg,
+  setRotation,
+  setSaturation,
+} from "@/app/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { rotateBy90, saveImage } from "@/lib/hooks";
@@ -20,7 +26,7 @@ type Props = {
   setOpenDialog: (openDialog: boolean) => void;
   imgRef: RefObject<HTMLImageElement>;
   image: base64Images;
-  cropperRef:RefObject<ReactCropperElement>
+  cropperRef: RefObject<ReactCropperElement>;
 };
 
 const FiltersComp = ({ setOpenDialog, imgRef, image, cropperRef }: Props) => {
@@ -28,19 +34,7 @@ const FiltersComp = ({ setOpenDialog, imgRef, image, cropperRef }: Props) => {
   const { brightness, contrast, rotation, saturation } = image.filters;
 
   const handleSaveImage = () => {
-    // const filteredImage = saveImage({
-    //   brightness,
-    //   contrast,
-    //   img: imgRef.current,
-    //   rotation,
-    //   saturation,
-    // });
-    // dispatch(
-    //   setCroppedImg({
-    //     id: image.id,
-    //     img: filteredImage,
-    //   }),
-    // );
+
     setOpenDialog(false);
   };
   const filters = [
@@ -81,33 +75,19 @@ const FiltersComp = ({ setOpenDialog, imgRef, image, cropperRef }: Props) => {
       setState: setSaturation,
     },
   ];
-  const handleRotate = () => {
-    // const filteredImage = rotateBy90(imgRef.current);
-    // dispatch(
-    //   setCroppedImg({
-    //     id: image.id,
-    //     img: filteredImage,
-    //   }),
-    // );
-    dispatch(
-      setRotation({
-        value: rotation + 90,
-        id: image.id,
-      })
-    );
-  };
+
   const handleAutoEnhance = () => {
     dispatch(
       setBrightness({
         value: 105,
         id: image.id,
-      })
+      }),
     );
     dispatch(
       setContrast({
         value: 115,
         id: image.id,
-      })
+      }),
     );
   };
   return (
@@ -137,7 +117,7 @@ const FiltersComp = ({ setOpenDialog, imgRef, image, cropperRef }: Props) => {
             </Button> */}
             <Button
               className="font-semibold"
-              variant={"outline"}
+              variant={"primary"}
               onClick={handleAutoEnhance}
             >
               Auto enhance
@@ -154,7 +134,7 @@ const FiltersComp = ({ setOpenDialog, imgRef, image, cropperRef }: Props) => {
                     filter.setState({
                       value: val[0],
                       id: image.id,
-                    })
+                    }),
                   )
                 }
                 className=""
@@ -169,7 +149,9 @@ const FiltersComp = ({ setOpenDialog, imgRef, image, cropperRef }: Props) => {
         <Button
           onClick={handleSaveImage}
           type="button"
-          className="z-20   print:hidden  self-center bg-green-600 hover:bg-green-500"
+          variant={'outline'}
+          className="w-44"
+
         >
           Save
           <Save className="ml-2" size={20} />

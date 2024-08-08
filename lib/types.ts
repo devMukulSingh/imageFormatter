@@ -4,11 +4,11 @@ export interface base64Images {
   id: number;
   img: string;
   filters: {
-    brightness: number,
-    contrast: number,
-    rotation: number,
-    saturation: number
-  }
+    brightness: number;
+    contrast: number;
+    rotation: number;
+    saturation: number;
+  };
 }
 
 export interface IPersistInitialState {
@@ -18,7 +18,6 @@ export interface IPersistInitialState {
   collageFiles: any;
   passportPhotoFiles: any;
   base64Pan: base64Images[];
-
 }
 export interface InonPersistInitialState {
   loading: boolean;

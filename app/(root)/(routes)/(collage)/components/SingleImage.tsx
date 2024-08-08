@@ -16,7 +16,6 @@ const SingleImage = ({ image }: Props) => {
   const dispatch = useAppDispatch();
   const [openDialog, setOpenDialog] = useState(false);
 
-
   const {
     nonPersistedReducer: { collageInputRef },
   } = useAppSelector((state) => state);

@@ -28,20 +28,13 @@ type Props = {
   setOpenDialog: (openDialog: boolean) => void;
   imgRef: RefObject<HTMLImageElement>;
   image: base64Images;
-  cropperRef:RefObject<ReactCropperElement>
+  cropperRef: RefObject<ReactCropperElement>;
 };
 
-const FiltersComp = ({
-  setOpenDialog,
-  imgRef,
-  image,
-  cropperRef
-
-}: Props) => {
+const FiltersComp = ({ setOpenDialog, imgRef, image, cropperRef }: Props) => {
   const dispatch = useAppDispatch();
-  const { brightness,contrast,rotation,saturation} = image.filters
+  const { brightness, contrast, rotation, saturation } = image.filters;
   const handleSaveImage = () => {
-
     setOpenDialog(false);
   };
   const filters = [
@@ -84,14 +77,18 @@ const FiltersComp = ({
   ];
 
   const handleAutoEnhance = () => {
-    dispatch(setPanBrightness({
-      value:105,
-      id:image.id
-    }))
-    dispatch(setPanContrast({
-      value:115,
-      id:image.id
-    }));
+    dispatch(
+      setPanBrightness({
+        value: 105,
+        id: image.id,
+      }),
+    );
+    dispatch(
+      setPanContrast({
+        value: 115,
+        id: image.id,
+      }),
+    );
   };
 
   return (
@@ -111,20 +108,9 @@ const FiltersComp = ({
       <div className="w-full mt-auto relative  flex flex-col gap-5 items-center justify-center">
         <div className="grid grid-cols-2 gap-y-2 gap-x-5 w-full sm:w-3/4  ">
           <div className="flex col-span-2 mx-auto gap-10">
-            {/* <Button
-              variant={"outline"}
-              className=" w-fit mx-auto font-semibold"
-              onClick={() => dispatch(setPanRotation({
-                value:rotation+90,
-                id:image.id
-              }))}
-            >
-              Rotate
-              <LucideRotateCcw className="ml-2" size={20} />
-            </Button> */}
             <Button
               className="font-semibold"
-              variant={"outline"}
+              variant={"primary"}
               onClick={handleAutoEnhance}
             >
               Auto enhance
@@ -140,8 +126,8 @@ const FiltersComp = ({
                   dispatch(
                     filter.setState({
                       value: val[0],
-                      id:image.id
-                    })
+                      id: image.id,
+                    }),
                   )
                 }
                 className=""
@@ -156,7 +142,8 @@ const FiltersComp = ({
         <Button
           onClick={handleSaveImage}
           type="button"
-          className="z-20   print:hidden  self-center bg-green-600 hover:bg-green-500"
+          className="w-48"
+          variant={"outline"}
         >
           Save
           <Save className="ml-2" size={20} />

@@ -14,6 +14,7 @@ import CropComp from "./CropComp";
 import { getContainedSize } from "@/lib/utils";
 import { setCroppedImg } from "@/app/redux/reducers/persistReducer";
 import { ReactCropperElement } from "react-cropper";
+import { setLoading } from "@/app/redux/reducers/nonPersistReducer";
 
 type Props = {
   openDialog: boolean;
@@ -25,7 +26,7 @@ const EditDialog = ({ openDialog, setOpenDialog, image }: Props) => {
   const cropperRef = useRef<ReactCropperElement>(null);
   const dispatch = useAppDispatch();
   const imgRef = useRef<HTMLImageElement | null>(null);
-
+  const { loading } = useAppSelector((state) => state.nonPersistedReducer);
   const [currentComponent, setCurrentComponent] =
     useState<ComponentType>("cropComp");
 
@@ -59,6 +60,7 @@ const EditDialog = ({ openDialog, setOpenDialog, image }: Props) => {
     setCurrentComponent("cropComp");
   };
   const handleFilterWindow = () => {
+    dispatch(setLoading(true));
     const canvas = cropperRef.current?.cropper.getCroppedCanvas();
     const croppedImage = canvas?.toDataURL();
     dispatch(
@@ -67,30 +69,36 @@ const EditDialog = ({ openDialog, setOpenDialog, image }: Props) => {
         img: croppedImage,
       })
     );
+    dispatch(setLoading(false));
     setCurrentComponent("filtersComp");
-  }
+  };
 
   return (
     <Dialog open={openDialog} onOpenChange={setOpenDialog}>
-      <DialogContent className="min-w-[90vw] h-[95vh] bg-neutral-200 gap-10 flex flex-col  items-center overflow-auto">
-        <div className="flex items-center gap-10">
-          <Button
-            variant={`${currentComponent === "cropComp" ? "outline" : "default"}`}
-            onClick={handleCropWindow}
-          >
-            <CropIcon className="mr-2" />
-            Crop
-          </Button>
-          <Button
-            type="button"
-            variant={`${currentComponent === "filtersComp" ? "outline" : "default"}`}
-            onClick={handleFilterWindow}
-          >
-            <FilterIcon className="mr-2" />
-            Filters
-          </Button>
-        </div>
-        {renderComponent()}
+      <DialogContent className="min-w-[90vw] h-[95vh] bg-neutral-200 flex gap-10 flex-col  items-center overflow-auto">
+
+          <div className="flex gap-5 w-[30rem] ">
+            <Button
+              className="w-1/2"
+              disabled={loading}
+              variant={`${currentComponent === "cropComp" ? "outline" : "default"}`}
+              onClick={handleCropWindow}
+            >
+              <CropIcon className="mr-2" />
+              Crop
+            </Button>
+            <Button
+            className="w-1/2"
+              disabled={loading}
+              type="button"
+              variant={`${currentComponent === "filtersComp" ? "outline" : "default"}`}
+              onClick={handleFilterWindow}
+            >
+              <FilterIcon className="mr-2" />
+              Filters
+            </Button>
+          </div>
+          {renderComponent()}
       </DialogContent>
     </Dialog>
   );

@@ -84,7 +84,7 @@ export const rotateBy90 = (img: HTMLImageElement | null) => {
   const canvas = document.createElement("canvas");
   if (img) {
     const { height, width } = getContainedSize(img);
-    console.log(img.width,img.height);
+    console.log(img.width, img.height);
     console.log(width, height);
 
     canvas.width = img.width;
@@ -97,7 +97,7 @@ export const rotateBy90 = (img: HTMLImageElement | null) => {
       ctx.save();
       ctx.translate(canvas.width / 2, canvas.height / 2);
       ctx.rotate((90 * Math.PI) / 180);
-      ctx.drawImage(img, -width / 2, -height / 2 , width,height);
+      ctx.drawImage(img, -width / 2, -height / 2, width, height);
 
       ctx.restore();
     }
@@ -130,15 +130,19 @@ export const saveImage = ({
       // ctx.filter = `brightness(${brightness}%) contrast(${contrast}%) saturate(${saturation}%)`;
       ctx.translate(canvas.width / 2, canvas.height / 2);
       // ctx.rotate((rotation * Math.PI) / 180);
-      ctx.drawImage(img, -img.width / 2, -img.height / 2, img.width, img.height);
+      ctx.drawImage(
+        img,
+        -img.width / 2,
+        -img.height / 2,
+        img.width,
+        img.height,
+      );
 
       ctx.restore();
     }
     const filteredImage = canvas.toDataURL();
     console.log(filteredImage);
-    
+
     return filteredImage;
   }
 };
-
-

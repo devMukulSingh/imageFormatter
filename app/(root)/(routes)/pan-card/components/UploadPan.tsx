@@ -53,12 +53,12 @@ const UploadPan = () => {
         panArray.push({
           id,
           img: imgUrl,
-          filters:{
-            brightness:100,
-            contrast:100,
-            saturation:100,
-            rotation:0
-          }
+          filters: {
+            brightness: 100,
+            contrast: 100,
+            saturation: 100,
+            rotation: 0,
+          },
         });
         dispatch(setBase64Pan(panArray));
         dispatch(setLoading(true));

@@ -2,8 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.ReactCrop__child-wrapper{
-  
+.ReactCrop__child-wrapper {
 }
 
 @layer base {
