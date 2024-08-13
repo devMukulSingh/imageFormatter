@@ -12,10 +12,7 @@ import {
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { base64Images } from "@/lib/types";
 import { getBase64Image } from "@/lib/hooks";
-import {
-  setLoading,
-  setPanInputRef,
-} from "@/redux/reducers/nonPersistReducer";
+import { setLoading, setPanInputRef } from "@/redux/reducers/nonPersistReducer";
 
 const UploadPan = () => {
   const dispatch = useAppDispatch();

@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { IaadharPdfs } from "@/lib/types";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
 // import "react-image-crop/dist/ReactCrop.css";
 
@@ -12,6 +12,8 @@ type Props = {
 };
 
 const SinglPdf = ({ pdf }: Props) => {
+  const [isMounted, setIsMounted] = useState(false);
+
   const imgRef = useRef<HTMLImageElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [numPages, setNumPages] = useState<number>();
@@ -61,7 +63,10 @@ const SinglPdf = ({ pdf }: Props) => {
   const onDocumentSuccess = async ({ numPages }: { numPages: number }) => {
     setNumPages(numPages);
   };
-
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+  if(!isMounted) return null;
   return (
     <>
       {/* {openDialog && (

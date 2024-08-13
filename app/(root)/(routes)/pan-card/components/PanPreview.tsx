@@ -1,5 +1,5 @@
 "use client";
-import {  useAppSelector } from "@/redux/hook";
+import { useAppSelector } from "@/redux/hook";
 import Buttons from "./Buttons";
 import SinglePan from "./SinglePan";
 

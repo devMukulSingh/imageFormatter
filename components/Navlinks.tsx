@@ -30,6 +30,7 @@ const Navlinks = () => {
     <div className="flex gap-5">
       {navLinks.map((link, index) => (
         <Link
+          prefetch={false}
           className={`transition-all whitespace-nowrap ${link.isActive ? "text-lg font-bold underline underline-offset-8 text-neutral-900" : "font-semibold text-neutral-500"} `}
           href={link.link}
           key={index}

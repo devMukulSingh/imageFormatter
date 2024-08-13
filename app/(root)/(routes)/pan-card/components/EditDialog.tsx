@@ -12,10 +12,7 @@ import ReactCrop, { centerCrop, Crop, makeAspectCrop } from "react-image-crop";
 import FiltersComp from "./FiltersComp";
 import CropComp from "./CropComp";
 import { getContainedSize } from "@/lib/utils";
-import {
-  setCroppedImg,
-  setEditedPan,
-} from "@/redux/reducers/persistReducer";
+import { setCroppedImg, setEditedPan } from "@/redux/reducers/persistReducer";
 import { ReactCropperElement } from "react-cropper";
 
 type Props = {
