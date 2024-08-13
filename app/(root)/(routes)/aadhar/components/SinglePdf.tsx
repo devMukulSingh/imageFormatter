@@ -1,9 +1,10 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { IaadharPdfs } from "@/lib/types";
+import dynamic from "next/dynamic";
 import React, { useEffect, useRef, useState } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
-// import "react-image-crop/dist/ReactCrop.css";
+
 
 type Props = {
   pdf: IaadharPdfs;
@@ -11,7 +12,6 @@ type Props = {
 
 const SinglPdf = ({ pdf }: Props) => {
   const [isMounted, setIsMounted] = useState(false);
-
   const imgRef = useRef<HTMLImageElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [numPages, setNumPages] = useState<number>();
@@ -48,7 +48,7 @@ const SinglPdf = ({ pdf }: Props) => {
           0,
           0,
           width,
-          height
+          height,
         );
         ctx.restore();
       }
@@ -62,7 +62,7 @@ const SinglPdf = ({ pdf }: Props) => {
     setNumPages(numPages);
   };
   useEffect(() => {
-    pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs`;
+    // pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs`;
     setIsMounted(true);
   }, []);
   if (!isMounted) return null;
