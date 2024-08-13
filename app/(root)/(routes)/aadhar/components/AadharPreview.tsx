@@ -3,9 +3,9 @@ import { useAppSelector } from "@/redux/hook";
 import Buttons from "./Buttons";
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
-// const SinglePdf = dynamic(() => import("./SinglePdf"), {
-//   ssr: false,
-// });
+const SinglePdf = dynamic(() => import("./SinglePdf"), {
+  ssr: false,
+});
 
 type Props = {};
 
@@ -43,11 +43,11 @@ const AadharPreview = ({}: Props) => {
           if (a4PageHeight > 1120 && index % 6 === 0 && index !== 0)
             return (
               <>
-                {/* <div className=""> */}
-                {/* <SinglePdf pdf={pdf} key={index} />;</div> */}
+                <div className="">
+                <SinglePdf pdf={pdf} key={index} />;</div>
               </>
             );
-          // return <SinglePdf pdf={pdf} key={index} />;
+          return <SinglePdf pdf={pdf} key={index} />;
         })}
       </div>
     </div>
