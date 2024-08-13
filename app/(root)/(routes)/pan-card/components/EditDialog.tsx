@@ -1,5 +1,5 @@
 "use client";
-import { useAppDispatch } from "@/app/redux/hook";
+import { useAppDispatch } from "@/redux/hook";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogFooter } from "@/components/ui/dialog";
 import { Slider } from "@/components/ui/slider";
@@ -15,7 +15,7 @@ import { getContainedSize } from "@/lib/utils";
 import {
   setCroppedImg,
   setEditedPan,
-} from "@/app/redux/reducers/persistReducer";
+} from "@/redux/reducers/persistReducer";
 import { ReactCropperElement } from "react-cropper";
 
 type Props = {

@@ -1,6 +1,6 @@
 "use client";
-import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
-import { setCroppedImg } from "@/app/redux/reducers/persistReducer";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import { setCroppedImg } from "@/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
 import { base64Images } from "@/lib/types";
 import { CropIcon, RotateCw, Save } from "lucide-react";
@@ -17,7 +17,7 @@ import ReactCrop, { centerCrop, Crop, makeAspectCrop } from "react-image-crop";
 import "../../../../../node_modules/cropperjs/dist/cropper.min.css";
 import "cropperjs/dist/cropper.css";
 import Cropper, { ReactCropperElement } from "react-cropper";
-import { setLoading } from "@/app/redux/reducers/nonPersistReducer";
+import { setLoading } from "@/redux/reducers/nonPersistReducer";
 
 type Props = {
   imgRef: RefObject<HTMLImageElement>;

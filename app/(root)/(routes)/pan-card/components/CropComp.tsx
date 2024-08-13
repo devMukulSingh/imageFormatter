@@ -1,9 +1,9 @@
 "use client";
-import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import {
   setBase64Pan,
   setEditedPan,
-} from "@/app/redux/reducers/persistReducer";
+} from "@/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
 import { base64Images } from "@/lib/types";
 import { CropIcon, RotateCw, Save } from "lucide-react";

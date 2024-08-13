@@ -1,12 +1,5 @@
 "use client";
-import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
-import {
-  removeBase64Pan,
-  removePassportSizeImage,
-} from "@/app/redux/reducers/persistReducer";
-import { Button } from "@/components/ui/button";
-import { X } from "lucide-react";
-import Image from "next/image";
+import {  useAppSelector } from "@/redux/hook";
 import Buttons from "./Buttons";
 import SinglePan from "./SinglePan";
 

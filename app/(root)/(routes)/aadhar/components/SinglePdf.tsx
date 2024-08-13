@@ -22,12 +22,12 @@ const SinglPdf = ({ pdf }: Props) => {
   //743 1052
 
   const a = async () => {
-    const pixelRatio = typeof window !=="undefined" ? window.devicePixelRatio : 1;
+    const pixelRatio =
+      typeof window !== "undefined" ? window.devicePixelRatio : 1;
 
     const croppedCanvas = document.createElement("canvas");
 
     if (croppedCanvas && canvasRef.current) {
-
       const { width, height } = canvasRef.current;
 
       croppedCanvas.height = pixelRatio * 300;

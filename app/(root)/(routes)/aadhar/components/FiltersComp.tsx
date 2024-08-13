@@ -1,12 +1,12 @@
 "use client";
-import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import {
   setBrightness,
   setContrast,
   setCroppedImg,
   setRotation,
   setSaturation,
-} from "@/app/redux/reducers/persistReducer";
+} from "@/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { rotateBy90, saveImage } from "@/lib/hooks";

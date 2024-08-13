@@ -1,5 +1,5 @@
 "use client";
-import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogFooter } from "@/components/ui/dialog";
 import { Slider } from "@/components/ui/slider";
@@ -12,9 +12,9 @@ import ReactCrop, { centerCrop, Crop, makeAspectCrop } from "react-image-crop";
 import FiltersComp from "./FiltersComp";
 import CropComp from "./CropComp";
 import { getContainedSize } from "@/lib/utils";
-import { setCroppedImg } from "@/app/redux/reducers/persistReducer";
+import { setCroppedImg } from "@/redux/reducers/persistReducer";
 import { ReactCropperElement } from "react-cropper";
-import { setLoading } from "@/app/redux/reducers/nonPersistReducer";
+import { setLoading } from "@/redux/reducers/nonPersistReducer";
 
 type Props = {
   openDialog: boolean;

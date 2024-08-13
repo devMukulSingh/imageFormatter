@@ -21,14 +21,14 @@ import {
   pushPassportSizeBase64Images,
   setBase64Images,
   setPassportSizeBase64Image,
-} from "@/app/redux/reducers/persistReducer";
-import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
+} from "@/redux/reducers/persistReducer";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { base64Images } from "@/lib/types";
 import { getBase64Image } from "@/lib/hooks";
 import {
   setLoading,
   setPassportInputRef,
-} from "@/app/redux/reducers/nonPersistReducer";
+} from "@/redux/reducers/nonPersistReducer";
 
 const UploadComp = () => {
   const passportInputRef = useRef<HTMLInputElement | null>(null);

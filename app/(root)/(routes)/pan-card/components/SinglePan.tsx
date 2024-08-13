@@ -1,5 +1,5 @@
-import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
-import { removeBase64Pan } from "@/app/redux/reducers/persistReducer";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import { removeBase64Pan } from "@/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import Image from "next/image";

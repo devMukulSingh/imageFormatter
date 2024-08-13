@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import persistedReducer from "./reducers/persistReducer";
 import storage from "redux-persist/lib/storage/createWebStorage";
-import nonPersistedReducer from "@/app/redux/reducers/nonPersistReducer";
+import nonPersistedReducer from "@/redux/reducers/nonPersistReducer";
 
 import {
   persistStore,

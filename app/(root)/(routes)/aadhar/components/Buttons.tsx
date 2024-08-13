@@ -1,9 +1,9 @@
-import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
-import { setLoading } from "@/app/redux/reducers/nonPersistReducer";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import { setLoading } from "@/redux/reducers/nonPersistReducer";
 import {
   pushBase64Images,
   removeAllImages,
-} from "@/app/redux/reducers/persistReducer";
+} from "@/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
 import { getBase64Image } from "@/lib/hooks";
 import { base64Images } from "@/lib/types";

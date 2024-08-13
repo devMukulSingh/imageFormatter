@@ -22,14 +22,14 @@ import {
   pushBase64Images,
   setBase64Images,
   setCollageFiles,
-} from "@/app/redux/reducers/persistReducer";
-import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
+} from "@/redux/reducers/persistReducer";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { base64Images, IaadharPdfs } from "@/lib/types";
 import { getBase64Image } from "@/lib/hooks";
 import {
   setCollageInputRef,
   setLoading,
-} from "@/app/redux/reducers/nonPersistReducer";
+} from "@/redux/reducers/nonPersistReducer";
 
 type Props = {
   // fileRef: RefObject<HTMLInputElement>;

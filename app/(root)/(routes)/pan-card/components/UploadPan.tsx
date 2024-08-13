@@ -2,33 +2,20 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
-import { saveAs } from "file-saver";
-import {
-  Column,
-  ColumnBreak,
-  Document,
-  ImageRun,
-  Packer,
-  PageBreak,
-  Paragraph,
-  Tab,
-  TextRun,
-} from "docx";
-import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { Download, Printer } from "lucide-react";
 import {
   setBase64Images,
   setBase64Pan,
   setPassportSizeBase64Image,
-} from "@/app/redux/reducers/persistReducer";
-import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
+} from "@/redux/reducers/persistReducer";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { base64Images } from "@/lib/types";
 import { getBase64Image } from "@/lib/hooks";
 import {
   setLoading,
   setPanInputRef,
-} from "@/app/redux/reducers/nonPersistReducer";
+} from "@/redux/reducers/nonPersistReducer";
 
 const UploadPan = () => {
   const dispatch = useAppDispatch();

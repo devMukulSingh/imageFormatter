@@ -1,5 +1,5 @@
-import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
-import { removeImage } from "@/app/redux/reducers/persistReducer";
+import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import { removeImage } from "@/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
 import { base64Images } from "@/lib/types";
 import { X } from "lucide-react";

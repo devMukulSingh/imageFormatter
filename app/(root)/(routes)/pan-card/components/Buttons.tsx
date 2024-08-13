@@ -1,12 +1,12 @@
-import { useAppDispatch } from "@/app/redux/hook";
-import { setLoading } from "@/app/redux/reducers/nonPersistReducer";
+import { useAppDispatch } from "@/redux/hook";
+import { setLoading } from "@/redux/reducers/nonPersistReducer";
 import {
   pushBase64Images,
   pushPassportSizeBase64Images,
   removeAllImages,
   removeAllPassportSizeImages,
   removeImage,
-} from "@/app/redux/reducers/persistReducer";
+} from "@/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
 import { getBase64Image } from "@/lib/hooks";
 import { base64Images } from "@/lib/types";

@@ -1,5 +1,5 @@
 "use client";
-import { useAppSelector } from "@/app/redux/hook";
+import { useAppSelector } from "@/redux/hook";
 import {
   DragDropContext,
   Droppable,
