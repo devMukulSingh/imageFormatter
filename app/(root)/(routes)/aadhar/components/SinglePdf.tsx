@@ -5,8 +5,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
 // import "react-image-crop/dist/ReactCrop.css";
 
-pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs`;
-
 type Props = {
   pdf: IaadharPdfs;
 };
@@ -50,7 +48,7 @@ const SinglPdf = ({ pdf }: Props) => {
           0,
           0,
           width,
-          height,
+          height
         );
         ctx.restore();
       }
@@ -64,9 +62,10 @@ const SinglPdf = ({ pdf }: Props) => {
     setNumPages(numPages);
   };
   useEffect(() => {
+    pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs`;
     setIsMounted(true);
   }, []);
-  if(!isMounted) return null;
+  if (!isMounted) return null;
   return (
     <>
       {/* {openDialog && (
