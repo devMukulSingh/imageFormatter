@@ -43,8 +43,7 @@ const AadharPreview = ({}: Props) => {
             return (
               <>
                 {/* <div className=""> */}
-                  <SinglePdf pdf={pdf} key={index} />;
-                {/* </div> */}
+                <SinglePdf pdf={pdf} key={index} />;{/* </div> */}
               </>
             );
           return <SinglePdf pdf={pdf} key={index} />;

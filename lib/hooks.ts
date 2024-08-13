@@ -117,7 +117,7 @@ export const saveImage = ({
     const { height, width } = getContainedSize(img);
 
     const canvas = document.createElement("canvas");
-    
+
     canvas.width = img.height;
     canvas.height = img.height;
 
@@ -146,6 +146,3 @@ export const saveImage = ({
     return filteredImage;
   }
 };
-
-
-

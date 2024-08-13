@@ -62,7 +62,7 @@ const SinglPdf = ({ pdf }: Props) => {
 
       const { width, height } = canvasRef.current;
 
-      croppedCanvas.height = pixelRatio * 460;
+      croppedCanvas.height = pixelRatio * 300;
       croppedCanvas.width = pixelRatio * width;
 
       const ctx = croppedCanvas.getContext("2d");
@@ -74,7 +74,7 @@ const SinglPdf = ({ pdf }: Props) => {
         ctx.drawImage(
           canvasRef.current,
           0,
-          1480,
+          910,
           width,
           height,
           0,
@@ -107,8 +107,7 @@ const SinglPdf = ({ pdf }: Props) => {
         />
       )} */}
       <div
-        className="     h-full
-                        w-full
+        className="    
                         flex
                         text-black
                         flex-col
@@ -118,13 +117,13 @@ const SinglPdf = ({ pdf }: Props) => {
       >
         {/* {isOpen && ( */}
         <Document
-          className={"hidden"}
+          className={"hidden print:hidden"}
           file={pdf.file}
           onLoadSuccess={onDocumentSuccess}
         >
           <Page
             scale={1.3}
-            className={"hidden"}
+            className={"hidden print:hidden"}
             renderTextLayer={false}
             canvasRef={canvasRef}
             pageNumber={numPages}
@@ -143,9 +142,12 @@ const SinglPdf = ({ pdf }: Props) => {
           />
           // </div>
         )}
-        <Button className="print:hidden" onClick={a}>
+        {
+          !file &&
+           <Button className="print:hidden" onClick={a}>
           Crop
         </Button>
+        }
       </div>
     </>
   );

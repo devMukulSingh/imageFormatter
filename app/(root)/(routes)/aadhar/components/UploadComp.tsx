@@ -44,7 +44,6 @@ const UploadComp = ({}: Props) => {
     persistedReducer: { base64Images: images },
   } = useAppSelector((state) => state);
 
-
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     try {
       let aadharPdfs: IaadharPdfs[] | null = [];
@@ -64,10 +63,10 @@ const UploadComp = ({}: Props) => {
             id: pdfId,
             file: imgUrl,
           });
-        
-        dispatch(pushAadharPdfs(aadharPdfs));
+
+          dispatch(pushAadharPdfs(aadharPdfs));
+        }
       }
-    }
     } catch (e) {
       toast.error("Something went wrong. Please try again");
       console.log(`Error in handleChange`);
@@ -75,7 +74,6 @@ const UploadComp = ({}: Props) => {
       dispatch(setLoading(false));
     }
   };
-
 
   useEffect(() => {
     // dispatch(setCollageInputRef(collageInputRef.current));

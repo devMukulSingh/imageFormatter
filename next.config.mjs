@@ -1,10 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    webpack: (config) => {
-      config.resolve.alias.canvas = false;
+  webpack: (config) => {
+    config.resolve.alias.canvas = false;
 
-      return config;
-    },
+    return config;
+  },
   experimental: {
     turbo: {
       resolveAlias: {
