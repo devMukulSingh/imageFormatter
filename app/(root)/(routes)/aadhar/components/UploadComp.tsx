@@ -2,32 +2,14 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ChangeEvent, RefObject, useEffect, useRef, useState } from "react";
-import { saveAs } from "file-saver";
-import {
-  Column,
-  ColumnBreak,
-  Document,
-  ImageRun,
-  Packer,
-  PageBreak,
-  Paragraph,
-  Tab,
-  TextRun,
-} from "docx";
-import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
-import { Download, Printer } from "lucide-react";
 import {
   pushAadharPdfs,
-  pushBase64Images,
-  setBase64Images,
-  setCollageFiles,
+
 } from "@/redux/reducers/persistReducer";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { base64Images, IaadharPdfs } from "@/lib/types";
-import { getBase64Image } from "@/lib/hooks";
+import {  IaadharPdfs } from "@/lib/types";
 import {
-  setCollageInputRef,
   setLoading,
 } from "@/redux/reducers/nonPersistReducer";
 
@@ -51,13 +33,7 @@ const UploadComp = ({}: Props) => {
       if (files) {
         dispatch(setLoading(true));
         for (let i = 0; i < files?.length; i++) {
-          // const base64Pdf = await getBase64Image(files[i]);
-          // if (files[i].type.slice(0, 5) !== "image") {
-          //   toast.error("Only images allowed");
-          //   break;
-          // }
           const imgUrl = URL.createObjectURL(files[i]);
-
           const pdfId = Math.floor(Math.random() * 100000);
           aadharPdfs.push({
             id: pdfId,
