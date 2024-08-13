@@ -12,7 +12,6 @@ type Props = {};
 const AadharPreview = ({}: Props) => {
   const {
     persistedReducer: { aadharPdfs },
-
   } = useAppSelector((state) => state);
 
   const [a4PageHeight, setA4PageHeight] = useState(0);

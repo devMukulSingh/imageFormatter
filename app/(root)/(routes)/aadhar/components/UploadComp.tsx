@@ -3,15 +3,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ChangeEvent, RefObject, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import {
-  pushAadharPdfs,
-
-} from "@/redux/reducers/persistReducer";
+import { pushAadharPdfs } from "@/redux/reducers/persistReducer";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import {  IaadharPdfs } from "@/lib/types";
-import {
-  setLoading,
-} from "@/redux/reducers/nonPersistReducer";
+import { IaadharPdfs } from "@/lib/types";
+import { setLoading } from "@/redux/reducers/nonPersistReducer";
 
 type Props = {
   // fileRef: RefObject<HTMLInputElement>;

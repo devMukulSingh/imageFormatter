@@ -1,7 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { IaadharPdfs } from "@/lib/types";
-import dynamic from "next/dynamic";
 import React, { useEffect, useRef, useState } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
 
@@ -61,7 +60,7 @@ const SinglPdf = ({ pdf }: Props) => {
     setNumPages(numPages);
   };
   useEffect(() => {
-    // pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs`;
+    pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs`;
     setIsMounted(true);
   }, []);
   if (!isMounted) return null;
