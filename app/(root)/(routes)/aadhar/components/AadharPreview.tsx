@@ -1,13 +1,13 @@
 "use client";
 import { useAppSelector } from "@/app/redux/hook";
 import Buttons from "./Buttons";
-const SinglePdf = dynamic( () => import('./SinglePdf'),{
-  ssr:false
-})
+import dynamic from "next/dynamic";
+const SinglePdf = dynamic(() => import("./SinglePdf"), {
+  ssr: false,
+});
 import { useEffect, useRef, useState } from "react";
 import EndOfPage from "@/components/EndOfPage";
 import { PDFDocument } from "pdf-lib";
-import dynamic from "next/dynamic";
 
 type Props = {};
 

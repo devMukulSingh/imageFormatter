@@ -1,14 +1,9 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import {  IaadharPdfs } from "@/lib/types";
-import React, {
-  useRef,
-  useState,
-} from "react";
-import "react-image-crop/dist/ReactCrop.css";
+import { IaadharPdfs } from "@/lib/types";
+import React, { useRef, useState } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
-import "react-pdf/dist/Page/TextLayer.css";
-import "react-pdf/dist/Page/AnnotationLayer.css";
+// import "react-image-crop/dist/ReactCrop.css";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs`;
 
@@ -26,17 +21,12 @@ const SinglPdf = ({ pdf }: Props) => {
   //1190 1684
   //743 1052
 
-
   const a = async () => {
-    const pixelRatio = window.devicePixelRatio;
+    const pixelRatio = typeof window !=="undefined" ? window.devicePixelRatio : 1;
 
     const croppedCanvas = document.createElement("canvas");
 
     if (croppedCanvas && canvasRef.current) {
-      console.log(
-        canvasRef.current.clientHeight,
-        canvasRef.current.offsetHeight,
-      );
 
       const { width, height } = canvasRef.current;
 
@@ -62,12 +52,10 @@ const SinglPdf = ({ pdf }: Props) => {
         );
         ctx.restore();
       }
-      console.log(croppedCanvas);
 
       const imgUrl = croppedCanvas.toDataURL("image/jpg");
 
       setFile(imgUrl);
-
     }
   };
   const onDocumentSuccess = async ({ numPages }: { numPages: number }) => {
@@ -107,7 +95,6 @@ const SinglPdf = ({ pdf }: Props) => {
           ></Page>
         </Document>
 
-
         {file && (
           <img
             ref={imgRef}
@@ -121,7 +108,7 @@ const SinglPdf = ({ pdf }: Props) => {
             Crop
           </Button>
         )}
-        </div>
+      </div>
     </>
   );
 };

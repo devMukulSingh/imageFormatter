@@ -1,5 +1,3 @@
-"use client";
-import { useEffect } from "react";
 import AadharPreview from "./components/AadharPreview";
 import UploadComp from "./components/UploadComp";
 
