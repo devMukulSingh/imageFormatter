@@ -4,7 +4,6 @@ import AadharPreview from "./components/AadharPreview";
 import UploadComp from "./components/UploadComp";
 
 export default function Home() {
-  useEffect(() => {}, []);
   return (
     <>
       <main

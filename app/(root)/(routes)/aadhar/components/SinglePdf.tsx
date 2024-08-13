@@ -1,30 +1,11 @@
 "use client";
-import { useAppDispatch, useAppSelector } from "@/app/redux/hook";
-import { removeImage } from "@/app/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
-import { base64Images, IaadharPdfs } from "@/lib/types";
-import { X } from "lucide-react";
+import {  IaadharPdfs } from "@/lib/types";
 import React, {
-  MutableRefObject,
-  use,
-  useEffect,
   useRef,
   useState,
 } from "react";
 import "react-image-crop/dist/ReactCrop.css";
-import EditDialog from "./EditDialog";
-import Image from "next/image";
-import { PDFDocument } from "pdf-lib";
-import FileSaver from "file-saver";
-import { getDocument, GlobalWorkerOptions, PDFDocumentProxy } from "pdfjs-dist";
-import { fromPath, fromBase64 } from "pdf2pic";
-// import * as PDFJS from "../../pdfjs-dist/types/src/pdf";
-// import * as pdfjs from "../../../../../node_modules/pdfjs-dist/build/pdf.min.mjs";
-// await import("pdfjs-dist/build/pdf.worker.min.mjs");
-// import * as pdfjsLib from "pdfjs-dist/webpack";
-import axios from "axios";
-// import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
-// pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.5.136/pdf.worker.min.mjs`;
 import { pdfjs, Document, Page } from "react-pdf";
 import "react-pdf/dist/Page/TextLayer.css";
 import "react-pdf/dist/Page/AnnotationLayer.css";
@@ -45,19 +26,16 @@ const SinglPdf = ({ pdf }: Props) => {
   //1190 1684
   //743 1052
 
-  useEffect(() => {
-    // a();
-  }, [numPages]);
+
   const a = async () => {
     const pixelRatio = window.devicePixelRatio;
 
     const croppedCanvas = document.createElement("canvas");
 
     if (croppedCanvas && canvasRef.current) {
-
       console.log(
         canvasRef.current.clientHeight,
-        canvasRef.current.offsetHeight
+        canvasRef.current.offsetHeight,
       );
 
       const { width, height } = canvasRef.current;
@@ -80,7 +58,7 @@ const SinglPdf = ({ pdf }: Props) => {
           0,
           0,
           width,
-          height
+          height,
         );
         ctx.restore();
       }
@@ -90,7 +68,6 @@ const SinglPdf = ({ pdf }: Props) => {
 
       setFile(imgUrl);
 
-      // setIsOpen(false);
     }
   };
   const onDocumentSuccess = async ({ numPages }: { numPages: number }) => {
@@ -129,26 +106,22 @@ const SinglPdf = ({ pdf }: Props) => {
             pageNumber={numPages}
           ></Page>
         </Document>
-        {/* )} */}
-        {/* <canvas ref={croppedCanvas}></canvas> */}
+
 
         {file && (
-          // <div className="w-[800px] h-[300px] relative">
           <img
             ref={imgRef}
             src={file}
             alt="fileImage"
             className="object-contain object-top"
           />
-          // </div>
         )}
-        {
-          !file &&
-           <Button className="print:hidden" onClick={a}>
-          Crop
-        </Button>
-        }
-      </div>
+        {!file && (
+          <Button className="print:hidden" onClick={a}>
+            Crop
+          </Button>
+        )}
+        </div>
     </>
   );
 };
