@@ -42,10 +42,10 @@ const CropComp = ({ imgRef, image, cropperRef, setOpenDialog }: Props) => {
     cropperRef.current?.cropper.rotate(90);
   };
   useEffect(() => {
-        cropperRef.current?.cropper.setCropBoxData({
-          height: 380,
-          width: 380,
-        });
+    cropperRef.current?.cropper.setCropBoxData({
+      height: 380,
+      width: 380,
+    });
     const clearCropper = (e: MouseEvent) => {
       const id = (e?.target as HTMLElement).id;
       if (id === "radix-:r0:") {
@@ -75,11 +75,7 @@ const CropComp = ({ imgRef, image, cropperRef, setOpenDialog }: Props) => {
         />
       </div>
       <div className="flex gap-10">
-        <Button
-          onClick={handleRotate}
-          type="button"
-          variant={"primary"}
-        >
+        <Button onClick={handleRotate} type="button" variant={"primary"}>
           Rotate
           <RotateCw className="ml-2" size={20} />
         </Button>

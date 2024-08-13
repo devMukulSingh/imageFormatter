@@ -29,6 +29,7 @@ export default function RootLayout({
         </PersistProvider>
       </body>
       <Script src="/path/to/cropper.js" />
+      <Script src="https://mozilla.github.io/pdf.js/build/pdf.js" />
     </html>
   );
 }

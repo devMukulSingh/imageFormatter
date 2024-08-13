@@ -20,11 +20,11 @@ const Navlinks = () => {
       link: "/pan-card",
       isActive: pathName.endsWith("/pan-card"),
     },
-    {
-      title: "Aadhar card",
-      link: "/aadhar",
-      isActive: pathName.endsWith("/aadhar"),
-    },
+    // {
+    //   title: "Aadhar card",
+    //   link: "/aadhar-card",
+    //   isActive: pathName.endsWith("/aadhar-card"),
+    // },
   ];
   return (
     <div className="flex gap-5">
