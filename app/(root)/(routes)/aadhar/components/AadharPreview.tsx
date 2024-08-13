@@ -3,10 +3,9 @@ import { useAppSelector } from "@/redux/hook";
 import Buttons from "./Buttons";
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
-const SinglePdf = dynamic(() => import("./SinglePdf"), {
-  ssr: false,
-});
-
+// const SinglePdf = dynamic(() => import("./SinglePdf"), {
+//   ssr: false,
+// });
 
 type Props = {};
 
@@ -45,10 +44,10 @@ const AadharPreview = ({}: Props) => {
             return (
               <>
                 {/* <div className=""> */}
-                <SinglePdf pdf={pdf} key={index} />;{/* </div> */}
+                {/* <SinglePdf pdf={pdf} key={index} />;</div> */}
               </>
             );
-          return <SinglePdf pdf={pdf} key={index} />;
+          // return <SinglePdf pdf={pdf} key={index} />;
         })}
       </div>
     </div>
