@@ -84,13 +84,13 @@ const SinglPdf = ({ pdf }: Props) => {
       >
         {/* {isOpen && ( */}
         <Document
-          className={"hidden print:hidden"}
+          className={" print:hidden"}
           file={pdf.file}
           onLoadSuccess={onDocumentSuccess}
         >
           <Page
-            scale={1.3}
-            className={"hidden print:hidden"}
+            scale={1.4}
+            className={" print:hidden"}
             renderTextLayer={false}
             canvasRef={canvasRef}
             pageNumber={numPages}

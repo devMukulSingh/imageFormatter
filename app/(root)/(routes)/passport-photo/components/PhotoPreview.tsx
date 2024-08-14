@@ -39,8 +39,8 @@ const PhotoPreview = ({}: Props) => {
         w-[793.7px]
         bg-white 
         print:mt-0
-        px-3
         py-[14px]
+        px-[14px]
         relative
         `}
       >
