@@ -7,7 +7,7 @@ import Image from "next/image";
 import Buttons from "./Buttons";
 import { useEffect, useRef, useState } from "react";
 import EndOfPage from "@/components/EndOfPage";
-
+//3.3 * 4
 type Props = {};
 
 const PhotoPreview = ({}: Props) => {
@@ -39,7 +39,7 @@ const PhotoPreview = ({}: Props) => {
         w-[793.7px]
         bg-white 
         print:mt-0
-        px-6
+        px-3
         py-[14px]
         relative
         `}
@@ -56,7 +56,7 @@ const PhotoPreview = ({}: Props) => {
                   key={index}
                   className={`
                   h-[151px]
-                  w-[117px]
+                  w-[124px]
                   relative
                   flex
                   flex-col
@@ -98,8 +98,7 @@ const PhotoPreview = ({}: Props) => {
               key={index}
               className={`
               h-[151px]
-              w-[118px]
-
+              w-[124px]
               relative
               flex
               flex-col
