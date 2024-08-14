@@ -18,7 +18,7 @@ type Props = {
 const Buttons = ({ disabled }: Props) => {
   const dispatch = useAppDispatch();
   const {
-    nonPersistedReducer: { collageInputRef, },
+    nonPersistedReducer: { collageInputRef },
   } = useAppSelector((state) => state);
   const handleAddMore = async () => {
     const imageInput = document.createElement("input");

@@ -247,5 +247,5 @@ export const {
   setCroppedImg,
   setEditedPan,
   pushAadharPdfs,
-  removeAllAadharPdfs
+  removeAllAadharPdfs,
 } = persistedSlice.actions;

@@ -28,7 +28,7 @@ const SinglPdf = ({ pdf }: Props) => {
     if (croppedCanvas && canvasRef.current) {
       const { width, height } = canvasRef.current;
 
-      croppedCanvas.height = pixelRatio * 540;
+      croppedCanvas.height = pixelRatio * 545;
       croppedCanvas.width = pixelRatio * width;
 
       const ctx = croppedCanvas.getContext("2d");
@@ -62,6 +62,9 @@ const SinglPdf = ({ pdf }: Props) => {
     //   canvasRef.current.style.width = '1100' ;
     // }
     setNumPages(numPages);
+    // setTimeout( () => {
+    //   a();  
+    // },2000  )
   };
   useEffect(() => {
     pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs`;

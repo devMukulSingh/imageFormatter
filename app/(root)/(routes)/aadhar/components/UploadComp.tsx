@@ -6,7 +6,10 @@ import toast from "react-hot-toast";
 import { pushAadharPdfs } from "@/redux/reducers/persistReducer";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { IaadharPdfs } from "@/lib/types";
-import { setAadharInputRef, setLoading } from "@/redux/reducers/nonPersistReducer";
+import {
+  setAadharInputRef,
+  setLoading,
+} from "@/redux/reducers/nonPersistReducer";
 
 type Props = {
   // fileRef: RefObject<HTMLInputElement>;
@@ -36,7 +39,7 @@ const UploadComp = ({}: Props) => {
           });
 
           dispatch(pushAadharPdfs(aadharPdfs));
-          if(aadharInputRef.current) aadharInputRef.current.value="";
+          if (aadharInputRef.current) aadharInputRef.current.value = "";
         }
       }
     } catch (e) {

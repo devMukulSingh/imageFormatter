@@ -60,7 +60,7 @@ const Buttons = ({ disabled }: Props) => {
         variant={"destructive"}
         onClick={() => {
           dispatch(removeAllAadharPdfs());
-          if(aadharInputRef) aadharInputRef.value = ""
+          if (aadharInputRef) aadharInputRef.value = "";
         }}
       >
         <Trash size={20} />
