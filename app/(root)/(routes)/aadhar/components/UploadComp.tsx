@@ -6,14 +6,14 @@ import toast from "react-hot-toast";
 import { pushAadharPdfs } from "@/redux/reducers/persistReducer";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { IaadharPdfs } from "@/lib/types";
-import { setLoading } from "@/redux/reducers/nonPersistReducer";
+import { setAadharInputRef, setLoading } from "@/redux/reducers/nonPersistReducer";
 
 type Props = {
   // fileRef: RefObject<HTMLInputElement>;
 };
 
 const UploadComp = ({}: Props) => {
-  const collageInputRef = useRef<HTMLInputElement | null>(null);
+  const aadharInputRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
 
   const {
@@ -36,6 +36,7 @@ const UploadComp = ({}: Props) => {
           });
 
           dispatch(pushAadharPdfs(aadharPdfs));
+          if(aadharInputRef.current) aadharInputRef.current.value="";
         }
       }
     } catch (e) {
@@ -47,7 +48,7 @@ const UploadComp = ({}: Props) => {
   };
 
   useEffect(() => {
-    // dispatch(setCollageInputRef(collageInputRef.current));
+    dispatch(setAadharInputRef(aadharInputRef.current));
   }, []);
   return (
     <div
@@ -72,7 +73,7 @@ const UploadComp = ({}: Props) => {
         Upload aadhar
       </Label>
       <Input
-        ref={collageInputRef}
+        ref={aadharInputRef}
         onChange={handleChange}
         className="bg-slate-200 cursor-pointer h-28 "
         type="file"

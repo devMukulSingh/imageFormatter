@@ -5,6 +5,7 @@ const initialState: InonPersistInitialState = {
   collageInputRef: null,
   passportInputRef: null,
   panInputRef: null,
+  aadharInputRef:null,
   loading: false,
 };
 
@@ -24,6 +25,9 @@ export const nonPersistSlice = createSlice({
     setPanInputRef: (state, action) => {
       state.panInputRef = action.payload;
     },
+    setAadharInputRef : ( state,action) => {
+      state.aadharInputRef = action.payload;
+    }
   },
 });
 
@@ -32,6 +36,7 @@ export const {
   setPanInputRef,
   setPassportInputRef,
   setLoading,
+  setAadharInputRef
 } = nonPersistSlice.actions;
 
 export default nonPersistSlice.reducer;

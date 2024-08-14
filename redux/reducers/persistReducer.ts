@@ -212,6 +212,9 @@ export const persistedSlice = createSlice({
     pushAadharPdfs: (state, action) => {
       state.aadharPdfs.push(...action.payload);
     },
+    removeAllAadharPdfs: (state) => {
+      state.aadharPdfs = [];
+    },
   },
 });
 
@@ -244,4 +247,5 @@ export const {
   setCroppedImg,
   setEditedPan,
   pushAadharPdfs,
+  removeAllAadharPdfs
 } = persistedSlice.actions;

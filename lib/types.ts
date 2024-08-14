@@ -24,6 +24,7 @@ export interface InonPersistInitialState {
   collageInputRef: HTMLInputElement | null;
   passportInputRef: HTMLInputElement | null;
   panInputRef: HTMLInputElement | null;
+  aadharInputRef:HTMLInputElement | null
 }
 
 export interface IaadharPdfs {

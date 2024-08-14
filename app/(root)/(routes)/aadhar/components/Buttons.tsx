@@ -1,12 +1,14 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { setLoading } from "@/redux/reducers/nonPersistReducer";
 import {
+  pushAadharPdfs,
   pushBase64Images,
+  removeAllAadharPdfs,
   removeAllImages,
 } from "@/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
 import { getBase64Image } from "@/lib/hooks";
-import { base64Images } from "@/lib/types";
+import { base64Images, IaadharPdfs } from "@/lib/types";
 import { PlusCircle, Printer, Trash } from "lucide-react";
 import React from "react";
 import toast from "react-hot-toast";
@@ -18,7 +20,7 @@ type Props = {
 const Buttons = ({ disabled }: Props) => {
   const dispatch = useAppDispatch();
   const {
-    nonPersistedReducer: { collageInputRef },
+    nonPersistedReducer: { aadharInputRef },
   } = useAppSelector((state) => state);
   const handleAddMore = async () => {
     const imageInput = document.createElement("input");
@@ -28,25 +30,19 @@ const Buttons = ({ disabled }: Props) => {
     imageInput.onchange = async (e: any) => {
       const file = e?.target?.files;
       try {
-        let base64Images: base64Images[] | null = [];
+        let base64Images: IaadharPdfs[] | null = [];
         const files = e?.target?.files;
         if (files) {
           dispatch(setLoading(true));
           for (let i = 0; i < files?.length; i++) {
-            const base64Image = await getBase64Image(files[i]);
+            const imgUrl = URL.createObjectURL(files[i]);
             const imageId = Math.floor(Math.random() * 1000);
             base64Images.push({
               id: imageId,
-              img: base64Image,
-              filters: {
-                brightness: 100,
-                contrast: 100,
-                rotation: 0,
-                saturation: 100,
-              },
+              file: imgUrl,
             });
           }
-          dispatch(pushBase64Images(base64Images));
+          dispatch(pushAadharPdfs(base64Images));
         }
       } catch (e) {
         toast.error("Something went wrong. Please try again");
@@ -63,8 +59,8 @@ const Buttons = ({ disabled }: Props) => {
         className="flex gap-1"
         variant={"destructive"}
         onClick={() => {
-          dispatch(removeAllImages());
-          if (collageInputRef) collageInputRef.value = "";
+          dispatch(removeAllAadharPdfs());
+          if(aadharInputRef) aadharInputRef.value = ""
         }}
       >
         <Trash size={20} />

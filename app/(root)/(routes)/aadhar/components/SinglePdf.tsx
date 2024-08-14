@@ -28,7 +28,7 @@ const SinglPdf = ({ pdf }: Props) => {
     if (croppedCanvas && canvasRef.current) {
       const { width, height } = canvasRef.current;
 
-      croppedCanvas.height = pixelRatio * 550;
+      croppedCanvas.height = pixelRatio * 540;
       croppedCanvas.width = pixelRatio * width;
 
       const ctx = croppedCanvas.getContext("2d");
@@ -94,7 +94,7 @@ const SinglPdf = ({ pdf }: Props) => {
           file={pdf.file}
           onLoadSuccess={onDocumentSuccess}
         >
-          <Page 
+          <Page
             scale={2.4}
             className={"hidden print:hidden"}
             renderTextLayer={false}
