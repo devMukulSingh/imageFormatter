@@ -31,12 +31,12 @@ const AadharPreview = ({}: Props) => {
         className="
                 md:mt-[3rem]
                 gap-4
+                w-[95vw]
                 min-h-[1122.5px]
-                w-[793.7px]
               bg-white 
                 print:mt-0
                 py-5
-                px-8"
+                px-4"
       >
         {aadharPdfs.map((pdf, index) => {
           if (a4PageHeight > 1120 && index % 6 === 0 && index !== 0)

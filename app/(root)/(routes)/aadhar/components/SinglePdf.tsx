@@ -28,7 +28,7 @@ const SinglPdf = ({ pdf }: Props) => {
     if (croppedCanvas && canvasRef.current) {
       const { width, height } = canvasRef.current;
 
-      croppedCanvas.height = pixelRatio * 300;
+      croppedCanvas.height = pixelRatio * 550;
       croppedCanvas.width = pixelRatio * width;
 
       const ctx = croppedCanvas.getContext("2d");
@@ -40,7 +40,7 @@ const SinglPdf = ({ pdf }: Props) => {
         ctx.drawImage(
           canvasRef.current,
           0,
-          910,
+          1700,
           width,
           height,
           0,
@@ -57,6 +57,10 @@ const SinglPdf = ({ pdf }: Props) => {
     }
   };
   const onDocumentSuccess = async ({ numPages }: { numPages: number }) => {
+    // if(canvasRef.current){
+    //   canvasRef.current.style.height = '1600';
+    //   canvasRef.current.style.width = '1100' ;
+    // }
     setNumPages(numPages);
   };
   useEffect(() => {
@@ -75,6 +79,8 @@ const SinglPdf = ({ pdf }: Props) => {
       )} */}
       <div
         className="
+                      w-full
+                     
                         flex
                         text-black
                         flex-col
@@ -84,13 +90,13 @@ const SinglPdf = ({ pdf }: Props) => {
       >
         {/* {isOpen && ( */}
         <Document
-          className={" print:hidden"}
+          className={"hidden print:hidden"}
           file={pdf.file}
           onLoadSuccess={onDocumentSuccess}
         >
-          <Page
-            scale={1.4}
-            className={" print:hidden"}
+          <Page 
+            scale={2.4}
+            className={"hidden print:hidden"}
             renderTextLayer={false}
             canvasRef={canvasRef}
             pageNumber={numPages}

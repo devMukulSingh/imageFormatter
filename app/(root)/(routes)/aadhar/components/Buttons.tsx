@@ -57,7 +57,7 @@ const Buttons = ({ disabled }: Props) => {
     };
   };
   return (
-    <div className="print:hidden flex-shrink lg:fixed md:top-[90px] px-2 py-1 z-30 gap-5 h-[3rem]  flex justify-center items-center w-[793.7px] bg-neutral-200 ">
+    <div className="print:hidden flex-shrink  md:top-[385px] px-2 py-1 z-30 gap-5 h-[3rem]  flex justify-center items-center w-[95vw] bg-neutral-200 ">
       <Button
         disabled={disabled}
         className="flex gap-1"
