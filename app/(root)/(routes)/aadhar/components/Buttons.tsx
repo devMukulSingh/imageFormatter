@@ -43,6 +43,7 @@ const Buttons = ({ disabled }: Props) => {
             base64Images.push({
               id: imageId,
               file: imgUrl,
+              imgUrl:""
             });
           }
           dispatch(pushAadharPdfs(base64Images));

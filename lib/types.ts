@@ -30,4 +30,5 @@ export interface InonPersistInitialState {
 export interface IaadharPdfs {
   file: string;
   id: number;
+  imgUrl:string
 }

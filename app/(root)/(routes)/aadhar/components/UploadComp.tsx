@@ -31,7 +31,8 @@ const UploadComp = ({}: Props) => {
           pushAadharPdfs({
             id: pdfId,
             file: imgUrl,
-          })
+          
+          }),
         );
         resolve("");
       }, 1500);

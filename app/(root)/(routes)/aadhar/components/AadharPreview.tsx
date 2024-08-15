@@ -15,7 +15,7 @@ const AadharPreview = ({}: Props) => {
   const {
     persistedReducer: { aadharPdfs },
   } = useAppSelector((state) => state);
-console.log(aadharPdfs);
+  console.log(aadharPdfs);
 
   const [a4PageHeight, setA4PageHeight] = useState(0);
   const a4pageRef = useRef<HTMLDivElement | null>(null);
@@ -52,7 +52,7 @@ console.log(aadharPdfs);
                 </div>
               </>
             );
-          return <SinglePdf pdf={pdf} key={index} />
+          return <SinglePdf pdf={pdf} key={index} />;
         })}
       </div>
     </div>

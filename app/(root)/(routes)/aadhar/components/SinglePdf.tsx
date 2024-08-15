@@ -1,10 +1,13 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { IaadharPdfs } from "@/lib/types";
-import { Loader, Loader2Icon } from "lucide-react";
+import { useAppDispatch } from "@/redux/hook";
+import { removeAadharPdf, setAadharImgUrl } from "@/redux/reducers/persistReducer";
+import { Loader, Loader2Icon, X } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
+
 type Props = {
   pdf: IaadharPdfs;
 };
@@ -16,64 +19,62 @@ const SinglPdf = ({ pdf }: Props) => {
   const [numPages, setNumPages] = useState<number>();
   const [file, setFile] = useState<string | undefined>(undefined);
   const [isOpen, setIsOpen] = useState(true);
-
+  const dispatch = useAppDispatch();
   //1190 1684
   //743 1052
 
   const a = async () => {
-      console.log("afunction");
-    try{
-    const pixelRatio =
-      typeof window !== "undefined" ? window.devicePixelRatio : 1;
+    console.log("afunction");
+    try {
+      const pixelRatio =
+        typeof window !== "undefined" ? window.devicePixelRatio : 1;
 
-    const croppedCanvas = document.createElement("canvas");
+      const croppedCanvas = document.createElement("canvas");
       console.log(canvasRef.current, croppedCanvas);
 
-    if (croppedCanvas && canvasRef.current) {
-      console.log(canvasRef.current,croppedCanvas);
+      if (croppedCanvas && canvasRef.current) {
+        console.log(canvasRef.current, croppedCanvas);
 
-      const { width, height } = canvasRef.current;
+        const { width, height } = canvasRef.current;
 
-      croppedCanvas.height = pixelRatio * 545;
-      croppedCanvas.width = pixelRatio * width;
+        croppedCanvas.height = pixelRatio * 545;
+        croppedCanvas.width = pixelRatio * width;
 
-      const ctx = croppedCanvas.getContext("2d");
+        const ctx = croppedCanvas.getContext("2d");
 
-      if (ctx) {
-        ctx.save();
-        ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-        ctx.imageSmoothingQuality = "high";
-        ctx.drawImage(
-          canvasRef.current,
-          0,
-          1700,
-          width,
-          height,
-          0,
-          0,
-          width,
-          height
-        );
-        ctx.restore();
+        if (ctx) {
+          ctx.save();
+          ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+          ctx.imageSmoothingQuality = "high";
+          ctx.drawImage(
+            canvasRef.current,
+            0,
+            1700,
+            width,
+            height,
+            0,
+            0,
+            width,
+            height
+          );
+          ctx.restore();
+        }
+
+        const imgUrl = croppedCanvas.toDataURL("image/jpg");
+        console.log(imgUrl);
+        dispatch(setAadharImgUrl({id:pdf.id,imgUrl}))
+        setFile(imgUrl);
       }
-
-      const imgUrl = croppedCanvas.toDataURL("image/jpg");
-      console.log(imgUrl);
-      
-      setFile(imgUrl);
-    }
-    }
-    catch(e){
-      console.log(`Error in Crop aadhar function`,e);
-      
+    } catch (e) {
+      console.log(`Error in Crop aadhar function`, e);
     }
   };
   const onDocumentSuccess = async ({ numPages }: { numPages: number }) => {
     setNumPages(numPages);
-    console.log("inside");
-    setTimeout( () => {
-       a();
-    },1000)
+ 
+    setTimeout(() => {
+      a();
+    }, 1000);
   };
   useEffect(() => {
     pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs`;
@@ -116,12 +117,20 @@ const SinglPdf = ({ pdf }: Props) => {
         </Document>
 
         {file && (
-          <img
-            ref={imgRef}
-            src={file}
-            alt="fileImage"
-            className="object-contain object-top"
-          />
+          <div className="flex flex-col ">
+            <Button 
+              className="self-center absolute print:hidden rounded-full"
+              onClick={ () => dispatch(removeAadharPdf(pdf.id))} 
+              size={"icon"}>
+              <X size={20}/>
+            </Button>
+            <img
+              ref={imgRef}
+              src={pdf.imgUrl}
+              alt="fileImage"
+              className="object-contain object-top"
+            />
+          </div>
         )}
         {!file && (
           <div className="flex justify-center">
