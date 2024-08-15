@@ -23,24 +23,41 @@ const UploadComp = ({}: Props) => {
     nonPersistedReducer: { loading },
     persistedReducer: { base64Images: images },
   } = useAppSelector((state) => state);
-
+  const push = async ({ pdfId, imgUrl }: { pdfId: number; imgUrl: string }) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        console.log("inside timeout");
+        dispatch(
+          pushAadharPdfs({
+            id: pdfId,
+            file: imgUrl,
+          })
+        );
+        resolve("");
+      }, 1500);
+    });
+  };
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     try {
       let aadharPdfs: IaadharPdfs[] | null = [];
       const files = e?.target?.files;
+
       if (files) {
+        if (files?.length > 10) {
+          toast.error("Maximum 10 files allowed at a time");
+          if (aadharInputRef.current) aadharInputRef.current.value = "";
+          return;
+        }
         dispatch(setLoading(true));
         for (let i = 0; i < files?.length; i++) {
           const imgUrl = URL.createObjectURL(files[i]);
           const pdfId = Math.floor(Math.random() * 100000);
-          aadharPdfs.push({
-            id: pdfId,
-            file: imgUrl,
-          });
-
-          dispatch(pushAadharPdfs(aadharPdfs));
-          if (aadharInputRef.current) aadharInputRef.current.value = "";
+          await push({ pdfId, imgUrl });
         }
+        console.log("hello");
+
+        // dispatch(pushAadharPdfs(aadharPdfs));
+        if (aadharInputRef.current) aadharInputRef.current.value = "";
       }
     } catch (e) {
       toast.error("Something went wrong. Please try again");
@@ -53,6 +70,7 @@ const UploadComp = ({}: Props) => {
   useEffect(() => {
     dispatch(setAadharInputRef(aadharInputRef.current));
   }, []);
+
   return (
     <div
       className="

@@ -1,9 +1,10 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { IaadharPdfs } from "@/lib/types";
+import { Loader, Loader2Icon } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
-
+import "react-pdf/dist/Page/AnnotationLayer.css";
 type Props = {
   pdf: IaadharPdfs;
 };
@@ -20,12 +21,17 @@ const SinglPdf = ({ pdf }: Props) => {
   //743 1052
 
   const a = async () => {
+      console.log("afunction");
+    try{
     const pixelRatio =
       typeof window !== "undefined" ? window.devicePixelRatio : 1;
 
     const croppedCanvas = document.createElement("canvas");
+      console.log(canvasRef.current, croppedCanvas);
 
     if (croppedCanvas && canvasRef.current) {
+      console.log(canvasRef.current,croppedCanvas);
+
       const { width, height } = canvasRef.current;
 
       croppedCanvas.height = pixelRatio * 545;
@@ -46,25 +52,28 @@ const SinglPdf = ({ pdf }: Props) => {
           0,
           0,
           width,
-          height,
+          height
         );
         ctx.restore();
       }
 
       const imgUrl = croppedCanvas.toDataURL("image/jpg");
-
+      console.log(imgUrl);
+      
       setFile(imgUrl);
+    }
+    }
+    catch(e){
+      console.log(`Error in Crop aadhar function`,e);
+      
     }
   };
   const onDocumentSuccess = async ({ numPages }: { numPages: number }) => {
-    // if(canvasRef.current){
-    //   canvasRef.current.style.height = '1600';
-    //   canvasRef.current.style.width = '1100' ;
-    // }
     setNumPages(numPages);
-    // setTimeout( () => {
-    //   a();  
-    // },2000  )
+    console.log("inside");
+    setTimeout( () => {
+       a();
+    },1000)
   };
   useEffect(() => {
     pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs`;
@@ -115,9 +124,12 @@ const SinglPdf = ({ pdf }: Props) => {
           />
         )}
         {!file && (
-          <Button className="print:hidden" onClick={a}>
-            Crop
-          </Button>
+          <div className="flex justify-center">
+            <Loader2Icon size={25} className="animate-spin " />
+          </div>
+          // <Button className="print:hidden" onClick={a}>
+          //   Crop
+          // </Button>
         )}
       </div>
     </>

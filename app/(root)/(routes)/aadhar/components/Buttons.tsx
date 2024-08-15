@@ -28,11 +28,14 @@ const Buttons = ({ disabled }: Props) => {
     imageInput.multiple = true;
     imageInput.click();
     imageInput.onchange = async (e: any) => {
-      const file = e?.target?.files;
       try {
         let base64Images: IaadharPdfs[] | null = [];
         const files = e?.target?.files;
         if (files) {
+          if (files?.length > 10) {
+            toast.error("Maximum 10 files allowed at a time");
+            return;
+          }
           dispatch(setLoading(true));
           for (let i = 0; i < files?.length; i++) {
             const imgUrl = URL.createObjectURL(files[i]);
@@ -76,14 +79,14 @@ const Buttons = ({ disabled }: Props) => {
         Print
       </Button>
 
-      <Button
+      {/* <Button
         disabled={disabled}
         className="flex gap-1 items-center"
         onClick={handleAddMore}
       >
         <PlusCircle size={20} />
         Add more
-      </Button>
+      </Button> */}
     </div>
   );
 };
