@@ -1,9 +1,14 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { rotateBy90 } from "@/lib/hooks";
 import { IaadharPdfs } from "@/lib/types";
 import { useAppDispatch } from "@/redux/hook";
-import { removeAadharPdf, setAadharImgUrl } from "@/redux/reducers/persistReducer";
+import {
+  removeAadharPdf,
+  setAadharImgUrl,
+} from "@/redux/reducers/persistReducer";
 import { Loader, Loader2Icon, X } from "lucide-react";
+import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
@@ -21,10 +26,9 @@ const SinglPdf = ({ pdf }: Props) => {
   const [isOpen, setIsOpen] = useState(true);
   const dispatch = useAppDispatch();
   //1190 1684
-  //743 1052
+  //743 1052  
 
   const a = async () => {
-    console.log("afunction");
     try {
       const pixelRatio =
         typeof window !== "undefined" ? window.devicePixelRatio : 1;
@@ -33,7 +37,6 @@ const SinglPdf = ({ pdf }: Props) => {
       console.log(canvasRef.current, croppedCanvas);
 
       if (croppedCanvas && canvasRef.current) {
-        console.log(canvasRef.current, croppedCanvas);
 
         const { width, height } = canvasRef.current;
 
@@ -59,10 +62,8 @@ const SinglPdf = ({ pdf }: Props) => {
           );
           ctx.restore();
         }
-
         const imgUrl = croppedCanvas.toDataURL("image/jpg");
-        console.log(imgUrl);
-        dispatch(setAadharImgUrl({id:pdf.id,imgUrl}))
+        dispatch(setAadharImgUrl({ id: pdf.id, imgUrl }));
         setFile(imgUrl);
       }
     } catch (e) {
@@ -71,11 +72,12 @@ const SinglPdf = ({ pdf }: Props) => {
   };
   const onDocumentSuccess = async ({ numPages }: { numPages: number }) => {
     setNumPages(numPages);
- 
+
     setTimeout(() => {
       a();
     }, 1000);
   };
+
   useEffect(() => {
     pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs`;
     setIsMounted(true);
@@ -93,7 +95,6 @@ const SinglPdf = ({ pdf }: Props) => {
       <div
         className="
                       w-full
-                     
                         flex
                         text-black
                         flex-col
@@ -117,18 +118,28 @@ const SinglPdf = ({ pdf }: Props) => {
         </Document>
 
         {file && (
-          <div className="flex flex-col ">
-            <Button 
-              className="self-center absolute print:hidden rounded-full"
-              onClick={ () => dispatch(removeAadharPdf(pdf.id))} 
-              size={"icon"}>
-              <X size={20}/>
-            </Button>
+          <div className="flex flex-col">
+            {/* <div className="flex  absolute top-0 print:hidden "> */}
+            <Button
+                className=" print:hidden rounded-full z-40 self-center absolute top-0"
+                onClick={() => dispatch(removeAadharPdf(pdf.id))}
+                size={"icon"}
+              >
+                <X size={20} />
+              </Button>
+            {/* <Button
+                className=" print:hidden rounded-full z-40"
+                onClick={handleRotate}
+              >
+                Rotate
+              </Button> */}
+            {/* </div> */}
+
             <img
               ref={imgRef}
               src={pdf.imgUrl}
               alt="fileImage"
-              className="object-contain object-top"
+              className="object-contain object-top contrast-[1.15]  saturate-[1.2]  "
             />
           </div>
         )}
@@ -146,3 +157,5 @@ const SinglPdf = ({ pdf }: Props) => {
 };
 
 export default SinglPdf;
+// print:h-[200px] print:w-[650px]
+// 90 , 180

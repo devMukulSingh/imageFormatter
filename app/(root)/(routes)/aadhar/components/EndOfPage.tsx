@@ -8,7 +8,8 @@ const EndOfPage = () => {
         </h1>{" "}
         <hr className=" w-1/2 border-2  border-dashed border-black z-40" />
       </div>
-      <hr className="w-full h-[12px] border-2 col-span-full invisible" />
+      {/* <hr className="w-full h-[20px] border-2  " /> */}
+      <div className="h-[20px] invisible col-span-full"></div>
     </>
   );
 };

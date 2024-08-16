@@ -218,14 +218,14 @@ export const persistedSlice = createSlice({
     removeAllAadharPdfs: (state) => {
       state.aadharPdfs = [];
     },
-    setAadharImgUrl : (state,action) => {
-      const {id,imgUrl} = action.payload;
-      for(let i = 0; i < state.aadharPdfs.length;i ++){
-        if(state.aadharPdfs[i].id===id){
-          state.aadharPdfs[i].imgUrl = imgUrl
+    setAadharImgUrl: (state, action) => {
+      const { id, imgUrl } = action.payload;
+      for (let i = 0; i < state.aadharPdfs.length; i++) {
+        if (state.aadharPdfs[i].id === id) {
+          state.aadharPdfs[i].imgUrl = imgUrl;
         }
       }
-    }
+    },
   },
 });
 
@@ -259,5 +259,5 @@ export const {
   setEditedPan,
   pushAadharPdfs,
   removeAllAadharPdfs,
-  setAadharImgUrl
+  setAadharImgUrl,
 } = persistedSlice.actions;

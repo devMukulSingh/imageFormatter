@@ -39,7 +39,7 @@ const AadharPreview = ({}: Props) => {
                 min-h-[1122.5px]
               bg-white 
                 print:mt-0
-                py-4
+                py-[12px]
                 px-4"
       >
         {aadharPdfs.map((pdf, index) => {
