@@ -26,7 +26,7 @@ const SinglPdf = ({ pdf }: Props) => {
   const [isOpen, setIsOpen] = useState(true);
   const dispatch = useAppDispatch();
   //1190 1684
-  //743 1052  
+  //743 1052
 
   const a = async () => {
     try {
@@ -37,7 +37,6 @@ const SinglPdf = ({ pdf }: Props) => {
       console.log(canvasRef.current, croppedCanvas);
 
       if (croppedCanvas && canvasRef.current) {
-
         const { width, height } = canvasRef.current;
 
         croppedCanvas.height = pixelRatio * 545;
@@ -58,7 +57,7 @@ const SinglPdf = ({ pdf }: Props) => {
             0,
             0,
             width,
-            height
+            height,
           );
           ctx.restore();
         }
@@ -121,12 +120,12 @@ const SinglPdf = ({ pdf }: Props) => {
           <div className="flex flex-col">
             {/* <div className="flex  absolute top-0 print:hidden "> */}
             <Button
-                className=" print:hidden rounded-full z-40 self-center absolute top-0"
-                onClick={() => dispatch(removeAadharPdf(pdf.id))}
-                size={"icon"}
-              >
-                <X size={20} />
-              </Button>
+              className=" print:hidden rounded-full z-40 self-center absolute top-0"
+              onClick={() => dispatch(removeAadharPdf(pdf.id))}
+              size={"icon"}
+            >
+              <X size={20} />
+            </Button>
             {/* <Button
                 className=" print:hidden rounded-full z-40"
                 onClick={handleRotate}

@@ -16,9 +16,11 @@ import toast from "react-hot-toast";
 
 type Props = {
   disabled: boolean;
+  setCurrentComp: (currentComp: string) => void;
+  currentComp: string;
 };
 
-export default function Buttons({ disabled }: Props) {
+export default function Buttons({ disabled,currentComp,setCurrentComp }: Props) {
   const dispatch = useAppDispatch();
   const handleAddMore = async () => {
     const imageInput = document.createElement("input");
@@ -61,6 +63,11 @@ export default function Buttons({ disabled }: Props) {
     dispatch(removeAllPassportSizeImages());
     if (passportInputRef) passportInputRef.value = "";
   };
+  const handleAlignCenter = () => {
+    if(currentComp==='horizontal')
+    setCurrentComp("vertical")
+    else setCurrentComp("horizontal")
+  }
   return (
     <>
       <div className="print:hidden bg-neutral-200 lg:fixed top-[90px] px-2 py-1 z-40 gap-5 h-[3rem] flex justify-center items-center w-[793.7px] ">
@@ -90,6 +97,14 @@ export default function Buttons({ disabled }: Props) {
         >
           <PlusCircle size={20} />
           Add more
+        </Button>
+        <Button
+          disabled={disabled}
+          className="flex gap-1 items-center"
+          onClick={handleAlignCenter}
+        >
+          { currentComp==='horizontal' ? ' Align center' : 'Align normal'}
+         
         </Button>
       </div>
     </>
