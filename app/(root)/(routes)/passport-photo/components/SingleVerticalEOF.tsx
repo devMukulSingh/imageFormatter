@@ -11,7 +11,7 @@ const SingleVerticalEOF = () => {
       <div className=" border-2 col-span-full   invisible" />
       <div className=" border-2 col-span-full  invisible " />
       <div className=" border-2 col-span-full  invisible" />
-      <hr className=" invisible"/>
+      {/* <hr className=" invisible" /> */}
       {/* <div className=" border-2 col-span-full  " /> */}
     </>
   );

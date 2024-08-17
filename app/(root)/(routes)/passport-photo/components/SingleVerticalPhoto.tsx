@@ -41,8 +41,9 @@ const SingleVerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
         className="
         grid
         grid-cols-[150px]
-        gap-y-[10px]
+        gap-y-[8px]
         print:w-fit
+        mt-[75px]
 
         "
       >
