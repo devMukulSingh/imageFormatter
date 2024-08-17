@@ -31,7 +31,7 @@ const SingleVerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
         min-h-[793.7px]
         bg-white 
         print:mt-0
-        py-[12px]
+        py-[14px]
         px-[14px]
         relative
         `}
