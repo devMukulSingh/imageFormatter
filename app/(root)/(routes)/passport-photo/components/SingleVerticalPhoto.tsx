@@ -23,34 +23,31 @@ const SingleVerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
     <div
       ref={a4pageRef}
       className={`
+        border-blue-400
         mt-[3rem]
-        mx-auto
         flex
         justify-center
         min-w-[793.7px]
         min-h-[793.7px]
+        h-full
         bg-white 
         print:mt-0
-        py-[14px]
-        px-[14px]
         relative
+        print:w-fit
         `}
     >
       <div
+        style={{ gridAutoRows: 124 }}
         className="
-        gap-y-[4px]
         grid
-        grid-cols-1
+        grid-cols-[150px]
+        gap-y-[10px]
+        print:w-fit
+
         "
       >
         {passportImages.map((image, index) => {
-          // h-[155px]
-          // w-[118px]
-
           if (a4PageHeight >= 791 && index % 5 === 0 && index !== 0) {
-            console.log("inside");
-            console.log("index", index);
-
             return (
               <>
                 <SingleVerticalEOF />
@@ -64,6 +61,7 @@ const SingleVerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
                   flex-col
                   border-[1.5px]
                   border-black
+                  rotate-90
                   `}
                 >
                   <Button
@@ -105,7 +103,8 @@ const SingleVerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
               flex-col
               border-[1.5px]
               border-black
-              
+              rotate-90
+
             `}
             >
               <Button

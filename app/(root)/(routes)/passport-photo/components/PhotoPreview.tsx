@@ -42,7 +42,7 @@ const PhotoPreview = ({}: Props) => {
     }
   };
   return (
-    <div className="flex relative flex-col bg-white gap-5 print:max-h-screen max-h-[calc(100vh-6.25rem)] print:overflow-visible overflow-y-auto">
+    <div className="flex relative flex-col gap-5 print:h-min print:w-fit bg-white h-[calc(100vh-6.25rem)]  border-red-400 print:overflow-visible  overflow-y-auto">
       <Buttons
         currentComp={currentComp}
         setCurrentComp={setCurrentComp}

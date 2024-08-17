@@ -31,7 +31,6 @@ const HorizontalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
         gap-y-2
         min-h-[1122.5px]
         w-[793.7px]
-        bg-white 
         print:mt-0
         py-[14px]
         px-[14px]
