@@ -1,6 +1,5 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { rotateBy90 } from "@/lib/hooks";
 import { IaadharPdfs } from "@/lib/types";
 import { useAppDispatch } from "@/redux/hook";
 import {
@@ -8,7 +7,6 @@ import {
   setAadharImgUrl,
 } from "@/redux/reducers/persistReducer";
 import { Loader, Loader2Icon, X } from "lucide-react";
-import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
@@ -84,21 +82,15 @@ const SinglPdf = ({ pdf }: Props) => {
   if (!isMounted) return null;
   return (
     <>
-      {/* {openDialog && (
-        <EditDialog
-          image={image}
-          openDialog={openDialog}
-          setOpenDialog={setOpenDialog}
-        />
-      )} */}
       <div
-        className="
-                      w-full
+        className="     h-full
+                        w-full
                         flex
-                        text-black
+                      text-black
                         flex-col
                         print:border-none
                         relative
+                       
        "
       >
         {/* {isOpen && ( */}
@@ -117,7 +109,7 @@ const SinglPdf = ({ pdf }: Props) => {
         </Document>
 
         {file && (
-          <div className="flex flex-col">
+          <div className="flex flex-col  ">
             {/* <div className="flex  absolute top-0 print:hidden "> */}
             <Button
               className=" print:hidden rounded-full z-40 self-center absolute top-0"
@@ -134,16 +126,17 @@ const SinglPdf = ({ pdf }: Props) => {
               </Button> */}
             {/* </div> */}
 
-            <img
+            {/* <img
+             
               ref={imgRef}
               src={pdf.imgUrl}
               alt="fileImage"
-              className="object-contain object-top contrast-[1.15]  saturate-[1.2]  "
-            />
+              className="object-contain object-top contrast-[1.15] saturate-[1.2]  rotate-90"
+            /> */}
           </div>
         )}
         {!file && (
-          <div className="flex justify-center">
+          <div className="flex justify-center print:hidden">
             <Loader2Icon size={25} className="animate-spin " />
           </div>
           // <Button className="print:hidden" onClick={a}>

@@ -7,15 +7,19 @@ export default function Home() {
       <main
         className="
         print:bg-white 
+        border-4
+        border-blue-900
         flex
-        flex-col 
-        items-center
+        flex-col
+        print:items-start 
+        print:max-h-screen
         lg:gap-8
         gap-5
-        justify-center
-        py-5
+        print:gap-0
         print:h-screen
-        print:p-0
+        print:py-0
+        py-5
+        print:px-0
         min-h-[calc(100vh-5rem)]
 
         "

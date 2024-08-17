@@ -5,13 +5,14 @@ import { X } from "lucide-react";
 import Image from "next/image";
 import EndOfPage from "./EndOfPage";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import SingleVerticalEOF from "./SingleVerticalEOF";
 
 type Props = {
   a4pageRef: RefObject<HTMLDivElement>;
   a4PageHeight: number;
 };
 
-const VerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
+const SingleVerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
   const {
     persistedReducer: { passportSizeBase64Images: passportImages },
     nonPersistedReducer: { passportInputRef },
@@ -30,31 +31,29 @@ const VerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
         min-h-[793.7px]
         bg-white 
         print:mt-0
-        py-[14px]
+        py-[12px]
         px-[14px]
         relative
         `}
     >
       <div
         className="
-        w-fit 
+        gap-y-[4px]
         grid
-        gap-y-2
-        gap-x-[6px]
-        grid-cols-2
-        auto-rows-min"
+        grid-cols-1
+        "
       >
         {passportImages.map((image, index) => {
           // h-[155px]
           // w-[118px]
 
-          if (a4PageHeight >= 786 && index % 8 === 0 && index !== 0) {
+          if (a4PageHeight >= 791 && index % 5 === 0 && index !== 0) {
             console.log("inside");
             console.log("index", index);
 
             return (
               <>
-                {/* <EndOfPage /> */}
+                <SingleVerticalEOF />
                 <figure
                   key={index}
                   className={`
@@ -65,10 +64,6 @@ const VerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
                   flex-col
                   border-[1.5px]
                   border-black
-                  col-span-2
-                  mx-auto
-                  
-                  rotate-90
                   `}
                 >
                   <Button
@@ -144,4 +139,4 @@ const VerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
   );
 };
 
-export default VerticalPhoto;
+export default SingleVerticalPhoto;

@@ -4,12 +4,13 @@ import Buttons from "./Buttons";
 import { useEffect, useRef, useState } from "react";
 import HorizontalPhoto from "./HorizontalPhoto";
 import VerticalPhoto from "./VerticalPhoto";
+import SingleVerticalPhoto from "./SingleVerticalPhoto";
 //3.3 * 4
 type Props = {};
 
 const PhotoPreview = ({}: Props) => {
   const [a4PageHeight, setA4PageHeight] = useState(0);
-  const [currentComp, setCurrentComp] = useState("horizontal")
+  const [currentComp, setCurrentComp] = useState("horizontal");
   const {
     persistedReducer: { passportSizeBase64Images: passportImages },
     nonPersistedReducer: { loading, passportInputRef },
@@ -17,6 +18,8 @@ const PhotoPreview = ({}: Props) => {
   const a4pageRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     if (a4pageRef.current) setA4PageHeight(a4pageRef.current?.scrollHeight);
+    console.log(a4pageRef.current?.scrollHeight);
+    
   }, [passportImages]);
   const renderComponent = () => {
     switch (currentComp) {
@@ -27,6 +30,10 @@ const PhotoPreview = ({}: Props) => {
       case "horizontal":
         return (
           <HorizontalPhoto a4PageHeight={a4PageHeight} a4pageRef={a4pageRef} />
+        );
+      case "singleVertical":
+        return (
+          <SingleVerticalPhoto a4PageHeight={a4PageHeight} a4pageRef={a4pageRef} />
         );
       default:
         return null;

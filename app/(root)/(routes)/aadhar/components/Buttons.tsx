@@ -60,7 +60,7 @@ const Buttons = ({ disabled }: Props) => {
     <div className="print:hidden flex-shrink  md:top-[385px] px-2 py-1 z-30 gap-5 h-[3rem]  flex justify-center items-center w-[95vw] bg-neutral-200 ">
       <Button
         disabled={disabled}
-        className="flex gap-1"
+        className="flex gap-1 print:hidden "
         variant={"destructive"}
         onClick={() => {
           dispatch(removeAllAadharPdfs());
@@ -73,7 +73,7 @@ const Buttons = ({ disabled }: Props) => {
       <Button
         disabled={disabled}
         variant={"outline"}
-        className="w-24 flex gap-1 text-black"
+        className="w-24 flex gap-1 text-black print:hidden "
         onClick={() => globalThis.print()}
       >
         <Printer size={20} />

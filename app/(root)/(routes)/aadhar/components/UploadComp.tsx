@@ -31,7 +31,7 @@ const UploadComp = ({}: Props) => {
           pushAadharPdfs({
             id: pdfId,
             file: imgUrl,
-          }),
+          })
         );
         resolve("");
       }, 1500);
@@ -51,11 +51,13 @@ const UploadComp = ({}: Props) => {
         dispatch(setLoading(true));
         for (let i = 0; i < files?.length; i++) {
           const imgUrl = URL.createObjectURL(files[i]);
+          if (!files[i].type.includes('pdf')) {
+            toast.error("Only pdf allowed");
+            break;
+          }
           const pdfId = Math.floor(Math.random() * 100000);
           await push({ pdfId, imgUrl });
         }
-        console.log("hello");
-
         // dispatch(pushAadharPdfs(aadharPdfs));
         if (aadharInputRef.current) aadharInputRef.current.value = "";
       }
@@ -75,6 +77,8 @@ const UploadComp = ({}: Props) => {
     <div
       className="
         print:hidden
+        border-4
+        border-purple-500
         flex
         items-center
         h-fit 
@@ -84,7 +88,6 @@ const UploadComp = ({}: Props) => {
         shadow-2xl 
         hover:scale-105
         transition 
-        border 
         px-8 
         py-10
         rounded-lg 

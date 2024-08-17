@@ -27,20 +27,34 @@ const AadharPreview = ({}: Props) => {
 
   return (
     <div
-      className="flex relative flex-col
-       bg-white gap- print:max-h-screen max-h-[calc(100vh-6.25rem)] print:overflow-visible overflow-y-auto  overflow-x-auto items-center"
+      className="
+      flex 
+      relative 
+      flex-col
+      print:w-screen
+    bg-white 
+      border-2 
+      h-full 
+      border-black 
+      max-h-[calc(100vh-6.25rem)] 
+      print:overflow-visible overflow-y-auto print:max-h-screen  overflow-x-auto items-center"
     >
       <Buttons disabled={aadharPdfs.length > 0 ? false : true} />
       <div
         ref={a4pageRef}
         className="
-                md:mt-[3rem]
+                border-4
+                border-red-700
                 w-[95vw]
                 min-h-[1122.5px]
               bg-white 
                 print:mt-0
                 py-[12px]
-                px-4"
+                px-4
+                flex
+               
+                print:py-0
+                "
       >
         {aadharPdfs.map((pdf, index) => {
           if (a4PageHeight > 1120 && index % 5 === 0 && index !== 0)

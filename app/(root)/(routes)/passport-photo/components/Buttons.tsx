@@ -20,7 +20,11 @@ type Props = {
   currentComp: string;
 };
 
-export default function Buttons({ disabled,currentComp,setCurrentComp }: Props) {
+export default function Buttons({
+  disabled,
+  currentComp,
+  setCurrentComp,
+}: Props) {
   const dispatch = useAppDispatch();
   const handleAddMore = async () => {
     const imageInput = document.createElement("input");
@@ -64,13 +68,13 @@ export default function Buttons({ disabled,currentComp,setCurrentComp }: Props) 
     if (passportInputRef) passportInputRef.value = "";
   };
   const handleAlignCenter = () => {
-    if(currentComp==='horizontal')
-    setCurrentComp("vertical")
+    if (currentComp === "horizontal") setCurrentComp("vertical");
+    else if(currentComp==="vertical") setCurrentComp("horizontal");
     else setCurrentComp("horizontal")
-  }
+  };
   return (
     <>
-      <div className="print:hidden bg-neutral-200 lg:fixed top-[90px] px-2 py-1 z-40 gap-5 h-[3rem] flex justify-center items-center w-[793.7px] ">
+      <div className="print:hidden bg-neutral-200 lg:fixed top-[90px] px-2 py-1 z-40 gap-5 h-[3rem] flex justify-center items-center   min-w-[793.7px] ">
         <Button
           disabled={disabled}
           className="flex gap-1"
@@ -103,8 +107,15 @@ export default function Buttons({ disabled,currentComp,setCurrentComp }: Props) 
           className="flex gap-1 items-center"
           onClick={handleAlignCenter}
         >
-          { currentComp==='horizontal' ? ' Align center' : 'Align normal'}
-         
+          {currentComp === "horizontal" ? " Align center" : "Align normal"}
+        </Button>
+          
+          <Button
+          disabled={disabled }
+          className="flex gap-1 items-center"
+          onClick={() => setCurrentComp("singleVertical")}
+          >
+          Single row
         </Button>
       </div>
     </>
