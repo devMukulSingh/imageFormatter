@@ -51,7 +51,7 @@ const UploadComp = ({}: Props) => {
         dispatch(setLoading(true));
         for (let i = 0; i < files?.length; i++) {
           const imgUrl = URL.createObjectURL(files[i]);
-          if (!files[i].type.includes('pdf')) {
+          if (!files[i].type.includes("pdf")) {
             toast.error("Only pdf allowed");
             break;
           }
@@ -77,8 +77,6 @@ const UploadComp = ({}: Props) => {
     <div
       className="
         print:hidden
-        border-4
-        border-purple-500
         flex
         items-center
         h-fit 

@@ -19,7 +19,6 @@ const PhotoPreview = ({}: Props) => {
   useEffect(() => {
     if (a4pageRef.current) setA4PageHeight(a4pageRef.current?.scrollHeight);
     console.log(a4pageRef.current?.scrollHeight);
-    
   }, [passportImages]);
   const renderComponent = () => {
     switch (currentComp) {
@@ -33,7 +32,10 @@ const PhotoPreview = ({}: Props) => {
         );
       case "singleVertical":
         return (
-          <SingleVerticalPhoto a4PageHeight={a4PageHeight} a4pageRef={a4pageRef} />
+          <SingleVerticalPhoto
+            a4PageHeight={a4PageHeight}
+            a4pageRef={a4pageRef}
+          />
         );
       default:
         return null;

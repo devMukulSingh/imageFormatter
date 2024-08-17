@@ -33,9 +33,7 @@ const AadharPreview = ({}: Props) => {
       flex-col
       print:w-screen
     bg-white 
-      border-2 
       h-full 
-      border-black 
       max-h-[calc(100vh-6.25rem)] 
       print:overflow-visible overflow-y-auto print:max-h-screen  overflow-x-auto items-center"
     >
@@ -43,8 +41,6 @@ const AadharPreview = ({}: Props) => {
       <div
         ref={a4pageRef}
         className="
-                border-4
-                border-red-700
                 w-[95vw]
                 min-h-[1122.5px]
               bg-white 
@@ -52,8 +48,7 @@ const AadharPreview = ({}: Props) => {
                 py-[12px]
                 px-4
                 flex
-               
-                print:py-0
+                flex-col
                 "
       >
         {aadharPdfs.map((pdf, index) => {

@@ -126,13 +126,12 @@ const SinglPdf = ({ pdf }: Props) => {
               </Button> */}
             {/* </div> */}
 
-            {/* <img
-             
+            <img
               ref={imgRef}
               src={pdf.imgUrl}
               alt="fileImage"
-              className="object-contain object-top contrast-[1.15] saturate-[1.2]  rotate-90"
-            /> */}
+              className="object-contain object-top contrast-[1.15] saturate-[1.2] "
+            />
           </div>
         )}
         {!file && (

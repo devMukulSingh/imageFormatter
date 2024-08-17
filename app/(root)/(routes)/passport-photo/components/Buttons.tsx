@@ -69,8 +69,8 @@ export default function Buttons({
   };
   const handleAlignCenter = () => {
     if (currentComp === "horizontal") setCurrentComp("vertical");
-    else if(currentComp==="vertical") setCurrentComp("horizontal");
-    else setCurrentComp("horizontal")
+    else if (currentComp === "vertical") setCurrentComp("horizontal");
+    else setCurrentComp("horizontal");
   };
   return (
     <>
@@ -109,12 +109,12 @@ export default function Buttons({
         >
           {currentComp === "horizontal" ? " Align center" : "Align normal"}
         </Button>
-          
-          <Button
-          disabled={disabled }
+
+        <Button
+          disabled={disabled}
           className="flex gap-1 items-center"
           onClick={() => setCurrentComp("singleVertical")}
-          >
+        >
           Single row
         </Button>
       </div>
