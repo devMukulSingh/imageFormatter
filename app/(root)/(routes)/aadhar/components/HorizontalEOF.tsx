@@ -1,4 +1,4 @@
-const EndOfPage = () => {
+const HorizontalEOF = () => {
   return (
     <>
       <div className="flex  justify-center items-center col-span-full  z-20 print:hidden">
@@ -9,9 +9,9 @@ const EndOfPage = () => {
         <hr className=" w-1/2 border-2  border-dashed border-black z-40" />
       </div>
       {/* <hr className="w-full h-[20px] border-2  " /> */}
-      <div className="h-[20px] invisible col-span-full"></div>
+      <div className="h-[20px] invisible  col-span-full"></div>
     </>
   );
 };
 
-export default EndOfPage;
+export default HorizontalEOF;

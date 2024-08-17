@@ -15,7 +15,7 @@ type Props = {
   pdf: IaadharPdfs;
 };
 
-const SinglPdf = ({ pdf }: Props) => {
+const VerticalPdf = ({ pdf,  }: Props) => {
   const [isMounted, setIsMounted] = useState(false);
   const imgRef = useRef<HTMLImageElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -55,7 +55,7 @@ const SinglPdf = ({ pdf }: Props) => {
             0,
             0,
             width,
-            height,
+            height
           );
           ctx.restore();
         }
@@ -109,28 +109,30 @@ const SinglPdf = ({ pdf }: Props) => {
         </Document>
 
         {file && (
-          <div className="flex flex-col  ">
-            {/* <div className="flex  absolute top-0 print:hidden "> */}
-            <Button
-              className=" print:hidden rounded-full z-40 self-center absolute top-0"
-              onClick={() => dispatch(removeAadharPdf(pdf.id))}
-              size={"icon"}
-            >
-              <X size={20} />
-            </Button>
-            {/* <Button
+          <div className="flex flex-col justify-center items-center min-h-[793px]  ">
+            <div className="flex print:hidden gap-5 ">
+              <Button
+                className=" print:hidden rounded-full z-40 self-center "
+                onClick={() => dispatch(removeAadharPdf(pdf.id))}
+                size={"icon"}
+              >
+                <X size={20} />
+              </Button>
+              {/* <Button
                 className=" print:hidden rounded-full z-40"
                 onClick={handleRotate}
               >
-                Rotate
+                { === 0 ? "Rotate" : "Normal"}
               </Button> */}
-            {/* </div> */}
+            </div>
 
             <img
+              height={745}
+              width={745}
               ref={imgRef}
               src={pdf.imgUrl}
               alt="fileImage"
-              className="object-contain object-top contrast-[1.15] saturate-[1.2] "
+              className="object-contain object-top contrast-[1.15] saturate-[1.2] rotate-90"
             />
           </div>
         )}
@@ -147,6 +149,6 @@ const SinglPdf = ({ pdf }: Props) => {
   );
 };
 
-export default SinglPdf;
+export default VerticalPdf;
 // print:h-[200px] print:w-[650px]
 // 90 , 180
