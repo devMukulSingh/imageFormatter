@@ -9,7 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { getBase64Image } from "@/lib/hooks";
 import { base64Images, IaadharPdfs } from "@/lib/types";
-import { PlusCircle, Printer, Trash } from "lucide-react";
+import { PlusCircle, Printer, RotateCcwIcon, Trash } from "lucide-react";
 import React from "react";
 import toast from "react-hot-toast";
 
@@ -91,7 +91,7 @@ const Buttons = ({ disabled, currComp, setCurrComp }: Props) => {
         className="flex gap-1 items-center"
         onClick={handleRotate}
       >
-        <PlusCircle size={20} />
+        <RotateCcwIcon size={20} />
         Rotate
       </Button>
     </div>

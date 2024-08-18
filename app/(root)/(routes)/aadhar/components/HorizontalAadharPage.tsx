@@ -1,12 +1,10 @@
-import dynamic from "next/dynamic";
 import { useAppSelector } from "@/redux/hook";
 import React, { RefObject, useEffect, useState } from "react";
-const HorizontalPdf = dynamic(import("./HorizontalPdf"), {
-  ssr: false,
-});
-
 import EndOfPage from "./HorizontalEOF";
-
+import dynamic from "next/dynamic";
+const HorizontalPdf = dynamic(() => import("./HorizontalPdf"),{
+  ssr:false
+})
 type Props = {
   a4pageRef: RefObject<HTMLDivElement>;
 };
@@ -18,7 +16,6 @@ const HorizontalAadharPage = ({ a4pageRef }: Props) => {
   const [a4PageHeight, setA4PageHeight] = useState(0);
   useEffect(() => {
     if (a4pageRef?.current) setA4PageHeight(a4pageRef.current?.scrollHeight);
-    console.log(a4pageRef.current?.scrollHeight);
   }, [aadharPdfs]);
   return (
     <div

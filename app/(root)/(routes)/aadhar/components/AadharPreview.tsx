@@ -1,11 +1,11 @@
 "use client";
 import { useAppSelector } from "@/redux/hook";
 import Buttons from "./Buttons";
-import dynamic from "next/dynamic";
-import { useEffect, useRef, useState } from "react";
-import EndOfPage from "./HorizontalEOF";
-import HorizontalAadharPage from "./HorizontalAadharPage";
+import {  useRef, useState } from "react";
+
+
 import VerticalAadharPage from "./VerticalAadharPage";
+import HorizontalAadharPage from "./HorizontalAadharPage";
 
 type Props = {};
 
@@ -23,6 +23,8 @@ const AadharPreview = ({}: Props) => {
         return <HorizontalAadharPage a4pageRef={a4pageRef} />;
       case "vertical":
         return <VerticalAadharPage a4pageRef={a4pageRef} />;
+      default:
+        return null;
     }
   };
 

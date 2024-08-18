@@ -8,6 +8,7 @@ import {
 } from "@/redux/reducers/persistReducer";
 import { Loader, Loader2Icon, X } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
 import { pdfjs, Document, Page } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 
@@ -64,6 +65,7 @@ const HorizontalPdf = ({ pdf }: Props) => {
         setFile(imgUrl);
       }
     } catch (e) {
+      toast.error('Something went wrong')
       console.log(`Error in Crop aadhar function`, e);
     }
   };

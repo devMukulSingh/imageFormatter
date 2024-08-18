@@ -3,7 +3,7 @@ import React, { RefObject, useEffect, useState } from "react";
 import EndOfPage from "./HorizontalEOF";
 import VerticalEOF from "./VerticalEOF";
 import dynamic from "next/dynamic";
-const VerticalPdf = dynamic(import("./VerticalPdf"), {
+const VerticalPdf = dynamic(() => import("./VerticalPdf"), {
   ssr: false,
 });
 type Props = {

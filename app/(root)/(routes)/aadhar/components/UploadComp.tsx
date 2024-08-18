@@ -24,26 +24,25 @@ const UploadComp = ({}: Props) => {
     persistedReducer: { base64Images: images },
   } = useAppSelector((state) => state);
   const push = async ({ pdfId, imgUrl }: { pdfId: number; imgUrl: string }) => {
+    
     return new Promise((resolve, reject) => {
-      try{
-
+      try {
         setTimeout(() => {
-          console.log("inside timeout");
           dispatch(
-          pushAadharPdfs({
-            id: pdfId,
-            file: imgUrl,
-          }),
-        );
-        resolve("");
-      }, 1500);
-    }
-    catch(e){
-      reject(e);
-    }
+            pushAadharPdfs({
+              id: pdfId,
+              file: imgUrl,
+            }),
+          );
+          resolve("");
+        }, 1500);
+      } catch (e) {
+        reject(e);
+      }
     });
   };
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    
     try {
       let aadharPdfs: IaadharPdfs[] | null = [];
       const files = e?.target?.files;
@@ -64,7 +63,6 @@ const UploadComp = ({}: Props) => {
           const pdfId = Math.floor(Math.random() * 100000);
           await push({ pdfId, imgUrl });
         }
-        // dispatch(pushAadharPdfs(aadharPdfs));
         if (aadharInputRef.current) aadharInputRef.current.value = "";
       }
     } catch (e) {
@@ -108,12 +106,7 @@ const UploadComp = ({}: Props) => {
         multiple
         disabled={loading}
       />
-      {/* <div className="flex gap-5">
-        <Button disabled={loading} onClick={handleDownload}>
-          <Download size={20} className="mr-2" />
-          Download DOCX
-        </Button>
-      </div> */}
+
     </div>
   );
 };
