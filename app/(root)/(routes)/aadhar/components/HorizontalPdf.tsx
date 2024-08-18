@@ -33,12 +33,11 @@ const HorizontalPdf = ({ pdf }: Props) => {
         typeof window !== "undefined" ? window.devicePixelRatio : 1;
 
       const croppedCanvas = document.createElement("canvas");
-      console.log(canvasRef.current, croppedCanvas);
 
       if (croppedCanvas && canvasRef.current) {
         const { width, height } = canvasRef.current;
 
-        croppedCanvas.height = pixelRatio * 545;
+        croppedCanvas.height = pixelRatio * 780;
         croppedCanvas.width = pixelRatio * width;
 
         const ctx = croppedCanvas.getContext("2d");
@@ -50,7 +49,7 @@ const HorizontalPdf = ({ pdf }: Props) => {
           ctx.drawImage(
             canvasRef.current,
             0,
-            1700,
+            2470,
             width,
             height,
             0,
@@ -102,7 +101,7 @@ const HorizontalPdf = ({ pdf }: Props) => {
           onLoadSuccess={onDocumentSuccess}
         >
           <Page
-            scale={2.4}
+            scale={3.5}
             className={"hidden print:hidden"}
             renderTextLayer={false}
             canvasRef={canvasRef}
@@ -127,6 +126,7 @@ const HorizontalPdf = ({ pdf }: Props) => {
               </Button> */}
 
             <img
+             
               ref={imgRef}
               src={pdf.imgUrl}
               alt="fileImage"

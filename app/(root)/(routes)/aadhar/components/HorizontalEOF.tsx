@@ -9,7 +9,7 @@ const HorizontalEOF = () => {
         <hr className=" w-1/2 border-2  border-dashed border-black z-40" />
       </div>
       {/* <hr className="w-full h-[20px] border-2  " /> */}
-      <div className="h-[20px] invisible  col-span-full"></div>
+      <div className="h-[45px] invisible  col-span-full"></div>
     </>
   );
 };

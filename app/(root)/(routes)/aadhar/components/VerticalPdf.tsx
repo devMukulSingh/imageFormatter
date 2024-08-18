@@ -37,7 +37,7 @@ const VerticalPdf = ({ pdf }: Props) => {
       if (croppedCanvas && canvasRef.current) {
         const { width, height } = canvasRef.current;
 
-        croppedCanvas.height = pixelRatio * 545;
+        croppedCanvas.height = pixelRatio * 780;
         croppedCanvas.width = pixelRatio * width;
 
         const ctx = croppedCanvas.getContext("2d");
@@ -49,7 +49,7 @@ const VerticalPdf = ({ pdf }: Props) => {
           ctx.drawImage(
             canvasRef.current,
             0,
-            1700,
+            2400,
             width,
             height,
             0,
@@ -100,7 +100,7 @@ const VerticalPdf = ({ pdf }: Props) => {
           onLoadSuccess={onDocumentSuccess}
         >
           <Page
-            scale={2.4}
+            scale={3.4}
             className={"hidden print:hidden"}
             renderTextLayer={false}
             canvasRef={canvasRef}

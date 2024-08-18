@@ -25,7 +25,7 @@ const HorizontalAadharPage = ({ a4pageRef }: Props) => {
               min-h-[1122.7px]
             bg-white 
               print:mt-0
-              py-[12px]
+              py-[14px]
               px-4
               grid
               grid-cols-1
