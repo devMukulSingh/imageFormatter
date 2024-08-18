@@ -25,9 +25,11 @@ const UploadComp = ({}: Props) => {
   } = useAppSelector((state) => state);
   const push = async ({ pdfId, imgUrl }: { pdfId: number; imgUrl: string }) => {
     return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        console.log("inside timeout");
-        dispatch(
+      try{
+
+        setTimeout(() => {
+          console.log("inside timeout");
+          dispatch(
           pushAadharPdfs({
             id: pdfId,
             file: imgUrl,
@@ -35,6 +37,10 @@ const UploadComp = ({}: Props) => {
         );
         resolve("");
       }, 1500);
+    }
+    catch(e){
+      reject(e);
+    }
     });
   };
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {

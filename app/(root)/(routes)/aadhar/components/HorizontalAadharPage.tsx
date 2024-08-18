@@ -1,11 +1,11 @@
+import dynamic from "next/dynamic";
 import { useAppSelector } from "@/redux/hook";
 import React, { RefObject, useEffect, useState } from "react";
-const HorizontalPdf = dynamic(import("./HorizontalPdf"),{
-  ssr:false
-})
+const HorizontalPdf = dynamic(import("./HorizontalPdf"), {
+  ssr: false,
+});
 
 import EndOfPage from "./HorizontalEOF";
-import dynamic from "next/dynamic";
 
 type Props = {
   a4pageRef: RefObject<HTMLDivElement>;
