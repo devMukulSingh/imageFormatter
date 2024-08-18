@@ -110,14 +110,14 @@ const HorizontalPdf = ({ pdf }: Props) => {
 
         {file && (
           <div className="flex flex-col  items-center">
-              <Button
-                className=" print:hidden absolute top-0 rounded-full z-40 self-center "
-                onClick={() => dispatch(removeAadharPdf(pdf.id))}
-                size={"icon"}
-              >
-                <X size={20} />
-              </Button>
-              {/* <Button
+            <Button
+              className=" print:hidden absolute top-0 rounded-full z-40 self-center "
+              onClick={() => dispatch(removeAadharPdf(pdf.id))}
+              size={"icon"}
+            >
+              <X size={20} />
+            </Button>
+            {/* <Button
                 className=" print:hidden rounded-full z-40"
                 onClick={handleRotate}
               >
@@ -127,7 +127,6 @@ const HorizontalPdf = ({ pdf }: Props) => {
             <img
               height={745}
               width={745}
-
               ref={imgRef}
               src={pdf.imgUrl}
               alt="fileImage"

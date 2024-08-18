@@ -15,7 +15,7 @@ type Props = {
   pdf: IaadharPdfs;
 };
 
-const VerticalPdf = ({ pdf,  }: Props) => {
+const VerticalPdf = ({ pdf }: Props) => {
   const [isMounted, setIsMounted] = useState(false);
   const imgRef = useRef<HTMLImageElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -55,7 +55,7 @@ const VerticalPdf = ({ pdf,  }: Props) => {
             0,
             0,
             width,
-            height
+            height,
           );
           ctx.restore();
         }

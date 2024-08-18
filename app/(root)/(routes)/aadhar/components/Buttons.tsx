@@ -22,7 +22,7 @@ type Props = {
 const Buttons = ({ disabled, currComp, setCurrComp }: Props) => {
   const dispatch = useAppDispatch();
   const {
-    nonPersistedReducer: { aadharInputRef,loading },
+    nonPersistedReducer: { aadharInputRef, loading },
   } = useAppSelector((state) => state);
   const handleAddMore = async () => {
     const imageInput = document.createElement("input");
