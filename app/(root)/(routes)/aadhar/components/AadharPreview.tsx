@@ -1,8 +1,7 @@
 "use client";
 import { useAppSelector } from "@/redux/hook";
 import Buttons from "./Buttons";
-import {  useRef, useState } from "react";
-
+import { useRef, useState } from "react";
 
 import VerticalAadharPage from "./VerticalAadharPage";
 import HorizontalAadharPage from "./HorizontalAadharPage";

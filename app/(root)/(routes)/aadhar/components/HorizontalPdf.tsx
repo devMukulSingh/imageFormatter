@@ -65,7 +65,7 @@ const HorizontalPdf = ({ pdf }: Props) => {
         setFile(imgUrl);
       }
     } catch (e) {
-      toast.error('Something went wrong')
+      toast.error("Something went wrong");
       console.log(`Error in Crop aadhar function`, e);
     }
   };
@@ -127,8 +127,6 @@ const HorizontalPdf = ({ pdf }: Props) => {
               </Button> */}
 
             <img
-              height={745}
-              width={745}
               ref={imgRef}
               src={pdf.imgUrl}
               alt="fileImage"

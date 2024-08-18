@@ -24,7 +24,6 @@ const UploadComp = ({}: Props) => {
     persistedReducer: { base64Images: images },
   } = useAppSelector((state) => state);
   const push = async ({ pdfId, imgUrl }: { pdfId: number; imgUrl: string }) => {
-    
     return new Promise((resolve, reject) => {
       try {
         setTimeout(() => {
@@ -42,7 +41,6 @@ const UploadComp = ({}: Props) => {
     });
   };
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    
     try {
       let aadharPdfs: IaadharPdfs[] | null = [];
       const files = e?.target?.files;
@@ -106,7 +104,6 @@ const UploadComp = ({}: Props) => {
         multiple
         disabled={loading}
       />
-
     </div>
   );
 };
