@@ -1,5 +1,5 @@
 import { useAppSelector } from "@/redux/hook";
-import React, { RefObject, useEffect, useState } from "react";
+import React, { Fragment, RefObject, useEffect, useState } from "react";
 import EndOfPage from "./HorizontalEOF";
 import VerticalEOF from "./VerticalEOF";
 import dynamic from "next/dynamic";
@@ -24,29 +24,26 @@ const VerticalAadharPage = ({ a4pageRef }: Props) => {
       ref={a4pageRef}
       className="
               w-[95vw]
-              min-h-[793px]
+              h-[793px]
             bg-white 
               print:mt-0
               py-[12px]
               px-4
               flex
+              print:py-0
               flex-col
+
                 "
     >
       {aadharPdfs.map((pdf, index) => {
-        // if (a4PageHeight > 805 && index % 1 === 0 && index !== 0)
-        //   return (
-        //     <>
-        //       <EndOfPage />
-        //       <div className="h-fit ">
-        //         <VerticalPdf  pdf={pdf} key={index} />
-        //       </div>
-        //     </>
-        //   );
+        if(index===0){
+          return <VerticalPdf pdf={pdf} key={index} />
+        }
+
         return (
-          <div key={index}>
-            <VerticalPdf pdf={pdf} key={index} />
+          <div key={index} >
             <VerticalEOF />
+            <VerticalPdf pdf={pdf} key={index} />
           </div>
         );
       })}

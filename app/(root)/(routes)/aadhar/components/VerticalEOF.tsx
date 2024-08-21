@@ -9,7 +9,7 @@ const VerticalEOF = () => {
         <hr className=" w-1/2 border-2  border-dashed border-black z-40" />
       </div>
       {/* <hr className="w-full h-[20px] border-2  " /> */}
-      <div className="print:h-[330px]  col-span-full"></div>
+      <div className="print:h-[330px]  border-green-200  col-span-full"></div>
     </>
   );
 };

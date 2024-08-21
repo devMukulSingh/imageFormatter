@@ -74,7 +74,9 @@ const VerticalPdf = ({ pdf }: Props) => {
       a();
     }, 1000);
   };
+  const handlePassword = () => {
 
+  }
   useEffect(() => {
     pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs`;
     setIsMounted(true);
@@ -83,23 +85,24 @@ const VerticalPdf = ({ pdf }: Props) => {
   return (
     <>
       <div
-        className="     h-full
+        className="    print:h-[793px]
                         w-full
                         flex
                       text-black
                         flex-col
-                        print:border-none
                         relative
-                       
+                       border-red-400
        "
       >
         {/* {isOpen && ( */}
         <Document
+          onPassword={handlePassword}
           className={"hidden print:hidden"}
           file={pdf.file}
           onLoadSuccess={onDocumentSuccess}
         >
           <Page
+          
             scale={3.4}
             className={"hidden print:hidden"}
             renderTextLayer={false}

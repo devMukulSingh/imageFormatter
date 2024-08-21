@@ -22,7 +22,7 @@ const HorizontalAadharPage = ({ a4pageRef }: Props) => {
       ref={a4pageRef}
       className="
               w-[95vw]
-              min-h-[1122.7px]
+              min-h-[1055px]
             bg-white 
               print:mt-0
               py-[14px]

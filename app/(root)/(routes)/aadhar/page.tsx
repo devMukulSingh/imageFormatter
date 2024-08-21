@@ -7,7 +7,6 @@ export default function Home() {
       <main
         className="
         print:bg-white 
-
         flex
         flex-col
         print:items-start 
@@ -18,9 +17,10 @@ export default function Home() {
         print:h-screen
         print:py-0
         py-5
-        print:px-0
         min-h-[calc(100vh-5rem)]
         items-center
+        border-black
+        
         "
       >
         <UploadComp />

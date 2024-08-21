@@ -37,7 +37,9 @@ const AadharPreview = ({}: Props) => {
     bg-white 
       h-full 
       max-h-[calc(100vh-6.25rem)] 
-      print:overflow-visible overflow-y-auto print:max-h-screen  overflow-x-auto items-center"
+      print:overflow-visible overflow-y-auto print:max-h-screen  overflow-x-auto items-center
+      border-blue-400
+      "
     >
       <Buttons
         currComp={currComp}
