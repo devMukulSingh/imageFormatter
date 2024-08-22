@@ -36,12 +36,12 @@ const VerticalAadharPage = ({ a4pageRef }: Props) => {
                 "
     >
       {aadharPdfs.map((pdf, index) => {
-        if(index===0){
-          return <VerticalPdf pdf={pdf} key={index} />
+        if (index === 0) {
+          return <VerticalPdf pdf={pdf} key={index} />;
         }
 
         return (
-          <div key={index} >
+          <div key={index}>
             <VerticalEOF />
             <VerticalPdf pdf={pdf} key={index} />
           </div>

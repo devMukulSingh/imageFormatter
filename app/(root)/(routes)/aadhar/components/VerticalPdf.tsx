@@ -69,14 +69,10 @@ const VerticalPdf = ({ pdf }: Props) => {
   };
   const onDocumentSuccess = async ({ numPages }: { numPages: number }) => {
     setNumPages(numPages);
-
     setTimeout(() => {
       a();
     }, 1000);
   };
-  const handlePassword = () => {
-
-  }
   useEffect(() => {
     pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs`;
     setIsMounted(true);
@@ -96,13 +92,11 @@ const VerticalPdf = ({ pdf }: Props) => {
       >
         {/* {isOpen && ( */}
         <Document
-          onPassword={handlePassword}
           className={"hidden print:hidden"}
           file={pdf.file}
           onLoadSuccess={onDocumentSuccess}
         >
           <Page
-          
             scale={3.4}
             className={"hidden print:hidden"}
             renderTextLayer={false}

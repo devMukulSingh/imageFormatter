@@ -68,7 +68,7 @@ const HorizontalPdf = ({ pdf }: Props) => {
       console.log(`Error in Crop aadhar function`, e);
     }
   };
-  const onDocumentSuccess = async ({ numPages } : {numPages : number}) => {
+  const onDocumentSuccess = async ({ numPages }: { numPages: number }) => {
     setNumPages(numPages);
     setTimeout(() => {
       a();
@@ -86,7 +86,7 @@ const HorizontalPdf = ({ pdf }: Props) => {
         className="    
         w-full    
         h-full
-
+    
                         flex
                       text-black
                         flex-col
