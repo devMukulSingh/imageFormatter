@@ -21,7 +21,7 @@ import {
   pushPassportSizeBase64Images,
   setBase64Images,
   setPassportSizeBase64Image,
-} from  "@/redux/reducers/persistReducer";
+} from "@/redux/reducers/persistReducer";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { base64Images } from "@/lib/types";
 import { getBase64Image } from "@/lib/hooks";

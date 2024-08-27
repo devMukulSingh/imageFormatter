@@ -73,7 +73,7 @@ const VerticalPdf = ({ pdf }: Props) => {
       a();
     }, 1000);
   };
-  useEffect(() => {
+      useEffect(() => {
     pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs`;
     setIsMounted(true);
   }, []);

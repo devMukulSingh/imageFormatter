@@ -87,12 +87,12 @@ const Buttons = ({ disabled, currComp, setCurrComp }: Props) => {
       </Button>
 
       <Button
-        disabled={disabled || loading}
-        className="flex gap-1 items-center"
+        disabled={loading}
+        className={`flex gap-1 items-center ${currComp==='vertical' ? 'scale-90 opacity-50' : '' } `}
         onClick={handleRotate}
       >
         <RotateCcwIcon size={20} />
-        Rotate
+        { currComp === 'vertical' ? 'Horizontal' : 'Vertical'}
       </Button>
     </div>
   );
