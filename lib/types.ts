@@ -18,6 +18,9 @@ export interface IPersistInitialState {
   collageFiles: any;
   passportPhotoFiles: any;
   base64Pan: base64Images[];
+  ayushmanPdfs: IaadharPdfs[];
+
+
 }
 export interface InonPersistInitialState {
   loading: boolean;
@@ -25,6 +28,7 @@ export interface InonPersistInitialState {
   passportInputRef: HTMLInputElement | null;
   panInputRef: HTMLInputElement | null;
   aadharInputRef: HTMLInputElement | null;
+  ayushmanInputRef: HTMLInputElement | null;
 }
 
 export interface IaadharPdfs {

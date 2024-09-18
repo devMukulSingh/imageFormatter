@@ -3,12 +3,12 @@ import { Button } from "@/components/ui/button";
 import { IaadharPdfs } from "@/lib/types";
 import { useAppDispatch } from "@/redux/hook";
 import {
-  removeAadharPdf,
-  setAadharImgUrl,
+  removeAyushmanPdf,
+  setAyushmanImgUrl,
 } from "@/redux/reducers/persistReducer";
 import { Loader, Loader2Icon, X } from "lucide-react";
-import { log } from "node:console";
 import React, { useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
 import { pdfjs, Document, Page } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 
@@ -16,7 +16,7 @@ type Props = {
   pdf: IaadharPdfs;
 };
 
-const VerticalPdf = ({ pdf }: Props) => {
+const HorizontalPdf = ({ pdf }: Props) => {
   const [isMounted, setIsMounted] = useState(false);
   const imgRef = useRef<HTMLImageElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -26,19 +26,18 @@ const VerticalPdf = ({ pdf }: Props) => {
   const dispatch = useAppDispatch();
   //1190 1684
   //743 1052
-   
+
   const a = async () => {
     try {
       const pixelRatio =
         typeof window !== "undefined" ? window.devicePixelRatio : 1;
 
       const croppedCanvas = document.createElement("canvas");
-      console.log(canvasRef.current, croppedCanvas);
 
       if (croppedCanvas && canvasRef.current) {
         const { width, height } = canvasRef.current;
 
-        croppedCanvas.height = pixelRatio * 780;
+        croppedCanvas.height = pixelRatio * 1400;
         croppedCanvas.width = pixelRatio * width;
 
         const ctx = croppedCanvas.getContext("2d");
@@ -50,21 +49,22 @@ const VerticalPdf = ({ pdf }: Props) => {
           ctx.drawImage(
             canvasRef.current,
             0,
-            2400,
-            width,
-            height,
+            550,
+            width-400,
+            height-500,
             0,
             0,
-            width,
+            width-400,
             height,
           );
           ctx.restore();
         }
         const imgUrl = croppedCanvas.toDataURL("image/jpg");
-        dispatch(setAadharImgUrl({ id: pdf.id, imgUrl }));
+        dispatch(setAyushmanImgUrl({ id: pdf.id, imgUrl }));
         setFile(imgUrl);
       }
     } catch (e) {
+      toast.error("Something went wrong");
       console.log(`Error in Crop aadhar function`, e);
     }
   };
@@ -74,10 +74,7 @@ const VerticalPdf = ({ pdf }: Props) => {
       a();
     }, 1000);
   };
-  // const handleOnPassword = (password:string,reason) => {
-  //   console.log(password, reason);
-    
-  // }
+
   useEffect(() => {
     pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs`;
     setIsMounted(true);
@@ -86,13 +83,15 @@ const VerticalPdf = ({ pdf }: Props) => {
   return (
     <>
       <div
-        className="    print:h-[793px]
-                        w-full
+        className="    
+        w-full    
+        h-full
+        border-black
                         flex
                       text-black
                         flex-col
                         relative
-                       border-red-400
+                       
        "
       >
         {/* {isOpen && ( */}
@@ -102,7 +101,7 @@ const VerticalPdf = ({ pdf }: Props) => {
           onLoadSuccess={onDocumentSuccess}
         >
           <Page
-            scale={3.4}
+            scale={5}
             className={"hidden print:hidden"}
             renderTextLayer={false}
             canvasRef={canvasRef}
@@ -111,30 +110,26 @@ const VerticalPdf = ({ pdf }: Props) => {
         </Document>
 
         {file && (
-          <div className="flex flex-col justify-center items-center min-h-[793px]  ">
-            <div className="flex print:hidden gap-5 ">
-              <Button
-                className=" print:hidden rounded-full z-40 self-center "
-                onClick={() => dispatch(removeAadharPdf(pdf.id))}
-                size={"icon"}
-              >
-                <X size={20} />
-              </Button>
-              {/* <Button
+          <div className="flex flex-col  ">
+            <Button
+              className=" print:hidden absolute top-0 rounded-full z-40 self-center "
+              onClick={() => dispatch(removeAyushmanPdf(pdf.id))}
+              size={"icon"}
+            >
+              <X size={20} />
+            </Button>
+            {/* <Button
                 className=" print:hidden rounded-full z-40"
                 onClick={handleRotate}
               >
-                { === 0 ? "Rotate" : "Normal"}
+                {rotation === 0 ? "Rotate" : "Normal"}
               </Button> */}
-            </div>
 
             <img
-              height={745}
-              width={745}
               ref={imgRef}
               src={pdf.imgUrl}
               alt="fileImage"
-              className="object-contain object-top contrast-[1.15] saturate-[1.2] rotate-90"
+              className="object-contain object-top contrast-[1.15] saturate-[1.2] "
             />
           </div>
         )}
@@ -151,6 +146,6 @@ const VerticalPdf = ({ pdf }: Props) => {
   );
 };
 
-export default VerticalPdf;
+export default HorizontalPdf;
 // print:h-[200px] print:w-[650px]
 // 90 , 180

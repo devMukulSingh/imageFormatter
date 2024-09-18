@@ -33,7 +33,6 @@ const SingleImage = ({ image }: Props) => {
                         flex
                         flex-col
                         justify-center
-                          border
                           print:border-none
                           relative
                           size-[352px] 

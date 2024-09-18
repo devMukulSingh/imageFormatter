@@ -58,6 +58,7 @@ const initialState: IPersistInitialState = {
   collageFiles: "",
   passportPhotoFiles: "",
   base64Pan: [],
+  ayushmanPdfs:[]
 };
 
 export const persistedSlice = createSlice({
@@ -175,12 +176,7 @@ export const persistedSlice = createSlice({
       );
       state.passportSizeBase64Images = filteredArr;
     },
-    removeAadharPdf: (state, action) => {
-      const filteredArr = state.aadharPdfs.filter(
-        (pdf) => pdf.id !== action.payload,
-      );
-      state.aadharPdfs = filteredArr;
-    },
+
     setBase64Pan: (state, action) => {
       state.base64Pan = action.payload;
     },
@@ -210,10 +206,13 @@ export const persistedSlice = createSlice({
       }
     },
     pushAadharPdfs: (state, action) => {
-      console.log(state.aadharPdfs);
-
       state.aadharPdfs.push(action.payload);
-      console.log(state.aadharPdfs);
+    },
+    removeAadharPdf: (state, action) => {
+      const filteredArr = state.aadharPdfs.filter(
+        (pdf) => pdf.id !== action.payload,
+      );
+      state.aadharPdfs = filteredArr;
     },
     removeAllAadharPdfs: (state) => {
       state.aadharPdfs = [];
@@ -225,6 +224,26 @@ export const persistedSlice = createSlice({
           state.aadharPdfs[i].imgUrl = imgUrl;
         }
       }
+    },
+    pushAyushmanPdfs: (state, action) => {
+      state.ayushmanPdfs.push(action.payload);
+    },
+    removeAllAyushmanPdfs: (state) => {
+      state.ayushmanPdfs = [];
+    },
+    setAyushmanImgUrl: (state, action) => {
+      const { id, imgUrl } = action.payload;
+      for (let i = 0; i < state.ayushmanPdfs.length; i++) {
+        if (state.ayushmanPdfs[i].id === id) {
+          state.ayushmanPdfs[i].imgUrl = imgUrl;
+        }
+      }
+    },
+    removeAyushmanPdf: (state, action) => {
+      const filteredArr = state.ayushmanPdfs.filter(
+        (pdf) => pdf.id !== action.payload,
+      );
+      state.ayushmanPdfs = filteredArr;
     },
   },
 });
@@ -260,4 +279,8 @@ export const {
   pushAadharPdfs,
   removeAllAadharPdfs,
   setAadharImgUrl,
+  pushAyushmanPdfs,
+  removeAllAyushmanPdfs,
+  setAyushmanImgUrl,
+  removeAyushmanPdf
 } = persistedSlice.actions;

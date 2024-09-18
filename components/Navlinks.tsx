@@ -25,6 +25,11 @@ const Navlinks = () => {
       link: "/aadhar",
       isActive: pathName.endsWith("/aadhar"),
     },
+    {
+      title: "Ayushman card",
+      link: "/ayushman",
+      isActive: pathName.endsWith("/ayushman"),
+    },
   ];
   return (
     <div className="flex gap-5">

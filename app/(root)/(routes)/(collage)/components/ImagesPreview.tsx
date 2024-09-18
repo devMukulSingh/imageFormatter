@@ -26,13 +26,26 @@ const ImagesPreview = ({}: Props) => {
 
   return (
     <div
-      className="flex relative flex-col
-       bg-white gap-5 print:max-h-screen max-h-[calc(100vh-6.25rem)] print:overflow-visible overflow-y-auto  overflow-x-auto items-center"
+      className="flex 
+      relative
+      flex-col
+      border-blue-400
+     bg-white
+      gap-5
+      print:gap-0
+      max-h-[calc(100vh-6.25rem)] 
+      print:overflow-visible 
+      overflow-y-auto  
+      overflow-x-auto 
+      items-center
+      print:items-start
+      "
     >
       <Buttons disabled={collageImages.length > 0 ? false : true} />
       <div
         ref={a4pageRef}
         className="
+        border-red-200
                 md:mt-[3rem]
                 grid
                 grid-cols-2

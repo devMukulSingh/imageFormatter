@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { IaadharPdfs } from "@/lib/types";
 import { useAppDispatch } from "@/redux/hook";
 import {
-  removeAadharPdf,
+  removeAyushmanPdf,
   setAadharImgUrl,
 } from "@/redux/reducers/persistReducer";
 import { Loader, Loader2Icon, X } from "lucide-react";
@@ -115,7 +115,7 @@ const VerticalPdf = ({ pdf }: Props) => {
             <div className="flex print:hidden gap-5 ">
               <Button
                 className=" print:hidden rounded-full z-40 self-center "
-                onClick={() => dispatch(removeAadharPdf(pdf.id))}
+                onClick={() => dispatch(removeAyushmanPdf(pdf.id))}
                 size={"icon"}
               >
                 <X size={20} />

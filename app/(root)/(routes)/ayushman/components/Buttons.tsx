@@ -1,15 +1,12 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { setLoading } from "@/redux/reducers/nonPersistReducer";
 import {
-  pushAadharPdfs,
-  pushBase64Images,
-  removeAllAadharPdfs,
-  removeAllImages,
+  pushAyushmanPdfs,
+  removeAllAyushmanPdfs,
 } from "@/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
-import { getBase64Image } from "@/lib/hooks";
-import { base64Images, IaadharPdfs } from "@/lib/types";
-import { PlusCircle, Printer, RotateCcwIcon, Trash } from "lucide-react";
+import {  IaadharPdfs } from "@/lib/types";
+import {  Printer, RotateCcwIcon, Trash } from "lucide-react";
 import React from "react";
 import toast from "react-hot-toast";
 
@@ -22,7 +19,7 @@ type Props = {
 const Buttons = ({ disabled, currComp, setCurrComp }: Props) => {
   const dispatch = useAppDispatch();
   const {
-    nonPersistedReducer: { aadharInputRef, loading },
+    nonPersistedReducer: { ayushmanInputRef, loading },
   } = useAppSelector((state) => state);
   const handleAddMore = async () => {
     const imageInput = document.createElement("input");
@@ -48,7 +45,7 @@ const Buttons = ({ disabled, currComp, setCurrComp }: Props) => {
               imgUrl: "",
             });
           }
-          dispatch(pushAadharPdfs(base64Images));
+          dispatch(pushAyushmanPdfs(base64Images));
         }
       } catch (e) {
         toast.error("Something went wrong. Please try again");
@@ -69,8 +66,8 @@ const Buttons = ({ disabled, currComp, setCurrComp }: Props) => {
         className="flex gap-1 print:hidden "
         variant={"destructive"}
         onClick={() => {
-          dispatch(removeAllAadharPdfs());
-          if (aadharInputRef) aadharInputRef.value = "";
+          dispatch(removeAllAyushmanPdfs());
+          if (ayushmanInputRef) ayushmanInputRef.value = "";
         }}
       >
         <Trash size={20} />
