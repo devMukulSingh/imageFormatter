@@ -16,7 +16,7 @@ type Props = {
 const VerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
   const {
     persistedReducer: { passportSizeBase64Images: passportImages },
-    nonPersistedReducer: { passportInputRef,passportPhotoIndexes },
+    nonPersistedReducer: { passportInputRef, passportPhotoIndexes },
   } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
 
@@ -51,11 +51,10 @@ const VerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
           // w-[118px]
 
           if (a4PageHeight >= 786 && index % 8 === 0 && index !== 0) {
-
             return (
               <div key={index}>
                 {/* <EndOfPage /> */}
-                <DialogModal index={index.toString()} imageId={image.id}>
+                <DialogModal imageId={image.id}>
                   <figure
                     key={index}
                     className={`
@@ -97,18 +96,14 @@ const VerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
                     />
                   </figure>
                 </DialogModal>
-                {passportPhotoIndexes?.find(
-                  (item) => item === index.toString()
-                ) ? (
-                  <Textarea className="focus:outline-0 resize-none focus:border-0 text-[12px] font-thin text-center min-h-[10px]  px-[2px] py-[2px] leading-none text-black rounded-none w-[124px] border-[1.5px] border-t-0 border-black" />
-                ) : null}
+               
               </div>
             );
           }
 
           return (
             <div key={index}>
-              <DialogModal index={index.toString()} imageId={image.id}>
+              <DialogModal  imageId={image.id}>
                 <figure
                   draggable
                   key={index}
@@ -149,11 +144,7 @@ const VerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
                   />
                 </figure>
               </DialogModal>
-              {passportPhotoIndexes?.find(
-                (item) => item === index.toString()
-              ) ? (
-                <Textarea className="focus:outline-0 resize-none focus:border-0 text-[12px] font-thin text-center min-h-[10px]  px-[2px] py-[2px] leading-none text-black rounded-none w-[124px] border-[1.5px] border-t-0 border-black" />
-              ) : null}
+            
             </div>
           );
         })}

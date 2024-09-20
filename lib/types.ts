@@ -10,9 +10,9 @@ export interface base64Images {
     saturation: number;
   };
   textbox?: {
-    name:string;
-    date : string;
-  }
+    location: EtextboxLocation,
+    isActive:boolean
+  };
 }
 
 export interface IPersistInitialState {
@@ -31,8 +31,14 @@ export interface InonPersistInitialState {
   panInputRef: HTMLInputElement | null;
   aadharInputRef: HTMLInputElement | null;
   ayushmanInputRef: HTMLInputElement | null;
-  passportPhotoIndexes:string[]
- | null}
+  passportPhotoIndexes: IpassportPhotoIndexes[]
+}
+type EtextboxLocation = 'inImage' | 'afterImage' | null
+
+export interface IpassportPhotoIndexes {
+  imageId: number | null
+  textboxLocation: EtextboxLocation
+}
 
 export interface IaadharPdfs {
   file: string;

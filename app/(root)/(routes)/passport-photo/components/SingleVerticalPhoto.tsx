@@ -54,7 +54,7 @@ const SingleVerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
             return (
               <React.Fragment key={index}>
                 <SingleVerticalEOF />
-                <DialogModal index={index.toString()} imageId={image.id}>
+                <DialogModal  imageId={image.id}>
                   <figure
                     key={index}
                     className={`
@@ -100,11 +100,11 @@ const SingleVerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
           return (
             <div className="flex gap-5 border" key={index}>
               {passportPhotoIndexes?.find(
-                (item) => item === index.toString()
+                (item) => item.imageId === image.id,
               ) ? (
                 <Textarea className="rotate-90 focus:outline-0 resize-none focus:border-0 text-[12px] font-thin text-center w-[124px]   px-[2px] py-[2px] leading-none text-black rounded-none max-h-[60px] border-[1.5px] border-t-0 border-black" />
               ) : null}
-              <DialogModal index={index.toString()} imageId={image.id}>
+              <DialogModal imageId={image.id}>
                 <figure
                   draggable
                   key={index}

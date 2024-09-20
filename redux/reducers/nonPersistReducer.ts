@@ -9,7 +9,11 @@ const initialState: InonPersistInitialState = {
   aadharInputRef: null,
   ayushmanInputRef: null,
   loading: false,
-  passportPhotoIndexes:[]
+  passportPhotoIndexes: [{
+    imageId:null,
+    textboxLocation:null
+  }],
+
 };
 
 export const nonPersistSlice = createSlice({
@@ -34,13 +38,23 @@ export const nonPersistSlice = createSlice({
     setAyushmanInputRef: (state, action) => {
       state.ayushmanInputRef = action.payload;
     },
-    pushSelectedImageIndex : (state,action) => {
-      state.passportPhotoIndexes?.push(action.payload); 
+    pushSelectedImageIndex: (state, action) => {
+      const { imageId, textboxLocation } = action.payload;
+      for (let i = 0; i < state.passportPhotoIndexes.length; i++) {
+        if (state.passportPhotoIndexes[i].imageId === imageId) {
+          state.passportPhotoIndexes[i].textboxLocation = textboxLocation;
+          return;
+        }
+      }
+      state.passportPhotoIndexes.push(action.payload)
     },
+
     removeSelectedImageIndex: (state, action) => {
-     const filteredArray = state.passportPhotoIndexes?.filter( item => item!==action.payload);
-     state.passportPhotoIndexes = filteredArray || [];
-    }
+      const filteredArray = state.passportPhotoIndexes?.filter(
+        (item) => item.imageId !== action.payload,
+      );
+      state.passportPhotoIndexes = filteredArray || [];
+    },
   },
 });
 
@@ -52,7 +66,7 @@ export const {
   setAadharInputRef,
   setAyushmanInputRef,
   pushSelectedImageIndex,
-  removeSelectedImageIndex
+  removeSelectedImageIndex,
 } = nonPersistSlice.actions;
 
 export default nonPersistSlice.reducer;

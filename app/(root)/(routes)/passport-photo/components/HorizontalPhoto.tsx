@@ -1,12 +1,11 @@
-import React, { MutableRefObject, RefObject, useState } from "react";
-import { removePassportSizeImage } from "@/redux/reducers/persistReducer";
-import { Button } from "@/components/ui/button";
-import { X } from "lucide-react";
+import React, { MutableRefObject, RefObject, useEffect, useState } from "react";
 import Image from "next/image";
 import EndOfPage from "./EndOfPage";
-import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import { useAppSelector } from "@/redux/hook";
 import { Textarea } from "@/components/ui/textarea";
 import DialogModal from "@/components/DialogModal";
+import AfterImageTextbox from "./AfterImageTextbox";
+import InimageTextbox from "./InimageTextbox";
 
 type Props = {
   a4pageRef: RefObject<HTMLDivElement>;
@@ -18,8 +17,24 @@ const HorizontalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
     persistedReducer: { passportSizeBase64Images: passportImages },
     nonPersistedReducer: { passportInputRef, passportPhotoIndexes },
   } = useAppSelector((state) => state);
-  const dispatch = useAppDispatch();
-  
+  // const [textboxComp, setTextboxComp] = useState<string | null>(null);
+
+  const renderComponent = (imageId:number) => {
+    const selected = passportPhotoIndexes.find(
+      (indexes) => indexes.imageId === imageId
+    );
+    console.log(selected);
+
+    switch (selected?.textboxLocation) {
+      case "afterImage":
+        return <AfterImageTextbox />;
+      case "inImage":
+        return <InimageTextbox />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <div
       ref={a4pageRef}
@@ -38,16 +53,13 @@ const HorizontalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
           px-[14px]
           relative
           `}
-      >
-        
+    >
       {passportImages.map((image, index) => {
-                console.log(index);
         if (a4PageHeight > 1120 && index % 42 === 0 && index !== 0) {
-    
           return (
             <div key={index}>
               <EndOfPage />
-              <DialogModal index={index.toString()} imageId={image.id}>
+              <DialogModal imageId={image.id}>
                 <figure
                   onClick={(e) => {
                     e.stopPropagation();
@@ -88,17 +100,21 @@ const HorizontalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
                     alt="image"
                   />
                 </figure>
-                {passportPhotoIndexes?.find((item) => item === index.toString()) ? (
+                {passportPhotoIndexes?.find(
+                  (item) => item.imageId === image.id
+                )?.textboxLocation === "afterImage" ? (
                   <Textarea className="focus:outline-0 resize-none focus:border-0 text-[12px] font-thin text-center min-h-[30px] px-[3px] py-[3px] leading-none text-black rounded-none w-[124px] border-[1.5px] border-t-0 border-black" />
-                ) : null}
+                ) : (
+                  <Textarea className="absolute focus:outline-0 resize-none focus:border-0 text-[12px] font-thin text-center min-h-[30px] px-[3px] py-[3px] leading-none text-black rounded-none w-[124px] border-[1.5px] border-t-0 border-black" />
+                )}
               </DialogModal>
             </div>
           );
         }
 
         return (
-          <div key={index}>
-            <DialogModal index={index.toString()} imageId = {image.id}>
+          <div key={index} className="relative">
+            <DialogModal  imageId={image.id}>
               <figure
                 onClick={(e) => e.stopPropagation()}
                 draggable
@@ -141,9 +157,13 @@ const HorizontalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
                 />
               </figure>
             </DialogModal>
-            {passportPhotoIndexes?.find((item) => item === index.toString()) ? (
-              <Textarea className="focus:outline-0 resize-none focus:border-0 text-[12px] font-thin text-center min-h-[10px]  px-[2px] py-[2px] leading-none text-black rounded-none w-[124px] border-[1.5px] border-t-0 border-black" />
-            ) : null}
+            {
+              (image.textbox?.isActive && image.textbox.location==='afterImage') ? 
+               <AfterImageTextbox /> : 
+                (image.textbox?.isActive && image.textbox.location==='inImage') ?
+                <InimageTextbox/> : null
+            }
+       
           </div>
         );
       })}
