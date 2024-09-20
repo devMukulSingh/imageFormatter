@@ -5,6 +5,8 @@ import { X } from "lucide-react";
 import Image from "next/image";
 import EndOfPage from "./EndOfPage";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import DialogModal from "@/components/DialogModal";
+import { Textarea } from "@/components/ui/textarea";
 
 type Props = {
   a4pageRef: RefObject<HTMLDivElement>;
@@ -14,7 +16,7 @@ type Props = {
 const VerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
   const {
     persistedReducer: { passportSizeBase64Images: passportImages },
-    nonPersistedReducer: { passportInputRef },
+    nonPersistedReducer: { passportInputRef,passportPhotoIndexes },
   } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
 
@@ -49,16 +51,16 @@ const VerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
           // w-[118px]
 
           if (a4PageHeight >= 786 && index % 8 === 0 && index !== 0) {
-            console.log("inside");
-            console.log("index", index);
 
             return (
-              <>
+              <div key={index}>
                 {/* <EndOfPage /> */}
-                <figure
-                  key={index}
-                  className={`
+                <DialogModal index={index.toString()} imageId={image.id}>
+                  <figure
+                    key={index}
+                    className={`
                   h-[150px]
+                   cursor-pointer
                   w-[124px]
                   relative
                   flex
@@ -70,39 +72,48 @@ const VerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
                   
                   rotate-90
                   `}
-                >
-                  <Button
-                    onClick={() => {
-                      dispatch(removePassportSizeImage(image.id));
-                      if (passportInputRef) passportInputRef.value = "";
-                    }}
-                    size={"icon"}
-                    variant={"outline"}
-                    className="self-center z-20 text-black rounded-full size-6 mt-1 print:hidden"
                   >
-                    <X className="" size={15} />
-                  </Button>
-                  <Image
-                    quality={10}
-                    className="
+                    <Button
+                      onClick={() => {
+                        dispatch(removePassportSizeImage(image.id));
+                        if (passportInputRef) passportInputRef.value = "";
+                      }}
+                      size={"icon"}
+                      variant={"outline"}
+                      className="self-center z-20 text-black rounded-full size-6 mt-1 print:hidden"
+                    >
+                      <X className="" size={15} />
+                    </Button>
+                    <Image
+                      quality={10}
+                      className="
                     object-top
                     object-cover
                     "
-                    fill
-                    src={image.img}
-                    key={index}
-                    alt="image"
-                  />
-                </figure>
-              </>
+                      fill
+                      src={image.img}
+                      key={index}
+                      alt="image"
+                    />
+                  </figure>
+                </DialogModal>
+                {passportPhotoIndexes?.find(
+                  (item) => item === index.toString()
+                ) ? (
+                  <Textarea className="focus:outline-0 resize-none focus:border-0 text-[12px] font-thin text-center min-h-[10px]  px-[2px] py-[2px] leading-none text-black rounded-none w-[124px] border-[1.5px] border-t-0 border-black" />
+                ) : null}
+              </div>
             );
           }
 
           return (
-            <figure
-              draggable
-              key={index}
-              className={`
+            <div key={index}>
+              <DialogModal index={index.toString()} imageId={image.id}>
+                <figure
+                  draggable
+                  key={index}
+                  className={`
+                   cursor-pointer
               h-[150px]
               w-[124px]
               relative
@@ -112,31 +123,38 @@ const VerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
               border-black
               
             `}
-            >
-              <Button
-                onClick={() => dispatch(removePassportSizeImage(image.id))}
-                size={"icon"}
-                variant={"outline"}
-                className="self-center z-20 text-black rounded-full size-6 mt-1 print:hidden"
-              >
-                <X className="" size={15} />
-              </Button>
-              <Image
-                quality={10}
-                className="
+                >
+                  {/* <Button
+                  onClick={() => dispatch(removePassportSizeImage(image.id))}
+                  size={"icon"}
+                  variant={"outline"}
+                  className="self-center z-20 text-black rounded-full size-6 mt-1 print:hidden"
+                >
+                  <X className="" size={15} />
+                </Button> */}
+                  <Image
+                    quality={10}
+                    className="
               relative
               object-top
               object-cover
 
               "
-                fill
-                // width={180}
-                // height={180}
-                src={image.img}
-                key={index}
-                alt="image"
-              />
-            </figure>
+                    fill
+                    // width={180}
+                    // height={180}
+                    src={image.img}
+                    key={index}
+                    alt="image"
+                  />
+                </figure>
+              </DialogModal>
+              {passportPhotoIndexes?.find(
+                (item) => item === index.toString()
+              ) ? (
+                <Textarea className="focus:outline-0 resize-none focus:border-0 text-[12px] font-thin text-center min-h-[10px]  px-[2px] py-[2px] leading-none text-black rounded-none w-[124px] border-[1.5px] border-t-0 border-black" />
+              ) : null}
+            </div>
           );
         })}
       </div>

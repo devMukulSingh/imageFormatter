@@ -9,6 +9,10 @@ export interface base64Images {
     rotation: number;
     saturation: number;
   };
+  textbox?: {
+    name:string;
+    date : string;
+  }
 }
 
 export interface IPersistInitialState {
@@ -19,8 +23,6 @@ export interface IPersistInitialState {
   passportPhotoFiles: any;
   base64Pan: base64Images[];
   ayushmanPdfs: IaadharPdfs[];
-
-
 }
 export interface InonPersistInitialState {
   loading: boolean;
@@ -29,7 +31,8 @@ export interface InonPersistInitialState {
   panInputRef: HTMLInputElement | null;
   aadharInputRef: HTMLInputElement | null;
   ayushmanInputRef: HTMLInputElement | null;
-}
+  passportPhotoIndexes:string[]
+ | null}
 
 export interface IaadharPdfs {
   file: string;

@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import HorizontalPhoto from "./HorizontalPhoto";
 import VerticalPhoto from "./VerticalPhoto";
 import SingleVerticalPhoto from "./SingleVerticalPhoto";
-//3.3 * 4
+
 type Props = {};
 
 const PhotoPreview = ({}: Props) => {

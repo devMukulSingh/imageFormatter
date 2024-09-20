@@ -58,7 +58,7 @@ const initialState: IPersistInitialState = {
   collageFiles: "",
   passportPhotoFiles: "",
   base64Pan: [],
-  ayushmanPdfs:[]
+  ayushmanPdfs: [],
 };
 
 export const persistedSlice = createSlice({
@@ -282,5 +282,5 @@ export const {
   pushAyushmanPdfs,
   removeAllAyushmanPdfs,
   setAyushmanImgUrl,
-  removeAyushmanPdf
+  removeAyushmanPdf,
 } = persistedSlice.actions;

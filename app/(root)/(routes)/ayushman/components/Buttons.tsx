@@ -5,8 +5,8 @@ import {
   removeAllAyushmanPdfs,
 } from "@/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
-import {  IaadharPdfs } from "@/lib/types";
-import {  Printer, RotateCcwIcon, Trash } from "lucide-react";
+import { IaadharPdfs } from "@/lib/types";
+import { Printer, RotateCcwIcon, Trash } from "lucide-react";
 import React from "react";
 import toast from "react-hot-toast";
 

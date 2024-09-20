@@ -50,11 +50,11 @@ const HorizontalPdf = ({ pdf }: Props) => {
             canvasRef.current,
             0,
             550,
-            width-400,
-            height-500,
+            width - 400,
+            height - 500,
             0,
             0,
-            width-400,
+            width - 400,
             height,
           );
           ctx.restore();

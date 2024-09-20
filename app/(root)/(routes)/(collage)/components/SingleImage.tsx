@@ -36,6 +36,7 @@ const SingleImage = ({ image }: Props) => {
                           print:border-none
                           relative
                           size-[352px] 
+                          border
        "
       >
         <Button
@@ -49,7 +50,7 @@ const SingleImage = ({ image }: Props) => {
         >
           <X className="" size={15} />
         </Button>
-        <figure className="size-[352px]  ">
+        <figure className="size-[352px] ">
           <img
             style={{
               transform: `rotate(${image.filters.rotation}deg)`,
@@ -57,9 +58,9 @@ const SingleImage = ({ image }: Props) => {
             }}
             onClick={() => setOpenDialog(true)}
             className={`
-              w-full
-              h-full
-            cursor-pointer       
+            w-[352px]
+            h-[352px]
+            cursor-pointer
             object-contain
             object-center 
             `}

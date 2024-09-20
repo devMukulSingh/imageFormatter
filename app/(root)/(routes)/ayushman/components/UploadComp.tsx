@@ -1,9 +1,9 @@
 "use client";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ChangeEvent, useEffect, useRef,  } from "react";
+import { ChangeEvent, useEffect, useRef } from "react";
 import toast from "react-hot-toast";
-import { pushAyushmanPdfs,  } from "@/redux/reducers/persistReducer";
+import { pushAyushmanPdfs } from "@/redux/reducers/persistReducer";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import {
   setAyushmanInputRef,
@@ -20,7 +20,6 @@ const UploadComp = ({}: Props) => {
 
   const {
     nonPersistedReducer: { loading },
-    
   } = useAppSelector((state) => state);
   const push = async ({ pdfId, imgUrl }: { pdfId: number; imgUrl: string }) => {
     return new Promise((resolve, reject) => {

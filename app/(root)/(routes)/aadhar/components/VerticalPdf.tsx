@@ -26,7 +26,7 @@ const VerticalPdf = ({ pdf }: Props) => {
   const dispatch = useAppDispatch();
   //1190 1684
   //743 1052
-   
+
   const a = async () => {
     try {
       const pixelRatio =
@@ -76,7 +76,7 @@ const VerticalPdf = ({ pdf }: Props) => {
   };
   // const handleOnPassword = (password:string,reason) => {
   //   console.log(password, reason);
-    
+
   // }
   useEffect(() => {
     pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs`;
