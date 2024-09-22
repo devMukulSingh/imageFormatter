@@ -54,7 +54,7 @@ const SingleVerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
             return (
               <React.Fragment key={index}>
                 <SingleVerticalEOF />
-                <DialogModal  imageId={image.id}>
+                <DialogModal imageId={image.id}>
                   <figure
                     key={index}
                     className={`
@@ -98,7 +98,7 @@ const SingleVerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
           }
 
           return (
-            <div className="flex gap-5 border" key={index}>
+            <div className="flex gap-5 " key={index}>
               {passportPhotoIndexes?.find(
                 (item) => item.imageId === image.id,
               ) ? (

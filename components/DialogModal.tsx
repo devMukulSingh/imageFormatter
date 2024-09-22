@@ -17,7 +17,11 @@ import {
   pushSelectedImageIndex,
   removeSelectedImageIndex,
 } from "@/redux/reducers/nonPersistReducer";
-import { removePassportSizeImage, setPhotoTextbox } from "@/redux/reducers/persistReducer";
+import {
+  removePassportSizeImage,
+  removePhotoTextbox,
+  setPhotoTextbox,
+} from "@/redux/reducers/persistReducer";
 import { ReactNode } from "react";
 
 type Props = {
@@ -26,54 +30,60 @@ type Props = {
 };
 
 const DialogModal = ({ children, imageId }: Props) => {
-  const { passportPhotoIndexes } = useAppSelector( state => state.nonPersistedReducer)
+  const { passportSizeBase64Images } = useAppSelector(
+    (state) => state.persistedReducer,
+  );
   const dispatch = useAppDispatch();
   const handleAddAfterImageTextbox = () => {
     dispatch(
       setPhotoTextbox({
         imageId,
         textboxLocation: "afterImage",
-      })
+      }),
     );
+    console.log(passportSizeBase64Images);
+
   };
-    const handleAddInImageTextbox = () => {
-      dispatch(
-        setPhotoTextbox({
-          imageId,
-          textboxLocation: "inImage",
-        })
-      );
-    };
+  const handleAddInImageTextbox = () => {
+    dispatch(
+      setPhotoTextbox({
+        imageId,
+        textboxLocation: "inImage",
+      }),
+    );
+    console.log(passportSizeBase64Images);
+    
+  };
   const handleRemoveTextbox = () => {
-    dispatch(removeSelectedImageIndex(imageId));
+    dispatch(removePhotoTextbox(imageId));
   };
   const handleRemovePhoto = () => {
     dispatch(removePassportSizeImage(imageId));
   };
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
-        {children}
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 ">
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem onClick={() => handleAddInImageTextbox()}>
-            Add InImageTextbox
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => handleAddAfterImageTextbox()}>
-            Add AfterImageTextbox 
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => handleRemoveTextbox()}>
-            Remove text box
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => handleRemovePhoto()}>
-            Remove photo
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-      </DropdownMenuContent>
-    </DropdownMenu>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
+          {children}
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-56 ">
+          <DropdownMenuSeparator />
+          <DropdownMenuGroup>
+            <DropdownMenuItem onClick={() => handleAddInImageTextbox()}>
+              Add InImageTextbox
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => handleAddAfterImageTextbox()}>
+              Add AfterImageTextbox
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => handleRemoveTextbox()}>
+              Remove text box
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => handleRemovePhoto()}>
+              Remove photo
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
+          <DropdownMenuSeparator />
+        </DropdownMenuContent>
+      </DropdownMenu>
   );
 };
 

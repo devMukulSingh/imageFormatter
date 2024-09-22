@@ -9,11 +9,12 @@ const initialState: InonPersistInitialState = {
   aadharInputRef: null,
   ayushmanInputRef: null,
   loading: false,
-  passportPhotoIndexes: [{
-    imageId:null,
-    textboxLocation:null
-  }],
-
+  passportPhotoIndexes: [
+    {
+      imageId: null,
+      textboxLocation: null,
+    },
+  ],
 };
 
 export const nonPersistSlice = createSlice({
@@ -46,7 +47,7 @@ export const nonPersistSlice = createSlice({
           return;
         }
       }
-      state.passportPhotoIndexes.push(action.payload)
+      state.passportPhotoIndexes.push(action.payload);
     },
 
     removeSelectedImageIndex: (state, action) => {

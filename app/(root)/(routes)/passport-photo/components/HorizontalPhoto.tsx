@@ -19,9 +19,9 @@ const HorizontalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
   } = useAppSelector((state) => state);
   // const [textboxComp, setTextboxComp] = useState<string | null>(null);
 
-  const renderComponent = (imageId:number) => {
+  const renderComponent = (imageId: number) => {
     const selected = passportPhotoIndexes.find(
-      (indexes) => indexes.imageId === imageId
+      (indexes) => indexes.imageId === imageId,
     );
     console.log(selected);
 
@@ -34,7 +34,8 @@ const HorizontalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
         return null;
     }
   };
-
+  console.log("render");
+  
   return (
     <div
       ref={a4pageRef}
@@ -76,18 +77,7 @@ const HorizontalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
                   cursor-pointer
                   `}
                 >
-                  {/* <Button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      dispatch(removePassportSizeImage(image.id));
-                      if (passportInputRef) passportInputRef.value = "";
-                    }}
-                    size={"icon"}
-                    variant={"outline"}
-                    className="self-center z-20 text-black rounded-full size-6 mt-1 print:hidden"
-                  >
-                    <X className="" size={15} />
-                  </Button> */}
+              
                   <Image
                     quality={10}
                     className="
@@ -100,9 +90,8 @@ const HorizontalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
                     alt="image"
                   />
                 </figure>
-                {passportPhotoIndexes?.find(
-                  (item) => item.imageId === image.id
-                )?.textboxLocation === "afterImage" ? (
+                {passportPhotoIndexes?.find((item) => item.imageId === image.id)
+                  ?.textboxLocation === "afterImage" ? (
                   <Textarea className="focus:outline-0 resize-none focus:border-0 text-[12px] font-thin text-center min-h-[30px] px-[3px] py-[3px] leading-none text-black rounded-none w-[124px] border-[1.5px] border-t-0 border-black" />
                 ) : (
                   <Textarea className="absolute focus:outline-0 resize-none focus:border-0 text-[12px] font-thin text-center min-h-[30px] px-[3px] py-[3px] leading-none text-black rounded-none w-[124px] border-[1.5px] border-t-0 border-black" />
@@ -114,7 +103,7 @@ const HorizontalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
 
         return (
           <div key={index} className="relative">
-            <DialogModal  imageId={image.id}>
+            <DialogModal imageId={image.id}>
               <figure
                 onClick={(e) => e.stopPropagation()}
                 draggable
@@ -130,17 +119,6 @@ const HorizontalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
               border-black
             `}
               >
-                {/* <Button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                   
-                  }}
-                  size={"icon"}
-                  variant={"outline"}
-                  className="self-center z-20 text-black rounded-full size-6 mt-1 print:hidden"
-                >
-                  <X className="" size={15} />
-                </Button> */}
                 <Image
                   quality={10}
                   className="
@@ -158,12 +136,13 @@ const HorizontalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
               </figure>
             </DialogModal>
             {
-              (image.textbox?.isActive && image.textbox.location==='afterImage') ? 
-               <AfterImageTextbox /> : 
-                (image.textbox?.isActive && image.textbox.location==='inImage') ?
-                <InimageTextbox/> : null
-            }
-       
+           ( image.textbox?.isActive &&
+            image.textbox.location === "afterImage") ? (
+              <AfterImageTextbox />
+            ) : (image.textbox?.isActive &&
+              image.textbox.location === "inImage") ? (
+              <InimageTextbox />
+            ) : null}
           </div>
         );
       })}

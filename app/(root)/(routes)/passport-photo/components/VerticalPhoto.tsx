@@ -1,4 +1,4 @@
-import React, { MutableRefObject, RefObject } from "react";
+import React, { MouseEvent, MutableRefObject, RefObject } from "react";
 import { removePassportSizeImage } from "@/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
@@ -7,6 +7,8 @@ import EndOfPage from "./EndOfPage";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import DialogModal from "@/components/DialogModal";
 import { Textarea } from "@/components/ui/textarea";
+import AfterImageTextbox from "./AfterImageTextbox";
+import InimageTextbox from "./InimageTextbox";
 
 type Props = {
   a4pageRef: RefObject<HTMLDivElement>;
@@ -19,9 +21,12 @@ const VerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
     nonPersistedReducer: { passportInputRef, passportPhotoIndexes },
   } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
-
+  const stopPropagation = (
+    e: React.MouseEvent<HTMLTextAreaElement, globalThis.MouseEvent>
+  ) => e.stopPropagation();
   return (
     <div
+      // onClick={stopPropagation}
       ref={a4pageRef}
       className={`
         mt-[3rem]
@@ -38,6 +43,7 @@ const VerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
         `}
     >
       <div
+        
         className="
         w-fit 
         grid
@@ -59,7 +65,7 @@ const VerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
                     key={index}
                     className={`
                   h-[150px]
-                   cursor-pointer
+                  cursor-pointer
                   w-[124px]
                   relative
                   flex
@@ -68,7 +74,6 @@ const VerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
                   border-black
                   col-span-2
                   mx-auto
-                  
                   rotate-90
                   `}
                   >
@@ -96,19 +101,19 @@ const VerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
                     />
                   </figure>
                 </DialogModal>
-               
               </div>
             );
           }
 
           return (
-            <div key={index}>
-              <DialogModal  imageId={image.id}>
+            <div key={index} >
+              <DialogModal imageId={image.id}>
                 <figure
+                  
                   draggable
                   key={index}
                   className={`
-                   cursor-pointer
+              cursor-pointer
               h-[150px]
               w-[124px]
               relative
@@ -119,14 +124,6 @@ const VerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
               
             `}
                 >
-                  {/* <Button
-                  onClick={() => dispatch(removePassportSizeImage(image.id))}
-                  size={"icon"}
-                  variant={"outline"}
-                  className="self-center z-20 text-black rounded-full size-6 mt-1 print:hidden"
-                >
-                  <X className="" size={15} />
-                </Button> */}
                   <Image
                     quality={10}
                     className="
@@ -142,9 +139,20 @@ const VerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
                     key={index}
                     alt="image"
                   />
+                  {image.textbox?.isActive &&
+                  image.textbox.location === "inImage" ? ( // <InimageTextbox />
+                    <Textarea
+                      autoFocus
+                      onClick={(e) => stopPropagation(e)}
+                      className="z-30 bg-white absolute top-[120px] border-b-0 focus:outline-0 resize-none focus:border-0 text-[12px] font-thin text-center min-h-[10px]  px-[2px] py-[2px] leading-none text-black rounded-none w-[124px] border-[1.5px] border-black"
+                    />
+                  ) : null}
                 </figure>
               </DialogModal>
-            
+              {image.textbox?.isActive &&
+              image.textbox.location === "afterImage" ? (
+                <AfterImageTextbox />
+              ) : null}
             </div>
           );
         })}

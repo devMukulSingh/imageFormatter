@@ -245,29 +245,30 @@ export const persistedSlice = createSlice({
       );
       state.ayushmanPdfs = filteredArr;
     },
-    setPhotoTextbox : (state,action) => {
-      const { imageId,textboxLocation } = action.payload;
-      for( let i = 0; i < state.passportSizeBase64Images.length ; i++){
-        if(state.passportSizeBase64Images[i].id === imageId){
-          state.passportSizeBase64Images[i].textbox={
-            isActive:true,
-            location:textboxLocation
-          }
+    setPhotoTextbox: (state, action) => {
+      const { imageId, textboxLocation } = action.payload;
+      for (let i = 0; i < state.passportSizeBase64Images.length; i++) {
+        if (state.passportSizeBase64Images[i].id === imageId) {
+          state.passportSizeBase64Images[i].textbox = {
+            isActive: true,
+            location: textboxLocation,
+          };
           return;
         }
       }
+      
     },
-    removePhotoTextbox : (state,action) => {
+    removePhotoTextbox: (state, action) => {
       for (let i = 0; i < state.passportSizeBase64Images.length; i++) {
         if (state.passportSizeBase64Images[i].id === action.payload) {
           state.passportSizeBase64Images[i].textbox = {
             isActive: false,
-            location: null
-          }
+            location: null,
+          };
           return;
         }
       }
-    }
+    },
   },
 });
 
@@ -306,5 +307,6 @@ export const {
   removeAllAyushmanPdfs,
   setAyushmanImgUrl,
   removeAyushmanPdf,
-  setPhotoTextbox
+  setPhotoTextbox,
+  removePhotoTextbox
 } = persistedSlice.actions;

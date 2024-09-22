@@ -10,8 +10,8 @@ export interface base64Images {
     saturation: number;
   };
   textbox?: {
-    location: EtextboxLocation,
-    isActive:boolean
+    location: EtextboxLocation;
+    isActive: boolean;
   };
 }
 
@@ -31,13 +31,13 @@ export interface InonPersistInitialState {
   panInputRef: HTMLInputElement | null;
   aadharInputRef: HTMLInputElement | null;
   ayushmanInputRef: HTMLInputElement | null;
-  passportPhotoIndexes: IpassportPhotoIndexes[]
+  passportPhotoIndexes: IpassportPhotoIndexes[];
 }
-type EtextboxLocation = 'inImage' | 'afterImage' | null
+type EtextboxLocation = "inImage" | "afterImage" | null;
 
 export interface IpassportPhotoIndexes {
-  imageId: number | null
-  textboxLocation: EtextboxLocation
+  imageId: number | null;
+  textboxLocation: EtextboxLocation;
 }
 
 export interface IaadharPdfs {
