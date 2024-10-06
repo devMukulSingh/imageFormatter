@@ -72,7 +72,7 @@ export const {
   setAyushmanInputRef,
   pushSelectedImageIndex,
   removeSelectedImageIndex,
-  setDoubleSideAadharInputRef
+  setDoubleSideAadharInputRef,
 } = nonPersistSlice.actions;
 
 export default nonPersistSlice.reducer;

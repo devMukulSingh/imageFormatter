@@ -45,7 +45,8 @@ const UploadComp = ({}: Props) => {
       if (files) {
         if (files?.length > 10) {
           toast.error("Maximum 10 files allowed at a time");
-          if (doubleSideAadharInputRef.current) doubleSideAadharInputRef.current.value = "";
+          if (doubleSideAadharInputRef.current)
+            doubleSideAadharInputRef.current.value = "";
           return;
         }
         dispatch(setLoading(true));
@@ -58,7 +59,8 @@ const UploadComp = ({}: Props) => {
           const pdfId = Math.floor(Math.random() * 100000);
           await push({ pdfId, imgUrl });
         }
-        if (doubleSideAadharInputRef.current) doubleSideAadharInputRef.current.value = "";
+        if (doubleSideAadharInputRef.current)
+          doubleSideAadharInputRef.current.value = "";
       }
     } catch (e) {
       toast.error("Something went wrong. Please try again");

@@ -21,7 +21,13 @@ import {
   Save,
   WandSparkles,
 } from "lucide-react";
-import React, { MutableRefObject, RefObject, useEffect, useRef, useState } from "react";
+import React, {
+  MutableRefObject,
+  RefObject,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { ReactCropperElement } from "react-cropper";
 type Props = {
   setOpenDialog: (openDialog: boolean) => void;
@@ -77,21 +83,21 @@ const FiltersComp = ({ setOpenDialog, imgRef, image, cropperRef }: Props) => {
     },
   ];
 
-  const handleAutoEnhance = async() => {
-// const upscaler = new Upscaler();
-// const editedImage = await upscaler.upscale(image.img);
-// setCollageImageById({ src: editedImage,id:image.id});
+  const handleAutoEnhance = async () => {
+    // const upscaler = new Upscaler();
+    // const editedImage = await upscaler.upscale(image.img);
+    // setCollageImageById({ src: editedImage,id:image.id});
     dispatch(
       setBrightness({
         value: 105,
         id: image.id,
-      })
+      }),
     );
     dispatch(
       setContrast({
         value: 115,
         id: image.id,
-      })
+      }),
     );
   };
   // Initialize Fabric.js canvas after the component mounts
@@ -140,7 +146,7 @@ const FiltersComp = ({ setOpenDialog, imgRef, image, cropperRef }: Props) => {
                     filter.setState({
                       value: val[0],
                       id: image.id,
-                    })
+                    }),
                   )
                 }
                 className=""

@@ -23,7 +23,7 @@ export interface IPersistInitialState {
   passportPhotoFiles: any;
   base64Pan: base64Images[];
   ayushmanPdfs: IaadharPdfs[];
-  doubleSideAadharPdfs : IdoubleSideAadharPdfs[]
+  doubleSideAadharPdfs: IdoubleSideAadharPdfs[];
 }
 export interface InonPersistInitialState {
   loading: boolean;
@@ -51,7 +51,7 @@ export interface IdoubleSideAadharPdfs {
   file: string;
   id: number;
   imgUrl: {
-    front:string,
-    back:string
+    front: string;
+    back: string;
   };
 }

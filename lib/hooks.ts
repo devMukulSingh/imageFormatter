@@ -143,5 +143,3 @@ export const saveImage = ({
     return filteredImage;
   }
 };
-
-

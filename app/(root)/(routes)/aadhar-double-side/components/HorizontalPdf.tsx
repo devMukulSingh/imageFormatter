@@ -42,7 +42,7 @@ const HorizontalPdf = ({ pdf }: Props) => {
       if (croppedCanvasFront && canvasRef.current) {
         const { width, height } = canvasRef.current;
 
-        croppedCanvasFront.height = (pixelRatio * 780) ;
+        croppedCanvasFront.height = pixelRatio * 780;
         croppedCanvasFront.width = pixelRatio * width - 1450;
 
         const ctx = croppedCanvasFront.getContext("2d");
@@ -56,46 +56,48 @@ const HorizontalPdf = ({ pdf }: Props) => {
             135,
             2490,
             width - 1450,
-            height ,
+            height,
             0,
             0,
             width - 1450,
-            height 
+            height,
           );
           ctx.restore();
         }
-         imgUrlFront = croppedCanvasFront.toDataURL("image/jpg");
+        imgUrlFront = croppedCanvasFront.toDataURL("image/jpg");
         // dispatch(setDoubleSideAadharImgUrl({ id: pdf.id, imgUrlFront }));
-        setFile(imgUrlFront);
       }
-          if (croppedCanvasBack && canvasRefBack.current) {
-            const { width, height } = canvasRefBack.current;
+      if (croppedCanvasBack && canvasRefBack.current) {
+        const { width, height } = canvasRefBack.current;
 
-            croppedCanvasBack.height = pixelRatio * 780;
-            croppedCanvasBack.width = pixelRatio * width - 1445 ;
+        croppedCanvasBack.height = pixelRatio * 780;
+        croppedCanvasBack.width = pixelRatio * width - 1445;
 
-            const ctx = croppedCanvasBack.getContext("2d");
+        const ctx = croppedCanvasBack.getContext("2d");
 
-            if (ctx) {
-              ctx.save();
-              ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-              ctx.imageSmoothingQuality = "high";
-              ctx.drawImage(
-                canvasRefBack.current,
-                1310,
-                2490,
-                width - 1445,
-                height,
-                0,
-                0,
-                width -1445,
-                height
-              );
-              ctx.restore();
-            }
-            const imgUrlBack = croppedCanvasBack.toDataURL("image/jpg");
-            dispatch(setDoubleSideAadharImgUrl({ id: pdf.id, imgUrlBack,imgUrlFront }));
-          }
+        if (ctx) {
+          ctx.save();
+          ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+          ctx.imageSmoothingQuality = "high";
+          ctx.drawImage(
+            canvasRefBack.current,
+            1310,
+            2490,
+            width - 1445,
+            height,
+            0,
+            0,
+            width - 1445,
+            height,
+          );
+          ctx.restore();
+        }
+        const imgUrlBack = croppedCanvasBack.toDataURL("image/jpg");
+        setFile(imgUrlBack);
+        dispatch(
+          setDoubleSideAadharImgUrl({ id: pdf.id, imgUrlBack, imgUrlFront }),
+        );
+      }
     } catch (e) {
       toast.error("Something went wrong");
       console.log(`Error in Crop aadhar function`, e);
@@ -170,13 +172,13 @@ const HorizontalPdf = ({ pdf }: Props) => {
               ref={imgRef}
               src={pdf.imgUrl.front}
               alt="fileImage"
-              className="object-contain w-[25rem] ml-[50px] object-top contrast-[1.15] saturate-[1.1] self-center  border-black "
+              className="object-contain w-[25rem] print:ml-[50px] object-top contrast-[1.15] saturate-[1.1] self-center  border-black "
             />
             <img
               ref={imgRef}
               src={pdf.imgUrl.back}
               alt="fileImage"
-              className="object-contain w-[25rem] ml-[103px] print:mt-[905px]  object-top contrast-[1.15] saturate-[1.1] self-center  border-black "
+              className="object-contain w-[25rem] print:ml-[103px] print:mt-[905px]  object-top contrast-[1.15] saturate-[1.1] self-center  border-black "
             />
           </div>
         )}
@@ -193,6 +195,6 @@ const HorizontalPdf = ({ pdf }: Props) => {
   );
 };
 
-export default HorizontalPdf
+export default HorizontalPdf;
 // print:h-[200px] print:w-[650px]
 // 90 , 180
