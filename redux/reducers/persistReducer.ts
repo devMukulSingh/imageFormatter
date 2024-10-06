@@ -55,8 +55,7 @@ const initialState: IPersistInitialState = {
   base64Images: [],
   passportSizeBase64Images: [],
   aadharPdfs: [],
-  doubleSideAadharPdfs: [
-  ],
+  doubleSideAadharPdfs: [],
   collageFiles: "",
   passportPhotoFiles: "",
   base64Pan: [],
