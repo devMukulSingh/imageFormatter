@@ -1,7 +1,9 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import fabric, { FabricImage } from "fabric";
 import {
   setBrightness,
+  setCollageImageById,
   setContrast,
   setCroppedImg,
   setRotation,
@@ -19,17 +21,17 @@ import {
   Save,
   WandSparkles,
 } from "lucide-react";
-import React, { MutableRefObject, RefObject, useState } from "react";
+import React, { MutableRefObject, RefObject, useEffect, useRef, useState } from "react";
 import { ReactCropperElement } from "react-cropper";
-
 type Props = {
   setOpenDialog: (openDialog: boolean) => void;
   imgRef: RefObject<HTMLImageElement>;
   image: base64Images;
   cropperRef: RefObject<ReactCropperElement>;
 };
-
+import Upscaler from "upscaler";
 const FiltersComp = ({ setOpenDialog, imgRef, image, cropperRef }: Props) => {
+  const [imgObject, setImgObject] = useState(null);
   const dispatch = useAppDispatch();
   const { brightness, contrast, rotation, saturation } = image.filters;
 
@@ -75,20 +77,25 @@ const FiltersComp = ({ setOpenDialog, imgRef, image, cropperRef }: Props) => {
     },
   ];
 
-  const handleAutoEnhance = () => {
+  const handleAutoEnhance = async() => {
+// const upscaler = new Upscaler();
+// const editedImage = await upscaler.upscale(image.img);
+// setCollageImageById({ src: editedImage,id:image.id});
     dispatch(
       setBrightness({
         value: 105,
         id: image.id,
-      }),
+      })
     );
     dispatch(
       setContrast({
         value: 115,
         id: image.id,
-      }),
+      })
     );
   };
+  // Initialize Fabric.js canvas after the component mounts
+
   return (
     <>
       <figure className="border-black border-2 h-[352px] w-[352px] relative overflow-hidden ">
@@ -133,7 +140,7 @@ const FiltersComp = ({ setOpenDialog, imgRef, image, cropperRef }: Props) => {
                     filter.setState({
                       value: val[0],
                       id: image.id,
-                    }),
+                    })
                   )
                 }
                 className=""

@@ -35,7 +35,7 @@ const HorizontalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
     }
   };
   console.log("render");
-  
+
   return (
     <div
       ref={a4pageRef}
@@ -77,7 +77,6 @@ const HorizontalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
                   cursor-pointer
                   `}
                 >
-              
                   <Image
                     quality={10}
                     className="
@@ -135,12 +134,11 @@ const HorizontalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
                 />
               </figure>
             </DialogModal>
-            {
-           ( image.textbox?.isActive &&
-            image.textbox.location === "afterImage") ? (
+            {image.textbox?.isActive &&
+            image.textbox.location === "afterImage" ? (
               <AfterImageTextbox />
-            ) : (image.textbox?.isActive &&
-              image.textbox.location === "inImage") ? (
+            ) : image.textbox?.isActive &&
+              image.textbox.location === "inImage" ? (
               <InimageTextbox />
             ) : null}
           </div>

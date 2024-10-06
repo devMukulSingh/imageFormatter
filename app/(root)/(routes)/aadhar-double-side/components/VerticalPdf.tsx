@@ -7,8 +7,8 @@ import {
   setAadharImgUrl,
 } from "@/redux/reducers/persistReducer";
 import { Loader, Loader2Icon, X } from "lucide-react";
+import { log } from "node:console";
 import React, { useEffect, useRef, useState } from "react";
-import toast from "react-hot-toast";
 import { pdfjs, Document, Page } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 
@@ -16,7 +16,7 @@ type Props = {
   pdf: IaadharPdfs;
 };
 
-const HorizontalPdf = ({ pdf }: Props) => {
+const VerticalPdf = ({ pdf }: Props) => {
   const [isMounted, setIsMounted] = useState(false);
   const imgRef = useRef<HTMLImageElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -33,6 +33,7 @@ const HorizontalPdf = ({ pdf }: Props) => {
         typeof window !== "undefined" ? window.devicePixelRatio : 1;
 
       const croppedCanvas = document.createElement("canvas");
+      console.log(canvasRef.current, croppedCanvas);
 
       if (croppedCanvas && canvasRef.current) {
         const { width, height } = canvasRef.current;
@@ -49,7 +50,7 @@ const HorizontalPdf = ({ pdf }: Props) => {
           ctx.drawImage(
             canvasRef.current,
             0,
-            2470,
+            2400,
             width,
             height,
             0,
@@ -64,7 +65,6 @@ const HorizontalPdf = ({ pdf }: Props) => {
         setFile(imgUrl);
       }
     } catch (e) {
-      toast.error("Something went wrong");
       console.log(`Error in Crop aadhar function`, e);
     }
   };
@@ -74,7 +74,10 @@ const HorizontalPdf = ({ pdf }: Props) => {
       a();
     }, 1000);
   };
+  // const handleOnPassword = (password:string,reason) => {
+  //   console.log(password, reason);
 
+  // }
   useEffect(() => {
     pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs`;
     setIsMounted(true);
@@ -83,16 +86,13 @@ const HorizontalPdf = ({ pdf }: Props) => {
   return (
     <>
       <div
-        className="    
-        w-full    
-        h-full
-    
+        className="    print:h-[793px]
+                        w-full
                         flex
                       text-black
                         flex-col
-                        print:border-none
                         relative
-                       
+                       border-red-400
        "
       >
         {/* {isOpen && ( */}
@@ -102,7 +102,7 @@ const HorizontalPdf = ({ pdf }: Props) => {
           onLoadSuccess={onDocumentSuccess}
         >
           <Page
-            scale={3.5}
+            scale={3.4}
             className={"hidden print:hidden"}
             renderTextLayer={false}
             canvasRef={canvasRef}
@@ -111,26 +111,30 @@ const HorizontalPdf = ({ pdf }: Props) => {
         </Document>
 
         {file && (
-          <div className="flex flex-col  items-center">
-            <Button
-              className=" print:hidden absolute top-0 rounded-full z-40 self-center "
-              onClick={() => dispatch(removeAadharPdf(pdf.id))}
-              size={"icon"}
-            >
-              <X size={20} />
-            </Button>
-            {/* <Button
+          <div className="flex flex-col justify-center items-center min-h-[793px]  ">
+            <div className="flex print:hidden gap-5 ">
+              <Button
+                className=" print:hidden rounded-full z-40 self-center "
+                onClick={() => dispatch(removeAadharPdf(pdf.id))}
+                size={"icon"}
+              >
+                <X size={20} />
+              </Button>
+              {/* <Button
                 className=" print:hidden rounded-full z-40"
                 onClick={handleRotate}
               >
-                {rotation === 0 ? "Rotate" : "Normal"}
+                { === 0 ? "Rotate" : "Normal"}
               </Button> */}
+            </div>
 
             <img
+              height={745}
+              width={745}
               ref={imgRef}
               src={pdf.imgUrl}
               alt="fileImage"
-              className="object-contain object-top contrast-[1.15] saturate-[1.1] "
+              className="object-contain object-top contrast-[1.15] saturate-[1.2] rotate-90"
             />
           </div>
         )}
@@ -147,6 +151,6 @@ const HorizontalPdf = ({ pdf }: Props) => {
   );
 };
 
-export default HorizontalPdf;
+export default VerticalPdf;
 // print:h-[200px] print:w-[650px]
 // 90 , 180

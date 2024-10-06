@@ -7,6 +7,7 @@ const initialState: InonPersistInitialState = {
   passportInputRef: null,
   panInputRef: null,
   aadharInputRef: null,
+  doubleSideAadharInputRef: null,
   ayushmanInputRef: null,
   loading: false,
   passportPhotoIndexes: [
@@ -35,6 +36,9 @@ export const nonPersistSlice = createSlice({
     },
     setAadharInputRef: (state, action) => {
       state.aadharInputRef = action.payload;
+    },
+    setDoubleSideAadharInputRef: (state, action) => {
+      state.doubleSideAadharInputRef = action.payload;
     },
     setAyushmanInputRef: (state, action) => {
       state.ayushmanInputRef = action.payload;
@@ -68,6 +72,7 @@ export const {
   setAyushmanInputRef,
   pushSelectedImageIndex,
   removeSelectedImageIndex,
+  setDoubleSideAadharInputRef
 } = nonPersistSlice.actions;
 
 export default nonPersistSlice.reducer;

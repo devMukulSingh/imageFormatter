@@ -1,10 +1,11 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { IaadharPdfs } from "@/lib/types";
+import { IaadharPdfs, IdoubleSideAadharPdfs } from "@/lib/types";
 import { useAppDispatch } from "@/redux/hook";
 import {
-  removeAadharPdf,
-  setAadharImgUrl,
+  removeDoubleSideAadharPdf,
+  setBackSideAadharImgUrl,
+  setDoubleSideAadharImgUrl,
 } from "@/redux/reducers/persistReducer";
 import { Loader, Loader2Icon, X } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
@@ -13,13 +14,15 @@ import { pdfjs, Document, Page } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 
 type Props = {
-  pdf: IaadharPdfs;
+  pdf: IdoubleSideAadharPdfs;
 };
 
 const HorizontalPdf = ({ pdf }: Props) => {
   const [isMounted, setIsMounted] = useState(false);
   const imgRef = useRef<HTMLImageElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const canvasRefBack = useRef<HTMLCanvasElement | null>(null);
+
   const [numPages, setNumPages] = useState<number>();
   const [file, setFile] = useState<string | undefined>(undefined);
   const [isOpen, setIsOpen] = useState(true);
@@ -29,18 +32,20 @@ const HorizontalPdf = ({ pdf }: Props) => {
 
   const a = async () => {
     try {
+      let imgUrlFront;
       const pixelRatio =
         typeof window !== "undefined" ? window.devicePixelRatio : 1;
 
-      const croppedCanvas = document.createElement("canvas");
+      const croppedCanvasFront = document.createElement("canvas");
+      const croppedCanvasBack = document.createElement("canvas");
 
-      if (croppedCanvas && canvasRef.current) {
+      if (croppedCanvasFront && canvasRef.current) {
         const { width, height } = canvasRef.current;
 
-        croppedCanvas.height = pixelRatio * 780;
-        croppedCanvas.width = pixelRatio * width;
+        croppedCanvasFront.height = (pixelRatio * 780) ;
+        croppedCanvasFront.width = pixelRatio * width - 1450;
 
-        const ctx = croppedCanvas.getContext("2d");
+        const ctx = croppedCanvasFront.getContext("2d");
 
         if (ctx) {
           ctx.save();
@@ -48,21 +53,49 @@ const HorizontalPdf = ({ pdf }: Props) => {
           ctx.imageSmoothingQuality = "high";
           ctx.drawImage(
             canvasRef.current,
+            135,
+            2490,
+            width - 1450,
+            height ,
             0,
-            2470,
-            width,
-            height,
             0,
-            0,
-            width,
-            height,
+            width - 1450,
+            height 
           );
           ctx.restore();
         }
-        const imgUrl = croppedCanvas.toDataURL("image/jpg");
-        dispatch(setAadharImgUrl({ id: pdf.id, imgUrl }));
-        setFile(imgUrl);
+         imgUrlFront = croppedCanvasFront.toDataURL("image/jpg");
+        // dispatch(setDoubleSideAadharImgUrl({ id: pdf.id, imgUrlFront }));
+        setFile(imgUrlFront);
       }
+          if (croppedCanvasBack && canvasRefBack.current) {
+            const { width, height } = canvasRefBack.current;
+
+            croppedCanvasBack.height = pixelRatio * 780;
+            croppedCanvasBack.width = pixelRatio * width - 1445 ;
+
+            const ctx = croppedCanvasBack.getContext("2d");
+
+            if (ctx) {
+              ctx.save();
+              ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+              ctx.imageSmoothingQuality = "high";
+              ctx.drawImage(
+                canvasRefBack.current,
+                1310,
+                2490,
+                width - 1445,
+                height,
+                0,
+                0,
+                width -1445,
+                height
+              );
+              ctx.restore();
+            }
+            const imgUrlBack = croppedCanvasBack.toDataURL("image/jpg");
+            dispatch(setDoubleSideAadharImgUrl({ id: pdf.id, imgUrlBack,imgUrlFront }));
+          }
     } catch (e) {
       toast.error("Something went wrong");
       console.log(`Error in Crop aadhar function`, e);
@@ -108,13 +141,20 @@ const HorizontalPdf = ({ pdf }: Props) => {
             canvasRef={canvasRef}
             pageNumber={numPages}
           ></Page>
+          <Page
+            scale={3.5}
+            className={"hidden print:hidden"}
+            renderTextLayer={false}
+            canvasRef={canvasRefBack}
+            pageNumber={numPages}
+          ></Page>
         </Document>
 
         {file && (
-          <div className="flex flex-col  items-center">
+          <div className="flex flex-col  items-center justify-center   border-red-300">
             <Button
-              className=" print:hidden absolute top-0 rounded-full z-40 self-center "
-              onClick={() => dispatch(removeAadharPdf(pdf.id))}
+              className=" print:hidden absolute top-0 rounded-full z-40  "
+              onClick={() => dispatch(removeDoubleSideAadharPdf(pdf.id))}
               size={"icon"}
             >
               <X size={20} />
@@ -128,9 +168,15 @@ const HorizontalPdf = ({ pdf }: Props) => {
 
             <img
               ref={imgRef}
-              src={pdf.imgUrl}
+              src={pdf.imgUrl.front}
               alt="fileImage"
-              className="object-contain object-top contrast-[1.15] saturate-[1.1] "
+              className="object-contain w-[25rem] ml-[50px] object-top contrast-[1.15] saturate-[1.1] self-center  border-black "
+            />
+            <img
+              ref={imgRef}
+              src={pdf.imgUrl.back}
+              alt="fileImage"
+              className="object-contain w-[25rem] ml-[103px] print:mt-[905px]  object-top contrast-[1.15] saturate-[1.1] self-center  border-black "
             />
           </div>
         )}
@@ -147,6 +193,6 @@ const HorizontalPdf = ({ pdf }: Props) => {
   );
 };
 
-export default HorizontalPdf;
+export default HorizontalPdf
 // print:h-[200px] print:w-[650px]
 // 90 , 180

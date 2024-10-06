@@ -42,7 +42,6 @@ const DialogModal = ({ children, imageId }: Props) => {
       }),
     );
     console.log(passportSizeBase64Images);
-
   };
   const handleAddInImageTextbox = () => {
     dispatch(
@@ -52,7 +51,6 @@ const DialogModal = ({ children, imageId }: Props) => {
       }),
     );
     console.log(passportSizeBase64Images);
-    
   };
   const handleRemoveTextbox = () => {
     dispatch(removePhotoTextbox(imageId));
@@ -61,29 +59,29 @@ const DialogModal = ({ children, imageId }: Props) => {
     dispatch(removePassportSizeImage(imageId));
   };
   return (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
-          {children}
-        </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-56 ">
-          <DropdownMenuSeparator />
-          <DropdownMenuGroup>
-            <DropdownMenuItem onClick={() => handleAddInImageTextbox()}>
-              Add InImageTextbox
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => handleAddAfterImageTextbox()}>
-              Add AfterImageTextbox
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => handleRemoveTextbox()}>
-              Remove text box
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => handleRemovePhoto()}>
-              Remove photo
-            </DropdownMenuItem>
-          </DropdownMenuGroup>
-          <DropdownMenuSeparator />
-        </DropdownMenuContent>
-      </DropdownMenu>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
+        {children}
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-56 ">
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+          <DropdownMenuItem onClick={() => handleAddInImageTextbox()}>
+            Add InImageTextbox
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => handleAddAfterImageTextbox()}>
+            Add AfterImageTextbox
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => handleRemoveTextbox()}>
+            Remove text box
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => handleRemovePhoto()}>
+            Remove photo
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
 

@@ -30,6 +30,7 @@ export default function RootLayout({
       </body>
       <Script src="/path/to/cropper.js" />
       <Script src="https://mozilla.github.io/pdf.js/build/pdf.js" />
+      <Script src="https://cdnjs.cloudflare.com/ajax/libs/camanjs/4.1.2/caman.full.min.js"></Script>
     </html>
   );
 }

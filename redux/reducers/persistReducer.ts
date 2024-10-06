@@ -55,6 +55,14 @@ const initialState: IPersistInitialState = {
   base64Images: [],
   passportSizeBase64Images: [],
   aadharPdfs: [],
+  doubleSideAadharPdfs: [{
+    file:'',
+    id:Math.floor(Math.random() * 10000),
+    imgUrl:{
+      back:'',
+      front:''
+    }
+  }],
   collageFiles: "",
   passportPhotoFiles: "",
   base64Pan: [],
@@ -70,6 +78,7 @@ export const persistedSlice = createSlice({
       for (let i = 0; i < state.base64Images.length; i++) {
         if (state.base64Images[i].id === id) {
           state.base64Images[i].filters.brightness = value;
+          return
         }
       }
     },
@@ -79,6 +88,7 @@ export const persistedSlice = createSlice({
       for (let i = 0; i < state.base64Images.length; i++) {
         if (state.base64Images[i].id === id) {
           state.base64Images[i].filters.contrast = value;
+          return
         }
       }
     },
@@ -87,6 +97,7 @@ export const persistedSlice = createSlice({
       for (let i = 0; i < state.base64Images.length; i++) {
         if (state.base64Images[i].id === id) {
           state.base64Images[i].filters.rotation = value;
+          return
         }
       }
     },
@@ -95,6 +106,7 @@ export const persistedSlice = createSlice({
       for (let i = 0; i < state.base64Images.length; i++) {
         if (state.base64Images[i].id === id) {
           state.base64Images[i].filters.saturation = value;
+          return
         }
       }
     },
@@ -104,6 +116,7 @@ export const persistedSlice = createSlice({
       for (let i = 0; i < state.base64Pan.length; i++) {
         if (state.base64Pan[i].id === id) {
           state.base64Pan[i].filters.contrast = value;
+          return
         }
       }
     },
@@ -112,6 +125,7 @@ export const persistedSlice = createSlice({
       for (let i = 0; i < state.base64Pan.length; i++) {
         if (state.base64Pan[i].id === id) {
           state.base64Pan[i].filters.rotation = value;
+          return
         }
       }
     },
@@ -120,6 +134,7 @@ export const persistedSlice = createSlice({
       for (let i = 0; i < state.base64Pan.length; i++) {
         if (state.base64Pan[i].id === id) {
           state.base64Pan[i].filters.saturation = value;
+          return
         }
       }
     },
@@ -128,6 +143,7 @@ export const persistedSlice = createSlice({
       for (let i = 0; i < state.base64Pan.length; i++) {
         if (state.base64Pan[i].id === id) {
           state.base64Pan[i].filters.brightness = value;
+          return
         }
       }
     },
@@ -208,20 +224,54 @@ export const persistedSlice = createSlice({
     pushAadharPdfs: (state, action) => {
       state.aadharPdfs.push(action.payload);
     },
+    pushDoubleSideAadharPdfs: (state, action) => {
+      state.doubleSideAadharPdfs.push(action.payload);
+    },
     removeAadharPdf: (state, action) => {
       const filteredArr = state.aadharPdfs.filter(
         (pdf) => pdf.id !== action.payload,
       );
       state.aadharPdfs = filteredArr;
     },
+    removeDoubleSideAadharPdf: (state, action) => {
+      const filteredArr = state.doubleSideAadharPdfs.filter(
+        (pdf) => pdf.id !== action.payload,
+      );
+      state.doubleSideAadharPdfs = filteredArr;
+    },
     removeAllAadharPdfs: (state) => {
       state.aadharPdfs = [];
+    },
+    removeAllDoubleSideAadharPdfs: (state) => {
+      state.doubleSideAadharPdfs = [];
     },
     setAadharImgUrl: (state, action) => {
       const { id, imgUrl } = action.payload;
       for (let i = 0; i < state.aadharPdfs.length; i++) {
         if (state.aadharPdfs[i].id === id) {
           state.aadharPdfs[i].imgUrl = imgUrl;
+          return
+        }
+      }
+    },
+    setDoubleSideAadharImgUrl: (state, action) => {
+      const { id, imgUrlFront,imgUrlBack } = action.payload;
+      for (let i = 0; i < state.doubleSideAadharPdfs.length; i++) {
+        if (state.doubleSideAadharPdfs[i].id === id) {
+          state.doubleSideAadharPdfs[i].imgUrl = {
+            back:imgUrlBack,
+            front:imgUrlFront,
+          }
+          return
+        }
+      }
+    },
+    setBackSideAadharImgUrl: (state, action) => {
+      const { id, imgUrlBack } = action.payload;
+      for (let i = 0; i < state.doubleSideAadharPdfs.length; i++) {
+        if (state.doubleSideAadharPdfs[i].id === id) {
+          state.doubleSideAadharPdfs[i].imgUrl.back = imgUrlBack;
+          return
         }
       }
     },
@@ -236,6 +286,7 @@ export const persistedSlice = createSlice({
       for (let i = 0; i < state.ayushmanPdfs.length; i++) {
         if (state.ayushmanPdfs[i].id === id) {
           state.ayushmanPdfs[i].imgUrl = imgUrl;
+          return
         }
       }
     },
@@ -256,7 +307,6 @@ export const persistedSlice = createSlice({
           return;
         }
       }
-      
     },
     removePhotoTextbox: (state, action) => {
       for (let i = 0; i < state.passportSizeBase64Images.length; i++) {
@@ -269,6 +319,15 @@ export const persistedSlice = createSlice({
         }
       }
     },
+    setCollageImageById : (state,action) => {
+      const { id,src } = action.payload;
+      for(let i = 0; i < state.collageFiles.length; i++){
+        if(state.collageFiles[i].id===id){
+          state.collageFiles[i].src=src;
+          return;
+        }
+      }
+    }
   },
 });
 
@@ -301,12 +360,18 @@ export const {
   setCroppedImg,
   setEditedPan,
   pushAadharPdfs,
+  pushDoubleSideAadharPdfs,
+  removeDoubleSideAadharPdf,
   removeAllAadharPdfs,
+  removeAllDoubleSideAadharPdfs,
+  setDoubleSideAadharImgUrl,
+  setBackSideAadharImgUrl,
   setAadharImgUrl,
   pushAyushmanPdfs,
   removeAllAyushmanPdfs,
   setAyushmanImgUrl,
   removeAyushmanPdf,
   setPhotoTextbox,
-  removePhotoTextbox
+  removePhotoTextbox,
+  setCollageImageById
 } = persistedSlice.actions;

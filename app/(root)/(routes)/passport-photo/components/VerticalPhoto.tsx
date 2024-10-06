@@ -22,7 +22,7 @@ const VerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
   } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
   const stopPropagation = (
-    e: React.MouseEvent<HTMLTextAreaElement, globalThis.MouseEvent>
+    e: React.MouseEvent<HTMLTextAreaElement, globalThis.MouseEvent>,
   ) => e.stopPropagation();
   return (
     <div
@@ -43,7 +43,6 @@ const VerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
         `}
     >
       <div
-        
         className="
         w-fit 
         grid
@@ -106,10 +105,9 @@ const VerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
           }
 
           return (
-            <div key={index} >
+            <div key={index}>
               <DialogModal imageId={image.id}>
                 <figure
-                  
                   draggable
                   key={index}
                   className={`

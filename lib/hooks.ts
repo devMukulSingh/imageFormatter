@@ -1,8 +1,5 @@
 "use client";
 import { Crop } from "react-image-crop";
-
-import { setCroppedImg } from "@/redux/reducers/persistReducer";
-import { Dispatch, ThunkDispatch, UnknownAction } from "@reduxjs/toolkit";
 import { getContainedSize } from "./utils";
 
 type TsaveImageArgs = {
@@ -146,3 +143,5 @@ export const saveImage = ({
     return filteredImage;
   }
 };
+
+

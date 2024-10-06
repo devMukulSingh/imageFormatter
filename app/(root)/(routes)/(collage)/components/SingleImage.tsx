@@ -52,6 +52,7 @@ const SingleImage = ({ image }: Props) => {
         </Button>
         <figure className="size-[352px] ">
           <img
+            id="main"
             style={{
               transform: `rotate(${image.filters.rotation}deg)`,
               filter: `brightness(${image.filters.brightness}%) contrast(${image.filters.contrast}%) saturate(${image.filters.saturation}%)`,
