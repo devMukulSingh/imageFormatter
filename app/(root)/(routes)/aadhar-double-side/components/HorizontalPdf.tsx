@@ -172,13 +172,13 @@ const HorizontalPdf = ({ pdf }: Props) => {
               ref={imgRef}
               src={pdf.imgUrl.front}
               alt="fileImage"
-              className="object-contain w-[25rem] ml-[50px] object-top contrast-[1.15] saturate-[1.1] self-center  border-black "
+              className="object-contain w-[25rem] print:ml-[50px] object-top contrast-[1.15] saturate-[1.1] self-center  border-black "
             />
             <img
               ref={imgRef}
               src={pdf.imgUrl.back}
               alt="fileImage"
-              className="object-contain w-[25rem] ml-[113px] print:mt-[905px]  object-top contrast-[1.15] saturate-[1.1] self-center  border-black "
+              className="object-contain w-[25rem] print:ml-[113px] print:mt-[905px]  object-top contrast-[1.15] saturate-[1.1] self-center  border-black "
             />
           </div>
         )}
