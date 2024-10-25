@@ -38,15 +38,6 @@ const FiltersComp = ({ setOpenDialog, imgRef, image, cropperRef }: Props) => {
     setOpenDialog(false);
   };
   const filters = [
-    // {
-    //   title: "rotation",
-    //   defaultValue: 0,
-    //   min: -15,
-    //   max: 15,
-    //   step: 1,
-    //   state: rotation,
-    //   setState: setPanRotation,
-    // },
     {
       title: "brightness",
       defaultValue: 100,
@@ -64,6 +55,15 @@ const FiltersComp = ({ setOpenDialog, imgRef, image, cropperRef }: Props) => {
       step: 1,
       state: contrast,
       setState: setPanContrast,
+    },
+    {
+      title: "rotation",
+      defaultValue: 0,
+      min: -15,
+      max: 15,
+      step: 1,
+      state: rotation,
+      setState: setPanRotation,
     },
     {
       title: "saturate",

@@ -29,7 +29,7 @@ const SingleImage = ({ image }: Props) => {
         />
       )}
       <div
-        className="         
+        className="      overflow-hidden   
                         flex
                         flex-col
                         justify-center

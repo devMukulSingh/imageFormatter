@@ -21,10 +21,8 @@ const HorizontalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
 
   const renderComponent = (imageId: number) => {
     const selected = passportPhotoIndexes.find(
-      (indexes) => indexes.imageId === imageId,
+      (indexes) => indexes.imageId === imageId
     );
-    console.log(selected);
-
     switch (selected?.textboxLocation) {
       case "afterImage":
         return <AfterImageTextbox />;
@@ -34,7 +32,6 @@ const HorizontalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
         return null;
     }
   };
-  console.log("render");
 
   return (
     <div

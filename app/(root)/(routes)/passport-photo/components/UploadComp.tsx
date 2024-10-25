@@ -1,7 +1,7 @@
 "use client";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ChangeEvent, useEffect, useReducer, useRef, useState } from "react";
+import { ChangeEvent, Fragment, useEffect, useReducer, useRef, useState } from "react";
 import { saveAs } from "file-saver";
 import {
   Column,
@@ -74,7 +74,7 @@ const UploadComp = () => {
   }, []);
 
   return (
-    <>
+    <Fragment>
       <div
         className="
         print:hidden
@@ -111,7 +111,7 @@ const UploadComp = () => {
           </Button>
         </div> */}
       </div>
-    </>
+    </Fragment>
   );
 };
 

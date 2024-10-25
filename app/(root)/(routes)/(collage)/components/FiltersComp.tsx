@@ -35,7 +35,6 @@ type Props = {
   image: base64Images;
   cropperRef: RefObject<ReactCropperElement>;
 };
-import Upscaler from "upscaler";
 const FiltersComp = ({ setOpenDialog, imgRef, image, cropperRef }: Props) => {
   const [imgObject, setImgObject] = useState(null);
   const dispatch = useAppDispatch();
@@ -45,15 +44,6 @@ const FiltersComp = ({ setOpenDialog, imgRef, image, cropperRef }: Props) => {
     setOpenDialog(false);
   };
   const filters = [
-    // {
-    //   title: "rotation",
-    //   defaultValue: 0,
-    //   min: -15,
-    //   max: 15,
-    //   step: 1,
-    //   state: rotation,
-    //   setState: setRotation,
-    // },
     {
       title: "brightness",
       defaultValue: 100,
@@ -73,6 +63,15 @@ const FiltersComp = ({ setOpenDialog, imgRef, image, cropperRef }: Props) => {
       setState: setContrast,
     },
     {
+      title: "rotation",
+      defaultValue: 0,
+      min: -15,
+      max: 15,
+      step: 1,
+      state: rotation,
+      setState: setRotation,
+    },
+    {
       title: "saturate",
       defaultValue: 100,
       min: 100,
@@ -84,9 +83,7 @@ const FiltersComp = ({ setOpenDialog, imgRef, image, cropperRef }: Props) => {
   ];
 
   const handleAutoEnhance = async () => {
-    // const upscaler = new Upscaler();
-    // const editedImage = await upscaler.upscale(image.img);
-    // setCollageImageById({ src: editedImage,id:image.id});
+
     dispatch(
       setBrightness({
         value: 105,
@@ -100,7 +97,6 @@ const FiltersComp = ({ setOpenDialog, imgRef, image, cropperRef }: Props) => {
       }),
     );
   };
-  // Initialize Fabric.js canvas after the component mounts
 
   return (
     <>

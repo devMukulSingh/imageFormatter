@@ -76,14 +76,3 @@ const ImagesPreview = ({}: Props) => {
 };
 
 export default ImagesPreview;
-// const handleOnDragEnd = (result: DropResult) => {
-//   const { source, destination } = result;
-//   if (!destination) return;
-//   if (
-//     destination?.droppableId === source.droppableId &&
-//     destination.index === source.index
-//   )
-//     return;
-
-//   let add, active;
-// };

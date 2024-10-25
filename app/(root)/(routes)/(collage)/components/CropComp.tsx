@@ -66,7 +66,6 @@ const CropComp = ({ imgRef, image, setOpenDialog, cropperRef }: Props) => {
   };
 
   return (
-    // <div className="border-black border-2 h-[35rem] w-[35rem] relative flex flex-col items-center justify-center">
     <>
       <div
         id="cropper"
@@ -111,58 +110,3 @@ const CropComp = ({ imgRef, image, setOpenDialog, cropperRef }: Props) => {
 };
 
 export default CropComp;
-// const [crop, setCrop] = useState<Crop>({
-//   height: 80,
-//   width: 90,
-//   unit: "%",
-//   x: 0,
-//   y: 0,
-// });
-{
-  /* <ReactCrop
-        className={ `border `}
-        crop={crop}
-        onChange={(c) => setCrop(c)}
-      > */
-}
-{
-  /* <div className="flex">
-        <img
-          // style={{
-          //   transform: `rotate(${rotation}deg)`,
-          //   // filter: `
-          //   //     saturate(${saturation}%)
-          //   //     contrast(${contrast}%)
-          //   //     brightness(${brightness})
-          //   //     `,
-          // }}
-          // height={560}
-          // width={560}
-          className={`block  max-w-full  `}
-          ref={imgRef}
-          src={image.img}
-          alt="edit image"
-        />
-      </div> */
-}
-{
-  /* </ReactCrop> */
-}
-// function onImageLoad(e: any) {
-//   const { naturalWidth: width, naturalHeight: height } = e.currentTarget;
-// const crop = centerCrop(
-//   makeAspectCrop(
-//     {
-//       unit: "%",
-//       width: 90,
-//     },
-//     5 / 3,
-//     width,
-//     height
-//   ),
-//   width,
-//   height
-// );
-
-//   setCrop(crop);
-// }
