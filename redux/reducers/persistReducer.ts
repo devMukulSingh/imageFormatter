@@ -1,58 +1,10 @@
 import { IPersistInitialState } from "@/lib/types";
 import { createSlice } from "@reduxjs/toolkit";
 
-// let db;
-
-// let request = indexedDB.open("myDatabase", 1);
-
-// request.onerror = function (event) {
-//   console.log("Error opening IndexedDB:", event);
-// };
-
-// request.onsuccess = function (event) {
-//   db = event.target.result;
-//   console.log("Database opened successfully");
-// };
-// request.onupgradeneeded = function (event) {
-//   db = event.target.result;
-//   let objectStore = db.createObjectStore("myStore", { keyPath: "id", autoIncrement: true });
-//   objectStore.createIndex("base64Images", [], { unique: false });
-//   objectStore.createIndex("passportSizeBase64Images", [], { unique: true });
-//   objectStore.createIndex("base64Pan", [], { unique: true });
-// };
-// function getData(key:string) {
-//   let transaction = db?.transaction(["myStore"], "readonly");
-//   let objectStore = transaction.objectStore("myStore");
-//   let request = objectStore.get(key);
-
-//   request.onsuccess = function (event) {
-//     if (request.result) {
-//       console.log("Data retrieved:", request.result);
-//     } else {
-//       console.log("Data not found");
-//     }
-//   };
-
-//   request.onerror = function (event) {
-//     console.log("Unable to retrieve data:", event);
-//   };
-// }
-// function addData(data:any) {
-//   let transaction = db?.transaction(["myStore"], "readwrite");
-//   let objectStore = transaction.objectStore("myStore");
-//   let request = objectStore.add(data);
-
-//   request.onsuccess = function (event) {
-//     console.log("Data has been added to your database.");
-//   };
-
-//   request.onerror = function (event) {
-//     console.log("Unable to add data:", event);
-//   };
-// }
 
 const initialState: IPersistInitialState = {
   base64Images: [],
+  aadharPrintoutImages: [],
   passportSizeBase64Images: [],
   aadharPdfs: [],
   doubleSideAadharPdfs: [],
@@ -60,12 +12,50 @@ const initialState: IPersistInitialState = {
   passportPhotoFiles: "",
   base64Pan: [],
   ayushmanPdfs: [],
+
 };
 
 export const persistedSlice = createSlice({
   name: "persistedSlice",
   initialState,
   reducers: {
+    setAadharPrintoutBrightness: (state, action) => {
+      const { id, value } = action.payload;
+      for (let i = 0; i < state.aadharPrintoutImages.length; i++) {
+        if (state.aadharPrintoutImages[i].id === id) {
+          state.aadharPrintoutImages[i].filters.brightness = value;
+          return;
+        }
+      }
+    },
+    setAadharPrintoutContrast: (state, action) => {
+      const { id, value } = action.payload;
+
+      for (let i = 0; i < state.aadharPrintoutImages.length; i++) {
+        if (state.aadharPrintoutImages[i].id === id) {
+          state.aadharPrintoutImages[i].filters.contrast = value;
+          return;
+        }
+      }
+    },
+    setAadharPrintoutRotation: (state, action) => {
+      const { id, value } = action.payload;
+      for (let i = 0; i < state.aadharPrintoutImages.length; i++) {
+        if (state.aadharPrintoutImages[i].id === id) {
+          state.aadharPrintoutImages[i].filters.rotation = value;
+          return;
+        }
+      }
+    },
+    setAadharPrintoutSaturation: (state, action) => {
+      const { id, value } = action.payload;
+      for (let i = 0; i < state.aadharPrintoutImages.length; i++) {
+        if (state.aadharPrintoutImages[i].id === id) {
+          state.aadharPrintoutImages[i].filters.saturation = value;
+          return;
+        }
+      }
+    },
     setBrightness: (state, action) => {
       const { id, value } = action.payload;
       for (let i = 0; i < state.base64Images.length; i++) {
@@ -204,7 +194,15 @@ export const persistedSlice = createSlice({
         }
       }
     },
-
+    setAadharPrintoutCroppedImg: (state, action) => {
+      const { img, id } = action.payload;
+      for (let i = 0; i < state.aadharPrintoutImages.length; i++) {
+        if (state.aadharPrintoutImages[i].id === id) {
+          state.aadharPrintoutImages[i].img = img;
+          return;
+        }
+      }
+    },
     setEditedPan: (state, action) => {
       const { img, id } = action.payload;
       for (let i = 0; i < state.base64Pan.length; i++) {
@@ -321,6 +319,18 @@ export const persistedSlice = createSlice({
         }
       }
     },
+    pushAadharPrintoutImages: (state, action) => {
+      state.aadharPrintoutImages.push(...action.payload);
+    },
+    removeAllAadharPrintoutImages: (state) => {
+      state.aadharPrintoutImages = [];
+    },
+    removeAadharPrintoutImage: (state, action) => {
+      const filteredArr = state.aadharPrintoutImages.filter(
+        (img) => img.id !== action.payload,
+      );
+      state.aadharPrintoutImages = filteredArr;
+    },
   },
 });
 
@@ -367,4 +377,8 @@ export const {
   setPhotoTextbox,
   removePhotoTextbox,
   setCollageImageById,
+  pushAadharPrintoutImages, setAadharPrintoutCroppedImg,
+  setAadharPrintoutBrightness, setAadharPrintoutContrast, setAadharPrintoutRotation, setAadharPrintoutSaturation,
+  removeAadharPrintoutImage,
+  removeAllAadharPrintoutImages
 } = persistedSlice.actions;

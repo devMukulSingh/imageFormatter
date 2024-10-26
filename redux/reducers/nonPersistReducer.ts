@@ -1,8 +1,8 @@
 import { InonPersistInitialState } from "@/lib/types";
-import { Item } from "@radix-ui/react-dropdown-menu";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: InonPersistInitialState = {
+  aadharPrintoutInputRef:null,
   collageInputRef: null,
   passportInputRef: null,
   panInputRef: null,
@@ -24,6 +24,9 @@ export const nonPersistSlice = createSlice({
   reducers: {
     setLoading: (state, action) => {
       state.loading = action.payload;
+    },
+    setAadharPrintoutInputRef : (state,action) => {
+      state.aadharPrintoutInputRef = action.payload;
     },
     setCollageInputRef: (state, action) => {
       state.collageInputRef = action.payload;
@@ -73,6 +76,7 @@ export const {
   pushSelectedImageIndex,
   removeSelectedImageIndex,
   setDoubleSideAadharInputRef,
+  setAadharPrintoutInputRef
 } = nonPersistSlice.actions;
 
 export default nonPersistSlice.reducer;

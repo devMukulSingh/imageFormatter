@@ -1,4 +1,3 @@
-import { MutableRefObject, RefObject } from "react";
 
 export interface base64Images {
   id: number;
@@ -17,6 +16,7 @@ export interface base64Images {
 
 export interface IPersistInitialState {
   base64Images: base64Images[];
+  aadharPrintoutImages : base64Images[]
   passportSizeBase64Images: base64Images[];
   aadharPdfs: IaadharPdfs[];
   collageFiles: any;
@@ -24,6 +24,7 @@ export interface IPersistInitialState {
   base64Pan: base64Images[];
   ayushmanPdfs: IaadharPdfs[];
   doubleSideAadharPdfs: IdoubleSideAadharPdfs[];
+  
 }
 export interface InonPersistInitialState {
   loading: boolean;
@@ -34,6 +35,7 @@ export interface InonPersistInitialState {
   doubleSideAadharInputRef: HTMLInputElement | null;
   ayushmanInputRef: HTMLInputElement | null;
   passportPhotoIndexes: IpassportPhotoIndexes[];
+  aadharPrintoutInputRef: HTMLInputElement | null;
 }
 type EtextboxLocation = "inImage" | "afterImage" | null;
 

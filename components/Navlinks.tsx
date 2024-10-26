@@ -21,6 +21,11 @@ const Navlinks = () => {
       isActive: pathName.endsWith("/pan-card"),
     },
     {
+      title: "Aadhar (printout)",
+      link: "/aadhar-printout",
+      isActive: pathName.endsWith("/aadhar-printout"),
+    },
+    {
       title: "Aadhar card",
       link: "/aadhar",
       isActive: pathName.endsWith("/aadhar"),

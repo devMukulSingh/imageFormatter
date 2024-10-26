@@ -60,7 +60,7 @@ const HorizontalPdf = ({ pdf }: Props) => {
             0,
             0,
             width - 1450,
-            height
+            height,
           );
           ctx.restore();
         }
@@ -88,14 +88,14 @@ const HorizontalPdf = ({ pdf }: Props) => {
             0,
             0,
             width - 1445,
-            height
+            height,
           );
           ctx.restore();
         }
         const imgUrlBack = croppedCanvasBack.toDataURL("image/jpg");
         setFile(imgUrlBack);
         dispatch(
-          setDoubleSideAadharImgUrl({ id: pdf.id, imgUrlBack, imgUrlFront })
+          setDoubleSideAadharImgUrl({ id: pdf.id, imgUrlBack, imgUrlFront }),
         );
       }
     } catch (e) {
@@ -198,4 +198,3 @@ const HorizontalPdf = ({ pdf }: Props) => {
 export default HorizontalPdf;
 // print:h-[200px] print:w-[650px]
 // 90 , 180
-             

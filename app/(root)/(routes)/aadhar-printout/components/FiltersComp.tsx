@@ -1,32 +1,21 @@
 "use client";
-import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import fabric, { FabricImage } from "fabric";
+import { useAppDispatch } from "@/redux/hook";
 import {
-  setBrightness,
-  setCollageImageById,
-  setContrast,
-  setCroppedImg,
-  setRotation,
-  setSaturation,
+  setAadharPrintoutBrightness,
+  setAadharPrintoutContrast,
+  setAadharPrintoutRotation,
+  setAadharPrintoutSaturation,
 } from "@/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
-import { rotateBy90, saveImage } from "@/lib/hooks";
 import { base64Images } from "@/lib/types";
-import { getContainedSize } from "@/lib/utils";
 import {
-  LucideRotateCcw,
-  Rotate3D,
-  RotateCcwSquare,
   Save,
   WandSparkles,
 } from "lucide-react";
 import React, {
-  MutableRefObject,
   RefObject,
-  useEffect,
-  useRef,
-  useState,
+
 } from "react";
 import { ReactCropperElement } from "react-cropper";
 type Props = {
@@ -35,8 +24,7 @@ type Props = {
   image: base64Images;
   cropperRef: RefObject<ReactCropperElement>;
 };
-const FiltersComp = ({ setOpenDialog, imgRef, image, cropperRef }: Props) => {
-  const [imgObject, setImgObject] = useState(null);
+const FiltersComp = ({ setOpenDialog, imgRef, image}: Props) => {
   const dispatch = useAppDispatch();
   const { brightness, contrast, rotation, saturation } = image.filters;
 
@@ -51,7 +39,7 @@ const FiltersComp = ({ setOpenDialog, imgRef, image, cropperRef }: Props) => {
       max: 150,
       step: 1,
       state: brightness,
-      setState: setBrightness,
+      setState: setAadharPrintoutBrightness,
     },
     {
       title: "contrast",
@@ -60,7 +48,7 @@ const FiltersComp = ({ setOpenDialog, imgRef, image, cropperRef }: Props) => {
       max: 300,
       step: 1,
       state: contrast,
-      setState: setContrast,
+      setState: setAadharPrintoutContrast,
     },
     {
       title: "rotation",
@@ -69,7 +57,7 @@ const FiltersComp = ({ setOpenDialog, imgRef, image, cropperRef }: Props) => {
       max: 15,
       step: 1,
       state: rotation,
-      setState: setRotation,
+      setState: setAadharPrintoutRotation,
     },
     {
       title: "saturate",
@@ -78,19 +66,19 @@ const FiltersComp = ({ setOpenDialog, imgRef, image, cropperRef }: Props) => {
       max: 1000,
       step: 10,
       state: saturation,
-      setState: setSaturation,
+      setState: setAadharPrintoutSaturation,
     },
   ];
 
   const handleAutoEnhance = async () => {
     dispatch(
-      setBrightness({
+      setAadharPrintoutBrightness({
         value: 105,
         id: image.id,
       }),
     );
     dispatch(
-      setContrast({
+      setAadharPrintoutContrast({
         value: 115,
         id: image.id,
       }),
