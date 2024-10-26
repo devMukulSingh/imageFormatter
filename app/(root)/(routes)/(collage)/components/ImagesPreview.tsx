@@ -1,25 +1,16 @@
 "use client";
 import { useAppSelector } from "@/redux/hook";
-import {
-  DragDropContext,
-  Droppable,
-  Draggable,
-  DropResult,
-} from "react-beautiful-dnd";
 import Buttons from "./Buttons";
 import SingleImage from "./SingleImage";
 import { useEffect, useRef, useState } from "react";
-import EndOfPage from "@/components/EndOfPage";
+import CollageEOP from "./CollageEOP";
 
 type Props = {};
 
 const ImagesPreview = ({}: Props) => {
   const [a4PageHeight, setA4PageHeight] = useState(0);
   const a4pageRef = useRef<HTMLDivElement | null>(null);
-  const {
-    persistedReducer: { base64Images: collageImages },
-    nonPersistedReducer: { loading },
-  } = useAppSelector((state) => state);
+const { collageSlice:{collageImages}   } = useAppSelector(state =>state)
   useEffect(() => {
     if (a4pageRef?.current) setA4PageHeight(a4pageRef.current?.scrollHeight);
   }, [collageImages]);
@@ -37,8 +28,7 @@ const ImagesPreview = ({}: Props) => {
       print:overflow-visible 
       overflow-y-auto  
       overflow-x-auto 
-      items-center
-      print:items-start
+      justify-start
       "
     >
       <Buttons disabled={collageImages.length > 0 ? false : true} />
@@ -52,9 +42,11 @@ const ImagesPreview = ({}: Props) => {
                 gap-4
                 min-h-[1122.5px]
                 w-[793.7px]
-                auto-rows-max
+                auto-rows-min
                 bg-white 
                 print:mt-0
+                items-center
+                print:items-start
                 py-5
                 px-8"
       >
@@ -62,7 +54,7 @@ const ImagesPreview = ({}: Props) => {
           if (a4PageHeight > 1120 && index % 6 === 0 && index !== 0)
             return (
               <>
-                <EndOfPage />
+                <CollageEOP />
                 <div className=" size-[352px] ">
                   <SingleImage image={image} key={index} />;
                 </div>

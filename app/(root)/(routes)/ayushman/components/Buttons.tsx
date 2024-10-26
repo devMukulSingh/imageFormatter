@@ -1,9 +1,9 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { setLoading } from "@/redux/reducers/nonPersistReducer";
+import { setLoading } from "@/redux/slices/nonPersistReducer";
 import {
   pushAyushmanPdfs,
   removeAllAyushmanPdfs,
-} from "@/redux/reducers/persistReducer";
+} from "@/redux/slices/ayushmanSlice";
 import { Button } from "@/components/ui/button";
 import { IaadharPdfs } from "@/lib/types";
 import { Printer, RotateCcwIcon, Trash } from "lucide-react";
@@ -19,7 +19,9 @@ type Props = {
 const Buttons = ({ disabled, currComp, setCurrComp }: Props) => {
   const dispatch = useAppDispatch();
   const {
-    nonPersistedReducer: { ayushmanInputRef, loading },
+
+    nonPersistedReducer:{loading},
+    ayushmanSlice: { ayushmanInputRef },
   } = useAppSelector((state) => state);
   const handleAddMore = async () => {
     const imageInput = document.createElement("input");

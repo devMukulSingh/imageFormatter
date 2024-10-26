@@ -1,5 +1,6 @@
+type EtextboxLocation = "inImage" | "afterImage" | null;
 
-export interface base64Images {
+export interface Iimages {
   id: number;
   img: string;
   filters: {
@@ -13,37 +14,6 @@ export interface base64Images {
     isActive: boolean;
   };
 }
-
-export interface IPersistInitialState {
-  base64Images: base64Images[];
-  aadharPrintoutImages : base64Images[]
-  passportSizeBase64Images: base64Images[];
-  aadharPdfs: IaadharPdfs[];
-  collageFiles: any;
-  passportPhotoFiles: any;
-  base64Pan: base64Images[];
-  ayushmanPdfs: IaadharPdfs[];
-  doubleSideAadharPdfs: IdoubleSideAadharPdfs[];
-  
-}
-export interface InonPersistInitialState {
-  loading: boolean;
-  collageInputRef: HTMLInputElement | null;
-  passportInputRef: HTMLInputElement | null;
-  panInputRef: HTMLInputElement | null;
-  aadharInputRef: HTMLInputElement | null;
-  doubleSideAadharInputRef: HTMLInputElement | null;
-  ayushmanInputRef: HTMLInputElement | null;
-  passportPhotoIndexes: IpassportPhotoIndexes[];
-  aadharPrintoutInputRef: HTMLInputElement | null;
-}
-type EtextboxLocation = "inImage" | "afterImage" | null;
-
-export interface IpassportPhotoIndexes {
-  imageId: number | null;
-  textboxLocation: EtextboxLocation;
-}
-
 export interface IaadharPdfs {
   file: string;
   id: number;
@@ -56,4 +26,48 @@ export interface IdoubleSideAadharPdfs {
     front: string;
     back: string;
   };
+}
+////////////////////////////INITIAL STATE////////////////////////////
+export interface ICollageInitialState {
+  collageImages: Iimages[];
+  collageInputRef: HTMLInputElement | null;
+  collageFiles: string
+}
+
+export interface IAadharPrintoutInitialState {
+  aadharPrintoutImages: Iimages[],
+  aadharPrintoutInputRef: HTMLInputElement | null;
+}
+export interface IAadharCardInitialstate {
+  aadharCardInputRef: HTMLInputElement | null;
+  aadharPdfs: IaadharPdfs[],
+}
+export interface IDoubleSideAadharInitalState {
+  doubleSideAadharPdfs: IdoubleSideAadharPdfs[],
+  doubleSideAadharInputRef: HTMLInputElement | null;
+}
+export interface IAyushmanInitialState {
+  ayushmanPdfs: IaadharPdfs[];
+  ayushmanInputRef: HTMLInputElement | null;
+}
+
+export interface IPassportSizeImages {
+  passportInputRef: HTMLInputElement | null;
+  passportSizePhotos: Iimages[],
+  passportPhotoFiles: '',
+  passportPhotoIndexes: IPassportPhotoIndexes[]
+}
+
+export interface IPassportPhotoIndexes {
+  imageId: number | null;
+  textboxLocation: EtextboxLocation;
+}
+
+export interface IPanInitialState {
+  panInputRef: HTMLInputElement | null;
+  panCardImages: Iimages[]
+}
+
+export interface InonPersistInitialState {
+  loading: boolean;
 }

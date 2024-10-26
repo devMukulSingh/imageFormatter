@@ -1,14 +1,12 @@
 import React, { MouseEvent, MutableRefObject, RefObject } from "react";
-import { removePassportSizeImage } from "@/redux/reducers/persistReducer";
+import { removePassportSizePhoto } from "@/redux/slices/passportPhotosSlice";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import Image from "next/image";
-import EndOfPage from "./EndOfPage";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import DialogModal from "@/components/DialogModal";
 import { Textarea } from "@/components/ui/textarea";
 import AfterImageTextbox from "./AfterImageTextbox";
-import InimageTextbox from "./InimageTextbox";
 
 type Props = {
   a4pageRef: RefObject<HTMLDivElement>;
@@ -17,12 +15,16 @@ type Props = {
 
 const VerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
   const {
-    persistedReducer: { passportSizeBase64Images: passportImages },
-    nonPersistedReducer: { passportInputRef, passportPhotoIndexes },
+    passportPhotoSlice: {
+      passportSizePhotos,
+      passportInputRef,
+      passportPhotoIndexes,
+    },
+    nonPersistedReducer: {},
   } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
   const stopPropagation = (
-    e: React.MouseEvent<HTMLTextAreaElement, globalThis.MouseEvent>,
+    e: React.MouseEvent<HTMLTextAreaElement, globalThis.MouseEvent>
   ) => e.stopPropagation();
   return (
     <div
@@ -51,7 +53,7 @@ const VerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
         grid-cols-2
         auto-rows-min"
       >
-        {passportImages.map((image, index) => {
+        {passportSizePhotos.map((image, index) => {
           // h-[155px]
           // w-[118px]
 
@@ -78,7 +80,7 @@ const VerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
                   >
                     <Button
                       onClick={() => {
-                        dispatch(removePassportSizeImage(image.id));
+                        dispatch(removePassportSizePhoto(image.id));
                         if (passportInputRef) passportInputRef.value = "";
                       }}
                       size={"icon"}

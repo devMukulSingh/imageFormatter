@@ -3,13 +3,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ChangeEvent, RefObject, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import { pushAadharPdfs } from "@/redux/reducers/persistReducer";
+import {
+  pushAadharPdfs,
+  setAadharCardInputRef
+} from "@/redux/slices/aadharCardSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { IaadharPdfs } from "@/lib/types";
 import {
-  setAadharInputRef,
+
   setLoading,
-} from "@/redux/reducers/nonPersistReducer";
+} from "@/redux/slices/nonPersistReducer";
 
 type Props = {
   // fileRef: RefObject<HTMLInputElement>;
@@ -21,7 +24,7 @@ const UploadComp = ({}: Props) => {
 
   const {
     nonPersistedReducer: { loading },
-    persistedReducer: { base64Images: images },
+    aadharCardSlice:{aadharCardInputRef,aadharPdfs}
   } = useAppSelector((state) => state);
   const push = async ({ pdfId, imgUrl }: { pdfId: number; imgUrl: string }) => {
     return new Promise((resolve, reject) => {
@@ -31,7 +34,7 @@ const UploadComp = ({}: Props) => {
             pushAadharPdfs({
               id: pdfId,
               file: imgUrl,
-            }),
+            })
           );
           resolve("");
         }, 1500);
@@ -72,7 +75,7 @@ const UploadComp = ({}: Props) => {
   };
 
   useEffect(() => {
-    dispatch(setAadharInputRef(aadharInputRef.current));
+    dispatch(setAadharCardInputRef(aadharInputRef.current));
   }, []);
 
   return (

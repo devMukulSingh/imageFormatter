@@ -2,14 +2,13 @@
 import { useAppSelector } from "@/redux/hook";
 import Buttons from "./Buttons";
 import { useRef, useState } from "react";
-import VerticalAadharPage from "./VerticalAadharPage";
 import HorizontalAadharPage from "./HorizontalAadharPage";
 
 type Props = {};
 
 const AadharPreview = ({}: Props) => {
   const {
-    persistedReducer: { doubleSideAadharPdfs },
+  doubleSideAadharSlice:{doubleSideAadharPdfs}
   } = useAppSelector((state) => state);
 
   const a4pageRef = useRef<HTMLDivElement | null>(null);
@@ -19,8 +18,7 @@ const AadharPreview = ({}: Props) => {
     switch (currComp) {
       case "horizontal":
         return <HorizontalAadharPage a4pageRef={a4pageRef} />;
-      case "vertical":
-        return <VerticalAadharPage a4pageRef={a4pageRef} />;
+
       default:
         return null;
     }

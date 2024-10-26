@@ -5,43 +5,21 @@ import {
   ChangeEvent,
   Fragment,
   useEffect,
-  useReducer,
   useRef,
-  useState,
 } from "react";
-import { saveAs } from "file-saver";
-import {
-  Column,
-  ColumnBreak,
-  Document,
-  ImageRun,
-  Packer,
-  PageBreak,
-  Paragraph,
-  Tab,
-  TextRun,
-} from "docx";
-import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
-import { Download, Printer } from "lucide-react";
 import {
-  pushPassportSizeBase64Images,
-  setBase64Images,
-  setPassportSizeBase64Image,
-} from "@/redux/reducers/persistReducer";
+  pushPassportSizeImages,setPassportInputRef
+} from "@/redux/slices/passportPhotosSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { base64Images } from "@/lib/types";
-import { getBase64Image } from "@/lib/hooks";
 import {
   setLoading,
-  setPassportInputRef,
-} from "@/redux/reducers/nonPersistReducer";
+} from "@/redux/slices/nonPersistReducer";
 
 const UploadComp = () => {
   const passportInputRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
   const {
-    persistedReducer: { passportSizeBase64Images: images },
     nonPersistedReducer: { loading },
   } = useAppSelector((state) => state);
 
@@ -66,7 +44,7 @@ const UploadComp = () => {
           }
         }
         // const base64Image = await getBase64Image(file);
-        dispatch(pushPassportSizeBase64Images(base64PassportSizeImages));
+        dispatch(pushPassportSizeImages(base64PassportSizeImages));
       }
     } catch (e) {
       toast.error("Something went wrong. Please try again");
@@ -111,12 +89,7 @@ const UploadComp = () => {
           multiple
           disabled={loading}
         />
-        {/* <div className="flex gap-5">
-          <Button disabled={loading} onClick={handleDownload}>
-            <Download size={20} className="mr-2" />
-            Download DOCX
-          </Button>
-        </div> */}
+
       </div>
     </Fragment>
   );

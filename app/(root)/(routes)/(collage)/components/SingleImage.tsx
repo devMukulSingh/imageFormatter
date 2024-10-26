@@ -1,15 +1,14 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { removeImage } from "@/redux/reducers/persistReducer";
+import { removeImage } from "@/redux/slices/collageSlice";
 import { Button } from "@/components/ui/button";
-import { base64Images } from "@/lib/types";
+import { Iimages } from "@/lib/types";
 import { X } from "lucide-react";
-import React, { use, useRef, useState } from "react";
+import React, { useState } from "react";
 import "react-image-crop/dist/ReactCrop.css";
 import EditDialog from "./EditDialog";
-import Image from "next/image";
 
 type Props = {
-  image: base64Images;
+  image: Iimages;
 };
 
 const SingleImage = ({ image }: Props) => {
@@ -17,7 +16,7 @@ const SingleImage = ({ image }: Props) => {
   const [openDialog, setOpenDialog] = useState(false);
 
   const {
-    nonPersistedReducer: { collageInputRef },
+    collageSlice:{ collageInputRef}
   } = useAppSelector((state) => state);
   return (
     <>

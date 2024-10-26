@@ -1,36 +1,31 @@
 "use client";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ChangeEvent, useEffect, useRef,  } from "react";
+import { ChangeEvent, useEffect, useRef } from "react";
 import toast from "react-hot-toast";
-import {
-  pushAadharPrintoutImages,
-
-} from "@/redux/reducers/persistReducer";
+import { pushAadharPrintoutImages,setAadharPrintoutInputRef } from "@/redux/slices/aadharPrintoutSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { base64Images } from "@/lib/types";
+import { Iimages } from "@/lib/types";
 import {
-  setAadharPrintoutInputRef,
   setLoading,
-} from "@/redux/reducers/nonPersistReducer";
+} from "@/redux/slices/nonPersistReducer";
 
 type Props = {
   // fileRef: RefObject<HTMLInputElement>;
 };
 
 const UploadComp = ({}: Props) => {
-  const aadharPrintoutInputRef = useRef<HTMLInputElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
 
   const {
     nonPersistedReducer: { loading },
-    persistedReducer: {  },
+    aadharPrintoutSlice:{aadharPrintoutImages,aadharPrintoutInputRef}
   } = useAppSelector((state) => state);
-
 
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     try {
-      let aadharPrintoutImages: base64Images[] | null = [];
+      let aadharPrintoutImages: Iimages[] | null = [];
       const files = e?.target?.files;
       if (files) {
         dispatch(setLoading(true));
@@ -62,9 +57,9 @@ const UploadComp = ({}: Props) => {
       dispatch(setLoading(false));
     }
   };
- 
+
   useEffect(() => {
-    dispatch(setAadharPrintoutInputRef(aadharPrintoutInputRef.current));
+    dispatch(setAadharPrintoutInputRef(inputRef.current));
   }, []);
   return (
     <div
@@ -89,14 +84,13 @@ const UploadComp = ({}: Props) => {
         Upload Images
       </Label>
       <Input
-        ref={aadharPrintoutInputRef}
+        ref={inputRef}
         onChange={handleChange}
         className="bg-slate-200 cursor-pointer h-28 "
         type="file"
         multiple
         disabled={loading}
       />
-
     </div>
   );
 };

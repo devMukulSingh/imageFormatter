@@ -1,12 +1,12 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { setLoading } from "@/redux/reducers/nonPersistReducer";
+import { setLoading } from "@/redux/slices/nonPersistReducer";
 import {
   pushAadharPrintoutImages,
   removeAllAadharPrintoutImages,
-} from "@/redux/reducers/persistReducer";
+} from "@/redux/slices/aadharPrintoutSlice";
 import { Button } from "@/components/ui/button";
 import { getBase64Image } from "@/lib/hooks";
-import { base64Images } from "@/lib/types";
+import { Iimages } from "@/lib/types";
 import { PlusCircle, Printer, Trash } from "lucide-react";
 import React from "react";
 import toast from "react-hot-toast";
@@ -18,7 +18,7 @@ type Props = {
 const Buttons = ({ disabled }: Props) => {
   const dispatch = useAppDispatch();
   const {
-    nonPersistedReducer: { collageInputRef },
+    aadharPrintoutSlice:{aadharPrintoutImages,aadharPrintoutInputRef}
   } = useAppSelector((state) => state);
   const handleAddMore = async () => {
     const imageInput = document.createElement("input");
@@ -27,7 +27,7 @@ const Buttons = ({ disabled }: Props) => {
     imageInput.click();
     imageInput.onchange = async (e: any) => {
       try {
-        let base64Images: base64Images[] | null = [];
+        let base64Images: Iimages[] | null = [];
         const files = e?.target?.files;
         if (files) {
           dispatch(setLoading(true));
@@ -63,7 +63,7 @@ const Buttons = ({ disabled }: Props) => {
         variant={"destructive"}
         onClick={() => {
           dispatch(removeAllAadharPrintoutImages());
-          if (collageInputRef) collageInputRef.value = "";
+          if (aadharPrintoutInputRef) aadharPrintoutInputRef.value = "";
         }}
       >
         <Trash size={20} />

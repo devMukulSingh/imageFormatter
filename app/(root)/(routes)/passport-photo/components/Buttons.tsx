@@ -1,18 +1,14 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { setLoading } from "@/redux/reducers/nonPersistReducer";
+import { setLoading } from "@/redux/slices/nonPersistReducer";
 import {
-  pushBase64Images,
-  pushPassportSizeBase64Images,
-  removeAllImages,
-  removeAllPassportSizeImages,
-  removeImage,
-} from "@/redux/reducers/persistReducer";
+  removeAllPassportSizePhotos,
+  pushPassportSizeImages
+} from "@/redux/slices/passportPhotosSlice";
 import { Button } from "@/components/ui/button";
 import { getBase64Image } from "@/lib/hooks";
-import { base64Images } from "@/lib/types";
 import { PlusCircle, Printer, Trash, X } from "lucide-react";
-import Image from "next/image";
 import toast from "react-hot-toast";
+import { Iimages } from "@/lib/types";
 
 type Props = {
   disabled: boolean;
@@ -32,7 +28,7 @@ export default function Buttons({
     imageInput.click();
     imageInput.onchange = async (e: any) => {
       try {
-        let base64Images: base64Images[] = [];
+        let base64Images: Iimages[] = [];
         const file = e?.target?.files[0];
         if (file) {
           dispatch(setLoading(true));
@@ -50,7 +46,7 @@ export default function Buttons({
               },
             });
           }
-          dispatch(pushPassportSizeBase64Images(base64Images));
+          dispatch(pushPassportSizeImages(base64Images));
         }
       } catch (e) {
         toast.error("Something went wrong. Please try again");
@@ -61,10 +57,12 @@ export default function Buttons({
     };
   };
   const {
-    nonPersistedReducer: { passportInputRef },
+    passportPhotoSlice:{
+      passportInputRef
+    }
   } = useAppSelector((state) => state);
   const handleRemoveAll = () => {
-    dispatch(removeAllPassportSizeImages());
+    dispatch(removeAllPassportSizePhotos());
     if (passportInputRef) passportInputRef.value = "";
   };
   const handleAlignCenter = () => {

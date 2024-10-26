@@ -1,15 +1,12 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { setLoading } from "@/redux/reducers/nonPersistReducer";
+import { setLoading } from "@/redux/slices/nonPersistReducer";
 import {
   pushAadharPdfs,
-  pushBase64Images,
   removeAllAadharPdfs,
-  removeAllImages,
-} from "@/redux/reducers/persistReducer";
+} from "@/redux/slices/aadharCardSlice";
 import { Button } from "@/components/ui/button";
-import { getBase64Image } from "@/lib/hooks";
-import { base64Images, IaadharPdfs } from "@/lib/types";
-import { PlusCircle, Printer, RotateCcwIcon, Trash } from "lucide-react";
+import { IaadharPdfs } from "@/lib/types";
+import {  Printer, RotateCcwIcon, Trash } from "lucide-react";
 import React from "react";
 import toast from "react-hot-toast";
 
@@ -22,7 +19,8 @@ type Props = {
 const Buttons = ({ disabled, currComp, setCurrComp }: Props) => {
   const dispatch = useAppDispatch();
   const {
-    nonPersistedReducer: { aadharInputRef, loading },
+    aadharCardSlice:{aadharCardInputRef},
+    nonPersistedReducer: { loading },
   } = useAppSelector((state) => state);
   const handleAddMore = async () => {
     const imageInput = document.createElement("input");
@@ -70,7 +68,7 @@ const Buttons = ({ disabled, currComp, setCurrComp }: Props) => {
         variant={"destructive"}
         onClick={() => {
           dispatch(removeAllAadharPdfs());
-          if (aadharInputRef) aadharInputRef.value = "";
+          if (aadharCardInputRef) aadharCardInputRef.value = "";
         }}
       >
         <Trash size={20} />

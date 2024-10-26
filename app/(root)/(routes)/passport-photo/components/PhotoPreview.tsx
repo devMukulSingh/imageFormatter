@@ -12,14 +12,13 @@ const PhotoPreview = ({}: Props) => {
   const [a4PageHeight, setA4PageHeight] = useState(0);
   const [currentComp, setCurrentComp] = useState("horizontal");
   const {
-    persistedReducer: { passportSizeBase64Images: passportImages },
-    nonPersistedReducer: { loading, passportInputRef },
+    passportPhotoSlice: { passportSizePhotos },
   } = useAppSelector((state) => state);
   const a4pageRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     if (a4pageRef.current) setA4PageHeight(a4pageRef.current?.scrollHeight);
     console.log(a4pageRef.current?.scrollHeight);
-  }, [passportImages]);
+  }, [passportSizePhotos]);
   const renderComponent = () => {
     switch (currentComp) {
       case "vertical":
@@ -46,7 +45,7 @@ const PhotoPreview = ({}: Props) => {
       <Buttons
         currentComp={currentComp}
         setCurrentComp={setCurrentComp}
-        disabled={passportImages.length > 0 ? false : true}
+        disabled={passportSizePhotos.length > 0 ? false : true}
       />
       {renderComponent()}
     </div>

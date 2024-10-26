@@ -1,27 +1,22 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { setCroppedImg } from "@/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
-import { base64Images } from "@/lib/types";
-import { CropIcon, RotateCw, Save } from "lucide-react";
+import {  RotateCw, Save } from "lucide-react";
 import React, {
-  MutableRefObject,
-  // MouseEvent,
-  // MouseEventHandler,
   RefObject,
   useEffect,
-  useRef,
-  useState,
+
 } from "react";
-import ReactCrop, { centerCrop, Crop, makeAspectCrop } from "react-image-crop";
 import "../../../../../node_modules/cropperjs/dist/cropper.min.css";
 import "cropperjs/dist/cropper.css";
 import Cropper, { ReactCropperElement } from "react-cropper";
-import { setLoading } from "@/redux/reducers/nonPersistReducer";
+import { setLoading } from "@/redux/slices/nonPersistReducer";
+import { setCroppedImg } from "@/redux/slices/collageSlice";
+import { Iimages } from "@/lib/types";
 
 type Props = {
   imgRef: RefObject<HTMLImageElement>;
-  image: base64Images;
+  image: Iimages;
   setOpenDialog: (openDialog: boolean) => void;
   cropperRef: RefObject<ReactCropperElement>;
 };
@@ -55,7 +50,7 @@ const CropComp = ({ imgRef, image, setOpenDialog, cropperRef }: Props) => {
       setCroppedImg({
         id: image.id,
         img: croppedImage,
-      }),
+      })
     );
     dispatch(setLoading(false));
     setOpenDialog(false);

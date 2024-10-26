@@ -10,7 +10,7 @@ type Props = {};
 
 const AadharPreview = ({}: Props) => {
   const {
-    persistedReducer: { aadharPdfs },
+    aadharCardSlice:{aadharPdfs},
   } = useAppSelector((state) => state);
 
   const a4pageRef = useRef<HTMLDivElement | null>(null);

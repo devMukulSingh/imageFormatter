@@ -1,22 +1,21 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { removeAadharPrintoutImage } from "@/redux/reducers/persistReducer";
+import { removeAadharPrintoutImage } from "@/redux/slices/aadharPrintoutSlice";
 import { Button } from "@/components/ui/button";
-import { base64Images } from "@/lib/types";
+import { Iimages } from "@/lib/types";
 import { X } from "lucide-react";
 import React, { useState } from "react";
 import "react-image-crop/dist/ReactCrop.css";
 import EditDialog from "./EditDialog";
 
-
 type Props = {
-  image: base64Images;
+  image: Iimages;
 };
 
 const SingleImage = ({ image }: Props) => {
   const dispatch = useAppDispatch();
   const [openDialog, setOpenDialog] = useState(false);
   const {
-    nonPersistedReducer: { aadharPrintoutInputRef },
+    doubleSideAadharSlice:{doubleSideAadharInputRef,doubleSideAadharPdfs}
   } = useAppSelector((state) => state);
   return (
     <>
@@ -44,7 +43,7 @@ const SingleImage = ({ image }: Props) => {
         <Button
           onClick={() => {
             dispatch(removeAadharPrintoutImage(image.id));
-            if (aadharPrintoutInputRef) aadharPrintoutInputRef.value = "";
+            if (doubleSideAadharInputRef) doubleSideAadharInputRef.value = "";
           }}
           size={"icon"}
           variant={"outline"}

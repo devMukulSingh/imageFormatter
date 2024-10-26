@@ -3,21 +3,18 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import { Download, Printer } from "lucide-react";
 import {
-  setBase64Images,
   setBase64Pan,
-  setPassportSizeBase64Image,
-} from "@/redux/reducers/persistReducer";
+  setPanInputRef,
+} from "@/redux/slices/panSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { base64Images } from "@/lib/types";
 import { getBase64Image } from "@/lib/hooks";
-import { setLoading, setPanInputRef } from "@/redux/reducers/nonPersistReducer";
+import { setLoading } from "@/redux/slices/nonPersistReducer";
 
 const UploadPan = () => {
   const dispatch = useAppDispatch();
   const {
-    persistedReducer: { base64Pan },
+    panSlice: { panCardImages },
     nonPersistedReducer: { loading },
   } = useAppSelector((state) => state);
   const panInputRef = useRef<HTMLInputElement | null>(null);
@@ -89,10 +86,7 @@ const UploadPan = () => {
           disabled={loading}
         />
         <div className="flex gap-5">
-          {/* <Button disabled={loading} onClick={handleDownload}>
-            <Download size={20} className="mr-2" />
-            Download DOCX
-          </Button> */}
+
         </div>
       </div>
     </>
@@ -100,28 +94,3 @@ const UploadPan = () => {
 };
 
 export default UploadPan;
-// const sectionProperties = {
-//   page: {
-//     margin: {
-//       left: 400,
-//       right: 400,
-//       top: 500,
-//       bottom: 500,
-//     },
-//   },
-//   column: {
-//     space: 10,
-//     count: 2,
-//     equalWidth: true,
-//     children: [
-//       new Column({
-//         width: 720 * 10,
-//         space: 10,
-//       }),
-//       new Column({
-//         width: 720 * 10,
-//         space: 10,
-//       }),
-//     ],
-//   },
-// };

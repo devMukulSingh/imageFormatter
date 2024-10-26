@@ -1,26 +1,23 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { setAadharPrintoutCroppedImg } from "@/redux/reducers/persistReducer";
+import { setAadharPrintoutCroppedImg } from "@/redux/slices/aadharPrintoutSlice";
 import { Button } from "@/components/ui/button";
-import { base64Images } from "@/lib/types";
-import {  RotateCw, Save } from "lucide-react";
-import React, {
-  RefObject,
-  useEffect,
-} from "react";
+import { Iimages } from "@/lib/types";
+import { RotateCw, Save } from "lucide-react";
+import React, { RefObject, useEffect } from "react";
 import "../../../../../node_modules/cropperjs/dist/cropper.min.css";
 import "cropperjs/dist/cropper.css";
 import Cropper, { ReactCropperElement } from "react-cropper";
-import { setLoading } from "@/redux/reducers/nonPersistReducer";
+import { setLoading } from "@/redux/slices/nonPersistReducer";
 
 type Props = {
   imgRef: RefObject<HTMLImageElement>;
-  image: base64Images;
+  image: Iimages;
   setOpenDialog: (openDialog: boolean) => void;
   cropperRef: RefObject<ReactCropperElement>;
 };
 
-const CropComp = ({  image, setOpenDialog, cropperRef }: Props) => {
+const CropComp = ({ image, setOpenDialog, cropperRef }: Props) => {
   useEffect(() => {
     cropperRef.current?.cropper.setCropBoxData({
       height: 380,
@@ -49,7 +46,7 @@ const CropComp = ({  image, setOpenDialog, cropperRef }: Props) => {
       setAadharPrintoutCroppedImg({
         id: image.id,
         img: croppedImage,
-      }),
+      })
     );
     dispatch(setLoading(false));
     setOpenDialog(false);

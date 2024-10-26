@@ -2,15 +2,13 @@
 import { useAppSelector } from "@/redux/hook";
 import Buttons from "./Buttons";
 import { useRef, useState } from "react";
-
-import VerticalAyushmanPage from "./VerticalAyushmanPage";
 import HorizontalAyushmanPage from "./HorizontalAyushmanPage";
 
 type Props = {};
 
 const AyushmanPreview = ({}: Props) => {
   const {
-    persistedReducer: { ayushmanPdfs },
+    ayushmanSlice: { ayushmanPdfs },
   } = useAppSelector((state) => state);
 
   const a4pageRef = useRef<HTMLDivElement | null>(null);
@@ -20,8 +18,7 @@ const AyushmanPreview = ({}: Props) => {
     switch (currComp) {
       case "horizontal":
         return <HorizontalAyushmanPage a4pageRef={a4pageRef} />;
-      case "vertical":
-        return <VerticalAyushmanPage a4pageRef={a4pageRef} />;
+
       default:
         return null;
     }

@@ -1,9 +1,5 @@
-import React, { MutableRefObject, RefObject } from "react";
-import { removePassportSizeImage } from "@/redux/reducers/persistReducer";
-import { Button } from "@/components/ui/button";
-import { X } from "lucide-react";
+import React, {  RefObject } from "react";
 import Image from "next/image";
-import EndOfPage from "./EndOfPage";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import SingleVerticalEOF from "./SingleVerticalEOF";
 import DialogModal from "@/components/DialogModal";
@@ -16,10 +12,8 @@ type Props = {
 
 const SingleVerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
   const {
-    persistedReducer: { passportSizeBase64Images: passportImages },
-    nonPersistedReducer: { passportInputRef, passportPhotoIndexes },
+    passportPhotoSlice: { passportSizePhotos,passportPhotoIndexes},
   } = useAppSelector((state) => state);
-  const dispatch = useAppDispatch();
 
   return (
     <div
@@ -49,7 +43,7 @@ const SingleVerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
 
         "
       >
-        {passportImages.map((image, index) => {
+        {passportSizePhotos.map((image, index) => {
           if (a4PageHeight >= 791 && index % 5 === 0 && index !== 0) {
             return (
               <React.Fragment key={index}>
@@ -69,17 +63,7 @@ const SingleVerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
                   rotate-90
                   `}
                   >
-                    {/* <Button
-                    onClick={() => {
-                      dispatch(removePassportSizeImage(image.id));
-                      if (passportInputRef) passportInputRef.value = "";
-                    }}
-                    size={"icon"}
-                    variant={"outline"}
-                    className="self-center z-20 text-black rounded-full size-6 mt-1 print:hidden"
-                    >
-                    <X className="" size={15} />
-                  </Button> */}
+             
                     <Image
                       quality={10}
                       className="
@@ -100,7 +84,7 @@ const SingleVerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
           return (
             <div className="flex gap-5 " key={index}>
               {passportPhotoIndexes?.find(
-                (item) => item.imageId === image.id,
+                (item) => item.imageId === image.id
               ) ? (
                 <Textarea className="rotate-90 focus:outline-0 resize-none focus:border-0 text-[12px] font-thin text-center w-[124px]   px-[2px] py-[2px] leading-none text-black rounded-none max-h-[60px] border-[1.5px] border-t-0 border-black" />
               ) : null}
@@ -121,14 +105,7 @@ const SingleVerticalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
 
             `}
                 >
-                  {/* <Button
-                  onClick={() => dispatch(removePassportSizeImage(image.id))}
-                  size={"icon"}
-                  variant={"outline"}
-                  className="self-center z-20 text-black rounded-full size-6 mt-1 print:hidden"
-                >
-                  <X className="" size={15} />
-                </Button> */}
+             
                   <Image
                     quality={10}
                     className="

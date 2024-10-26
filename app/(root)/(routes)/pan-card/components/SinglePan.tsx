@@ -1,26 +1,26 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { removeBase64Pan } from "@/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";
 import EditDialog from "./EditDialog";
-import { base64Images } from "@/lib/types";
+import { Iimages } from "@/lib/types";
+import { removeBase64Pan } from "@/redux/slices/panSlice";
 
 type Props = {
-  base64Pan: base64Images;
+  panCardImage: Iimages;
 };
 
-const SinglePan = ({ base64Pan }: Props) => {
+const SinglePan = ({ panCardImage }: Props) => {
   const dispatch = useAppDispatch();
   const [openDialog, setOpenDialog] = useState(false);
-  const { brightness, contrast, rotation, saturation } = base64Pan.filters;
+  const { brightness, contrast, rotation, saturation } = panCardImage.filters;
 
   const {
-    nonPersistedReducer: { panInputRef },
+    panSlice:{panInputRef}
   } = useAppSelector((state) => state);
   const handleRemove = () => {
-    dispatch(removeBase64Pan(base64Pan.id));
+    dispatch(removeBase64Pan(panCardImage.id));
     if (panInputRef) {
       panInputRef.value = "";
     }
@@ -29,7 +29,7 @@ const SinglePan = ({ base64Pan }: Props) => {
     <>
       {openDialog && (
         <EditDialog
-          image={base64Pan}
+          image={panCardImage}
           openDialog={openDialog}
           setOpenDialog={setOpenDialog}
         />
@@ -66,7 +66,7 @@ const SinglePan = ({ base64Pan }: Props) => {
           !max-w-[22rem]
           !max-h-[22rem]
           "
-          src={base64Pan?.img}
+          src={panCardImage?.img}
           alt="image"
         />
       </figure>

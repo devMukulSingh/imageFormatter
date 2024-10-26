@@ -1,23 +1,17 @@
 "use client";
-import { useAppDispatch, useAppSelector } from "@/redux/hook";
+import { useAppDispatch } from "@/redux/hook";
 import {
-  setBase64Pan,
-  setCroppedImg,
-  setEditedPan,
+
   setPanBrightness,
   setPanContrast,
   setPanRotation,
   setPanSaturation,
-} from "@/redux/reducers/persistReducer";
+} from "@/redux/slices/panSlice";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
-import { rotateBy90, saveImage } from "@/lib/hooks";
-import { base64Images } from "@/lib/types";
-import { getContainedSize } from "@/lib/utils";
+import { Iimages } from "@/lib/types";
 import {
-  LucideRotateCcw,
-  Rotate3D,
-  RotateCcwSquare,
+
   Save,
   WandSparkles,
 } from "lucide-react";
@@ -27,7 +21,7 @@ import { ReactCropperElement } from "react-cropper";
 type Props = {
   setOpenDialog: (openDialog: boolean) => void;
   imgRef: RefObject<HTMLImageElement>;
-  image: base64Images;
+  image: Iimages;
   cropperRef: RefObject<ReactCropperElement>;
 };
 
@@ -81,13 +75,13 @@ const FiltersComp = ({ setOpenDialog, imgRef, image, cropperRef }: Props) => {
       setPanBrightness({
         value: 105,
         id: image.id,
-      }),
+      })
     );
     dispatch(
       setPanContrast({
         value: 115,
         id: image.id,
-      }),
+      })
     );
   };
 
@@ -127,7 +121,7 @@ const FiltersComp = ({ setOpenDialog, imgRef, image, cropperRef }: Props) => {
                     filter.setState({
                       value: val[0],
                       id: image.id,
-                    }),
+                    })
                   )
                 }
                 className=""

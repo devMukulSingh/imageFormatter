@@ -1,20 +1,20 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent  } from "@/components/ui/dialog";
-import { base64Images } from "@/lib/types";
-import {  CropIcon, FilterIcon, Save } from "lucide-react";
-import {  useRef, useState } from "react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Iimages } from "@/lib/types";
+import { CropIcon, FilterIcon, Save } from "lucide-react";
+import { useRef, useState } from "react";
 import FiltersComp from "./FiltersComp";
 import CropComp from "./CropComp";
-import { setAadharPrintoutCroppedImg } from "@/redux/reducers/persistReducer";
+import { setAadharPrintoutCroppedImg } from "@/redux/slices/aadharPrintoutSlice";
 import { ReactCropperElement } from "react-cropper";
-import { setLoading } from "@/redux/reducers/nonPersistReducer";
+import { setLoading } from "@/redux/slices/nonPersistReducer";
 
 type Props = {
   openDialog: boolean;
   setOpenDialog: (openDialog: boolean) => void;
-  image: base64Images;
+  image: Iimages;
 };
 type ComponentType = "cropComp" | "filtersComp";
 const EditDialog = ({ openDialog, setOpenDialog, image }: Props) => {
@@ -61,7 +61,7 @@ const EditDialog = ({ openDialog, setOpenDialog, image }: Props) => {
       setAadharPrintoutCroppedImg({
         id: image.id,
         img: croppedImage,
-      }),
+      })
     );
     dispatch(setLoading(false));
     setCurrentComponent("filtersComp");

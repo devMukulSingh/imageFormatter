@@ -5,9 +5,8 @@ import { useAppDispatch } from "@/redux/hook";
 import {
   removeAadharPdf,
   setAadharImgUrl,
-} from "@/redux/reducers/persistReducer";
-import { Loader, Loader2Icon, X } from "lucide-react";
-import { log } from "node:console";
+} from "@/redux/slices/aadharCardSlice";
+import { Loader2Icon, X } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
@@ -56,7 +55,7 @@ const VerticalPdf = ({ pdf }: Props) => {
             0,
             0,
             width,
-            height,
+            height
           );
           ctx.restore();
         }

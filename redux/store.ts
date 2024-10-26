@@ -1,28 +1,23 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import persistedReducer from "./reducers/persistReducer";
-import storage from "redux-persist/lib/storage/createWebStorage";
-import nonPersistedReducer from "@/redux/reducers/nonPersistReducer";
+import nonPersistedReducer from "@/redux/slices/nonPersistReducer";
+import collageSlice from './slices/collageSlice';
+import panSlice from './slices/panSlice';
+import aadharCardSlice from './slices/aadharCardSlice';
+import doubleSideAadharSlice from './slices/doubleSideAadharSlice';
+import ayushmanSlice from './slices/ayushmanSlice';
+import passportPhotoSlice from './slices/passportPhotosSlice';
+import aadharPrintoutSlice from './slices/aadharPrintoutSlice';
 
-import {
-  persistStore,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from "redux-persist";
-
-// const persistConfig = {
-//   key: 'root',
-//   storage,
-// }
-
-// const persistedReducer = persistReducer(persistConfig, pReducer)
 
 const combinedReducers = combineReducers({
-  persistedReducer,
   nonPersistedReducer,
+  collageSlice,
+  panSlice,
+  aadharCardSlice,
+  aadharPrintoutSlice,
+  doubleSideAadharSlice,
+  passportPhotoSlice,
+  ayushmanSlice
 });
 
 export const store = configureStore({
@@ -38,15 +33,9 @@ export const store = configureStore({
         ignoredPaths: ["items.dates"],
       },
     }),
-  // middleware: (getDefaultMiddleware) =>
-  //   getDefaultMiddleware({
-  //     serializableCheck: {
-  //       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-  //     },
-  //   }),
+
 });
 
-// export const persistor = persistStore(store)
 
 export type AppDispatch = typeof store.dispatch;
 

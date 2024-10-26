@@ -1,15 +1,10 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { setLoading } from "@/redux/reducers/nonPersistReducer";
 import {
-  pushDoubleSideAadharPdfs,
   removeAllDoubleSideAadharPdfs,
-} from "@/redux/reducers/persistReducer";
+} from "@/redux/slices/doubleSideAadharSlice";
 import { Button } from "@/components/ui/button";
-import { getBase64Image } from "@/lib/hooks";
-import { base64Images, IaadharPdfs } from "@/lib/types";
-import { PlusCircle, Printer, RotateCcwIcon, Trash } from "lucide-react";
+import { Printer, Trash } from "lucide-react";
 import React from "react";
-import toast from "react-hot-toast";
 
 type Props = {
   disabled: boolean;
@@ -20,7 +15,7 @@ type Props = {
 const Buttons = ({ disabled, currComp, setCurrComp }: Props) => {
   const dispatch = useAppDispatch();
   const {
-    nonPersistedReducer: { doubleSideAadharInputRef, loading },
+    doubleSideAadharSlice: { doubleSideAadharInputRef },
   } = useAppSelector((state) => state);
   const handleRotate = () => {
     if (currComp === "horizontal") setCurrComp("vertical");
@@ -50,14 +45,7 @@ const Buttons = ({ disabled, currComp, setCurrComp }: Props) => {
         Print
       </Button>
 
-      {/* <Button
-        disabled={loading}
-        className={`flex gap-1 items-center ${currComp === "vertical" ? "scale-90 opacity-50" : ""} `}
-        onClick={handleRotate}
-      >
-        <RotateCcwIcon size={20} />
-        {currComp === "vertical" ? "Horizontal" : "Vertical"}
-      </Button> */}
+
     </div>
   );
 };

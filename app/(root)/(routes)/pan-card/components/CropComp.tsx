@@ -1,24 +1,23 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { setBase64Pan, setEditedPan } from "@/redux/reducers/persistReducer";
 import { Button } from "@/components/ui/button";
-import { base64Images } from "@/lib/types";
-import { CropIcon, RotateCw, Save } from "lucide-react";
+import { Iimages } from "@/lib/types";
+import {  RotateCw, Save } from "lucide-react";
 import React, { RefObject, useEffect, useState } from "react";
 import { Cropper, ReactCropperElement } from "react-cropper";
-import ReactCrop, { centerCrop, Crop, makeAspectCrop } from "react-image-crop";
 import "cropperjs/dist/cropper.css";
+import { setEditedPan } from "@/redux/slices/panSlice";
 
 type Props = {
   imgRef: RefObject<HTMLImageElement>;
-  image: base64Images;
+  image: Iimages;
   cropperRef: RefObject<ReactCropperElement>;
   setOpenDialog: (openDialog: boolean) => void;
 };
 
 const CropComp = ({ imgRef, image, cropperRef, setOpenDialog }: Props) => {
   const {
-    persistedReducer: { base64Pan },
+    panSlice: { panCardImages,panInputRef },
   } = useAppSelector((state) => state);
 
   const dispatch = useAppDispatch();
@@ -31,7 +30,7 @@ const CropComp = ({ imgRef, image, cropperRef, setOpenDialog }: Props) => {
       setEditedPan({
         id: image.id,
         img: croppedImage,
-      }),
+      })
     );
     setOpenDialog(false);
   };
@@ -92,31 +91,3 @@ const CropComp = ({ imgRef, image, cropperRef, setOpenDialog }: Props) => {
 
 export default CropComp;
 
-{
-  /* <ReactCrop className="" crop={crop} onChange={(c) => setCrop(c)}>
-        <img
-          className={`object-contain object-center w-full h-full !max-w-[35rem] !max-h-[35rem] `}
-          ref={imgRef}
-          src={base64Pan[0]?.img}
-          alt="edit image"
-        />
-      </ReactCrop> */
-}
-// function onImageLoad(e: any) {
-//   const { naturalWidth: width, naturalHeight: height } = e.currentTarget;
-// const crop = centerCrop(
-//   makeAspectCrop(
-//     {
-//       unit: "%",
-//       width: 90,
-//     },
-//     5 / 3,
-//     width,
-//     height
-//   ),
-//   width,
-//   height
-// );
-
-//   setCrop(crop);
-// }

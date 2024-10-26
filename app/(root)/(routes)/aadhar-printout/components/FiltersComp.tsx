@@ -5,26 +5,20 @@ import {
   setAadharPrintoutContrast,
   setAadharPrintoutRotation,
   setAadharPrintoutSaturation,
-} from "@/redux/reducers/persistReducer";
+} from "@/redux/slices/aadharPrintoutSlice";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
-import { base64Images } from "@/lib/types";
-import {
-  Save,
-  WandSparkles,
-} from "lucide-react";
-import React, {
-  RefObject,
-
-} from "react";
+import { Iimages } from "@/lib/types";
+import { Save, WandSparkles } from "lucide-react";
+import React, { RefObject } from "react";
 import { ReactCropperElement } from "react-cropper";
 type Props = {
   setOpenDialog: (openDialog: boolean) => void;
   imgRef: RefObject<HTMLImageElement>;
-  image: base64Images;
+  image: Iimages;
   cropperRef: RefObject<ReactCropperElement>;
 };
-const FiltersComp = ({ setOpenDialog, imgRef, image}: Props) => {
+const FiltersComp = ({ setOpenDialog, imgRef, image }: Props) => {
   const dispatch = useAppDispatch();
   const { brightness, contrast, rotation, saturation } = image.filters;
 
@@ -75,13 +69,13 @@ const FiltersComp = ({ setOpenDialog, imgRef, image}: Props) => {
       setAadharPrintoutBrightness({
         value: 105,
         id: image.id,
-      }),
+      })
     );
     dispatch(
       setAadharPrintoutContrast({
         value: 115,
         id: image.id,
-      }),
+      })
     );
   };
 
@@ -129,7 +123,7 @@ const FiltersComp = ({ setOpenDialog, imgRef, image}: Props) => {
                     filter.setState({
                       value: val[0],
                       id: image.id,
-                    }),
+                    })
                   )
                 }
                 className=""

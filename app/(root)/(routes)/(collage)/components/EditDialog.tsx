@@ -1,25 +1,20 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogFooter } from "@/components/ui/dialog";
-import { Slider } from "@/components/ui/slider";
-import { cropImage } from "@/lib/hooks";
-import { base64Images } from "@/lib/types";
-import { Check, CropIcon, FilterIcon, Save } from "lucide-react";
-import Image from "next/image";
-import { ReactElement, useEffect, useRef, useState } from "react";
-import ReactCrop, { centerCrop, Crop, makeAspectCrop } from "react-image-crop";
+import { Dialog, DialogContent,  } from "@/components/ui/dialog";
+import { Iimages } from "@/lib/types";
+import {  CropIcon, FilterIcon,  } from "lucide-react";
+import { useRef, useState,  } from "react";
 import FiltersComp from "./FiltersComp";
 import CropComp from "./CropComp";
-import { getContainedSize } from "@/lib/utils";
-import { setCroppedImg } from "@/redux/reducers/persistReducer";
 import { ReactCropperElement } from "react-cropper";
-import { setLoading } from "@/redux/reducers/nonPersistReducer";
+import { setLoading } from "@/redux/slices/nonPersistReducer";
+import { setCroppedImg } from "@/redux/slices/collageSlice";
 
 type Props = {
   openDialog: boolean;
   setOpenDialog: (openDialog: boolean) => void;
-  image: base64Images;
+  image: Iimages;
 };
 type ComponentType = "cropComp" | "filtersComp";
 const EditDialog = ({ openDialog, setOpenDialog, image }: Props) => {
@@ -67,7 +62,7 @@ const EditDialog = ({ openDialog, setOpenDialog, image }: Props) => {
       setCroppedImg({
         id: image.id,
         img: croppedImage,
-      }),
+      })
     );
     dispatch(setLoading(false));
     setCurrentComponent("filtersComp");

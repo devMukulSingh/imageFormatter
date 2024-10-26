@@ -11,7 +11,7 @@ type Props = {
 
 const HorizontalAyushmanPage = ({ a4pageRef }: Props) => {
   const {
-    persistedReducer: { ayushmanPdfs },
+    ayushmanSlice:{ayushmanPdfs}
   } = useAppSelector((state) => state);
   const [a4PageHeight, setA4PageHeight] = useState(0);
   useEffect(() => {

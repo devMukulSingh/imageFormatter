@@ -3,12 +3,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ChangeEvent, useEffect, useRef } from "react";
 import toast from "react-hot-toast";
-import { pushAyushmanPdfs } from "@/redux/reducers/persistReducer";
+import { pushAyushmanPdfs,setAyushmanInputRef } from "@/redux/slices/ayushmanSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
 import {
-  setAyushmanInputRef,
   setLoading,
-} from "@/redux/reducers/nonPersistReducer";
+} from "@/redux/slices/nonPersistReducer";
 
 type Props = {
   // fileRef: RefObject<HTMLInputElement>;
@@ -29,7 +28,7 @@ const UploadComp = ({}: Props) => {
             pushAyushmanPdfs({
               id: pdfId,
               file: imgUrl,
-            }),
+            })
           );
           resolve("");
         }, 1500);

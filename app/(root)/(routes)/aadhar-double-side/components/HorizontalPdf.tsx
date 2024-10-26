@@ -6,7 +6,7 @@ import {
   removeDoubleSideAadharPdf,
   setBackSideAadharImgUrl,
   setDoubleSideAadharImgUrl,
-} from "@/redux/reducers/persistReducer";
+} from "@/redux/slices/doubleSideAadharSlice";
 import { Loader, Loader2Icon, X } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
@@ -60,7 +60,7 @@ const HorizontalPdf = ({ pdf }: Props) => {
             0,
             0,
             width - 1450,
-            height,
+            height
           );
           ctx.restore();
         }
@@ -88,14 +88,14 @@ const HorizontalPdf = ({ pdf }: Props) => {
             0,
             0,
             width - 1445,
-            height,
+            height
           );
           ctx.restore();
         }
         const imgUrlBack = croppedCanvasBack.toDataURL("image/jpg");
         setFile(imgUrlBack);
         dispatch(
-          setDoubleSideAadharImgUrl({ id: pdf.id, imgUrlBack, imgUrlFront }),
+          setDoubleSideAadharImgUrl({ id: pdf.id, imgUrlBack, imgUrlFront })
         );
       }
     } catch (e) {

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogFooter } from "@/components/ui/dialog";
 import { Slider } from "@/components/ui/slider";
 import { cropImage } from "@/lib/hooks";
-import { base64Images } from "@/lib/types";
+import { Iimages } from "@/lib/types";
 import { Check, CropIcon, FilterIcon, Save } from "lucide-react";
 import Image from "next/image";
 import { ReactElement, useRef, useState } from "react";
@@ -12,13 +12,13 @@ import ReactCrop, { centerCrop, Crop, makeAspectCrop } from "react-image-crop";
 import FiltersComp from "./FiltersComp";
 import CropComp from "./CropComp";
 import { getContainedSize } from "@/lib/utils";
-import { setCroppedImg, setEditedPan } from "@/redux/reducers/persistReducer";
+import {  setEditedPan } from "@/redux/slices/panSlice";
 import { ReactCropperElement } from "react-cropper";
 
 type Props = {
   openDialog: boolean;
   setOpenDialog: (openDialog: boolean) => void;
-  image: base64Images;
+  image: Iimages;
 };
 type ComponentType = "cropComp" | "filtersComp";
 const EditDialog = ({ openDialog, setOpenDialog, image }: Props) => {
@@ -65,7 +65,7 @@ const EditDialog = ({ openDialog, setOpenDialog, image }: Props) => {
       setEditedPan({
         id: image.id,
         img: croppedImage,
-      }),
+      })
     );
     setCurrentComponent("filtersComp");
   };

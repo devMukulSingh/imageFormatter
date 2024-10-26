@@ -12,7 +12,7 @@ type Props = {
 
 const VerticalAadharPage = ({ a4pageRef }: Props) => {
   const {
-    persistedReducer: { aadharPdfs },
+  aadharCardSlice:{aadharPdfs}
   } = useAppSelector((state) => state);
   const [a4PageHeight, setA4PageHeight] = useState(0);
   useEffect(() => {

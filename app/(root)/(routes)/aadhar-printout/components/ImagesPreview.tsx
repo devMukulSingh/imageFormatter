@@ -11,7 +11,7 @@ const ImagesPreview = ({}: Props) => {
   const [a4PageHeight, setA4PageHeight] = useState(0);
   const a4pageRef = useRef<HTMLDivElement | null>(null);
   const {
-    persistedReducer: { aadharPrintoutImages },
+    aadharPrintoutSlice: { aadharPrintoutImages },
   } = useAppSelector((state) => state);
 
   useEffect(() => {

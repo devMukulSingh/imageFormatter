@@ -1,15 +1,11 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hook";
-import { setLoading } from "@/redux/reducers/nonPersistReducer";
-import {
-  pushBase64Images,
-  removeAllImages,
-} from "@/redux/reducers/persistReducer";
+import { setLoading } from "@/redux/slices/nonPersistReducer";
 import { Button } from "@/components/ui/button";
 import { getBase64Image } from "@/lib/hooks";
-import { base64Images } from "@/lib/types";
 import { PlusCircle, Printer, Trash } from "lucide-react";
-import React from "react";
 import toast from "react-hot-toast";
+import { pushcollageImages, removeAllImages } from "@/redux/slices/collageSlice";
+import { Iimages } from "@/lib/types";
 
 type Props = {
   disabled: boolean;
@@ -18,7 +14,7 @@ type Props = {
 const Buttons = ({ disabled }: Props) => {
   const dispatch = useAppDispatch();
   const {
-    nonPersistedReducer: { collageInputRef },
+    collageSlice:{collageInputRef}
   } = useAppSelector((state) => state);
   const handleAddMore = async () => {
     const imageInput = document.createElement("input");
@@ -26,9 +22,8 @@ const Buttons = ({ disabled }: Props) => {
     imageInput.multiple = true;
     imageInput.click();
     imageInput.onchange = async (e: any) => {
-      const file = e?.target?.files;
       try {
-        let base64Images: base64Images[] | null = [];
+        let base64Images: Iimages[] | null = [];
         const files = e?.target?.files;
         if (files) {
           dispatch(setLoading(true));
@@ -46,7 +41,7 @@ const Buttons = ({ disabled }: Props) => {
               },
             });
           }
-          dispatch(pushBase64Images(base64Images));
+          dispatch(pushcollageImages(base64Images));
         }
       } catch (e) {
         toast.error("Something went wrong. Please try again");

@@ -1,4 +1,4 @@
-import React, { MutableRefObject, RefObject, useEffect, useState } from "react";
+import React, { RefObject, useState } from "react";
 import Image from "next/image";
 import EndOfPage from "./EndOfPage";
 import { useAppSelector } from "@/redux/hook";
@@ -14,24 +14,9 @@ type Props = {
 
 const HorizontalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
   const {
-    persistedReducer: { passportSizeBase64Images: passportImages },
-    nonPersistedReducer: { passportInputRef, passportPhotoIndexes },
+    passportPhotoSlice: { passportSizePhotos,passportPhotoIndexes},
   } = useAppSelector((state) => state);
-  // const [textboxComp, setTextboxComp] = useState<string | null>(null);
 
-  const renderComponent = (imageId: number) => {
-    const selected = passportPhotoIndexes.find(
-      (indexes) => indexes.imageId === imageId,
-    );
-    switch (selected?.textboxLocation) {
-      case "afterImage":
-        return <AfterImageTextbox />;
-      case "inImage":
-        return <InimageTextbox />;
-      default:
-        return null;
-    }
-  };
 
   return (
     <div
@@ -52,7 +37,7 @@ const HorizontalPhoto = ({ a4pageRef, a4PageHeight }: Props) => {
           relative
           `}
     >
-      {passportImages.map((image, index) => {
+      {passportSizePhotos.map((image, index) => {
         if (a4PageHeight > 1120 && index % 42 === 0 && index !== 0) {
           return (
             <div key={index}>

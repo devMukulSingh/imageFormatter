@@ -5,7 +5,7 @@ import { useAppDispatch } from "@/redux/hook";
 import {
   removeAadharPdf,
   setAadharImgUrl,
-} from "@/redux/reducers/persistReducer";
+} from "@/redux/slices/aadharCardSlice";
 import { Loader, Loader2Icon, X } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
@@ -55,7 +55,7 @@ const HorizontalPdf = ({ pdf }: Props) => {
             0,
             0,
             width,
-            height,
+            height
           );
           ctx.restore();
         }
